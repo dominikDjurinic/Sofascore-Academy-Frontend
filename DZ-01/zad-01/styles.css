@@ -3,6 +3,8 @@
     width: 350px;
     border: 1px solid black;
     margin: 0 8px;
+    position: relative;                 /*roditeljski .container postavljamo relative - */
+                                        /*djeca se pozicioniraju u odnosu na njegove koordinate*/
 }
 
 .red {
@@ -21,12 +23,18 @@
     background-color: darkgreen;
     height: 50px;
     width: 50px;
+    position: absolute;                 /*dijete .green izlazi iz poretka elemenata u HTML i*/
+    top: 0px;                           /*pozicionira se u odnosu na roditelja .container*/
 }
 
 .yellow {
     background-color: yellow;
     height: 20px;
     width: 20px;
+    position: absolute;                 /*dijete .yellow izlazi iz poretka elemenata u HTML i*/
+    top: 0px;                           /*pozicionira se u odnosu na roditelja .container*/
+    z-index: 1;                         /*mijenjamo redoslijed elemenata u odnosu na poredak iz HTML strukture*/
+                                        /*veći index - ispred elementa s manjim indexom*/
 }
 
 
