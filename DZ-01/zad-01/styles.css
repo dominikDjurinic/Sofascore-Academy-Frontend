@@ -34,7 +34,7 @@
     position: absolute;                 /*dijete .yellow izlazi iz poretka elemenata u HTML i*/
     top: 0px;                           /*pozicionira se u odnosu na roditelja .container*/
     z-index: 1;                         /*mijenjamo redoslijed elemenata u odnosu na poredak iz HTML strukture*/
-                                        /*veći index - ispred elementa s manjim indexom*/
+                                        /*veci index - ispred elementa s manjim indexom*/
 }
 
 

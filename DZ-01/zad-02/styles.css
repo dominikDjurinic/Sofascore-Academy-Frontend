@@ -3,15 +3,24 @@ body {
 }
 
 .header-container {
-    min-height: 15vh; /* make this 150vh when solving homework */
-    background-color: antiquewhite;
+    min-height: 150vh;      /* make this 150vh when solving homework */
+    background-color: wheat;
 }
 
-.header {
+.header {                                   
     padding: 8px 0;
     background-color: darkblue;
     gap: 24px;
+    display: flex;                          /*flex - automatsko rasporedivanje elemenata s obzirom na velicinu zaslona*/
+    justify-content: center;                /*default je postavljanje elemenata u redak*//*centriranje elemenata */
+    position: sticky;                       /*.header "zalijepljen" na vrhu .header-containera - prilikom scrolla*/
+    top: 0px;                               /*pomice se i .header te ostaje na vrhu vidnog polja*/   
+}
 
+@media screen and (max-width: 980px){           /*omogucuje responzivnost sadrzaja - */
+    .header{                                    /*ako je zaslon manji ili jednak od 980px onda se sakriva .header*/
+        display: none;                          /*omogucuje sakrivanje elementa .header*/
+    }
 }
 
 .header-button {
@@ -25,6 +34,7 @@ body {
     padding: 0 16px;
     cursor: pointer;
 }
+
 .header-button:hover {
     background-color: blue;
 }
@@ -32,7 +42,14 @@ body {
 .bottom-nav {
     background-color: whitesmoke;
     gap: 24px;
+    display: flex;
+    justify-content: center;
+}
 
+@media screen and (min-width: 981px){           /*ako je zaslon veci od 980px onda se sakriva .bottom-nav*/
+    .bottom-nav{
+        display: none;                          /*omogucuje sakrivanje elementa .bottom-nav*/
+    }
 }
 
 .bottom-nav-button {
