@@ -11,7 +11,7 @@ body {
     padding: 8px 0;
     background-color: darkblue;
     gap: 24px;
-    display: flex;                          /*flex - automatsko rasporedivanje elemenata s obzirom na velicinu zaslona*/
+    display: flex;                          /*flexbox - automatsko rasporedivanje elemenata s obzirom na velicinu zaslona*/
     justify-content: center;                /*default je postavljanje elemenata u redak*//*centriranje elemenata */
     position: sticky;                       /*.header "zalijepljen" na vrhu .header-containera - prilikom scrolla*/
     top: 0px;                               /*pomice se i .header te ostaje na vrhu vidnog polja*/   
