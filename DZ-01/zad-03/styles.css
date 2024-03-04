@@ -1,11 +1,11 @@
-body{
-    min-height: calc(100vh + 20px);
-    width: calc(min(100vw,960px));
+body{                                               /*vh,vw - relativne mjerne jedinice, odreduju velicine u odnosu na korisnikovo vidno polje */
+    min-height: calc(100vh + 20px);                 /*100vh = 100% visine vidnog polja na ekranu*//*visina = barem (min-height) za 20px veca od visine vidnog polja*/
+    width: calc(min(100vw, 960px));                  /*sirina = najmanji broj izmedu cijele sirine vidnog polja i 960px*/
 }
 
 .div-column{
     width: 100%;
-    display: flex;
+    display: flex;                                  /*flex, column - poredak elemenata u stupac*/
     flex-direction: column;
 }
 
@@ -14,14 +14,14 @@ body{
 }
 
 .div-inline{
-    display: flex;
+    display: flex;                                  /*flex, row - poredak elemenata u redak*/
     flex-direction: row;
-    align-items: center;
+    align-items: center;                            /*centriranje elemenata u odnosu na y-os kada je redak*/
 }
 
 .form-container{
     display: flex;
-    justify-content: center;
+    justify-content: center;                        /*centriranje u odnosu na x-os kada je redak*/
     font-family: Arial, Helvetica, sans-serif;
     background-color: #DADDF5;
     padding: 50px;
@@ -85,6 +85,10 @@ input{
     padding: 5px 0px;
 }
 
+input[type=checkbox]:checked{                           /*attribute selector i pseudo-klasa*//*checked - oznacen checkbox*/
+    accent-color: #374DF5;
+}
+
 .uvjeti{
     justify-content: space-between;    
 }
@@ -118,12 +122,12 @@ input{
     color: white;
     font-weight: bold;
     font-size: medium;
-    background-color: #2A3AAD;
+    background-color: #374DF5;
     cursor: pointer;
     border-radius: 5px;
     border: 0px;
 }
 
-.lgn-button:hover{
-    background-color: #374DF5;
+.lgn-button:hover{                                  /*pseudo-klase - odreduju stanje elementa te primjenu posebnog dizajna za to stanje*//*hover = pokazivac preko elementa*/
+    background-color: #2A3AAD;
 }
