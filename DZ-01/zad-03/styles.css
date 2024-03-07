@@ -1,6 +1,6 @@
 body{                                               /*vh,vw - relativne mjerne jedinice, odreduju velicine u odnosu na korisnikovo vidno polje */
     min-height: calc(100vh + 20px);                 /*100vh = 100% visine vidnog polja na ekranu*//*visina = barem (min-height) za 20px veca od visine vidnog polja*/
-    width: min(100vw, 960px);                 /*sirina = najmanji broj izmedu cijele sirine vidnog polja i 960px*/
+    width: min(100vw, 960px);                       /*sirina = najmanji broj izmedu cijele sirine vidnog polja i 960px*/
 }
 
 .div-column{
