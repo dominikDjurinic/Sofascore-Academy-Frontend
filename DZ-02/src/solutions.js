@@ -58,7 +58,7 @@ module.exports = {
    * @param {Object} obj
    */
   shallowCopy(obj) {                                 //shallow copy - dijeli reference s izvornim objektom od kojeg nastaje
-    //moze i ovako let shaCopy = Object.create(obj);
+    //moze i ovako const shaCopy = Object.create(obj);
     const shaCopy = {...obj};                         //spread sytax {...} - nabraja properties objekta obj 
                                                      //te dodaje sve properties objektu koji stvaramo - shaCopy
     return shaCopy;
@@ -68,8 +68,9 @@ module.exports = {
    * Returns the deep copy of the given `obj`.
    * @param {Object} obj
    */
-  deepCopy(obj) {                                   //deep copy - ne dijele reference s izvornim objektom, koristimo kod ugnjezdivanja objekata
-    const depCopy = structuredClone(obj);             //promjena vrijednosti na property od kopije ne mijenja vrijednost izvornog objekta
+  deepCopy(obj) {                                     //deep copy - ne dijele reference s izvornim objektom, koristimo kod ugnjezdivanja objekata
+    const depCopy = structuredClone(obj);             //promjena vrijednosti na property od kopije ne mijenja vrijednost property izvornog objekta
+    //moze i ovako const depCopy = JSON.parse(JSON.stringify(obj));
 
     return depCopy;
   },
@@ -122,7 +123,7 @@ module.exports = {
   sortNumberArray(numberArray) {
     numberArray.sort((a,b) => a - b);                //sort funkcija sortira niz stringova po abecednom poretku
                                                     //mi zelimo sortiranje po vrijednosti broja te koristimo compare function
-                                                    //ako je razlika negativna onda a ispred b, ako pozitivna onda b ispred a
+                                                    //ako je razlika (a-b) negativna onda a ispred b, ako pozitivna onda b ispred a
   },
 
   /**
@@ -142,7 +143,7 @@ module.exports = {
    * @param numberArray
    */
   multiplyArrayByTwoNew(numberArray) {
-    let mulArray = numberArray.map((elem) => elem *= 2);            //map funkcija stvara novo polje s elementima iz drugog polja 
+    let mulArray = numberArray.map((elem) => elem *= 2);            //map funkcija stvara novo polje s elementima iz postojeceg polja 
                                                                     //na koje je primjenjena odredena funkcija
 
     return mulArray;
@@ -199,7 +200,7 @@ module.exports = {
 
     class Programmer extends Person{                //nasljedivanje nam omogucuje pristup svim metodama iz roditeljske klase
       constructor(name, language) {
-        super(name);                                //pozivamo roditeljski konstruktor i pristupamo properties iz roditeljske
+        super(name);                                //super - poziva roditeljski konstruktor i pristupa properties iz roditeljske klase
         this.language = language;
       }
 
@@ -227,7 +228,7 @@ module.exports = {
     for (var i = 1; i <= 3; i += 1) {                    //var - functional scope
       setTimeout(() => {                                 //JS ne ceka zavrsetak timera vec nastvalja dalje s for petljom
       }, 1000)                                          //da je funkcija consumer unutar setTimeout() - setTimeout (tvori closures) bi spremio referencu na i, a ne vrijednost od i
-      consumer(i);                                      //kad zavrsi 1 sec for petlja se vec izvrtila 3 puta i na i je spremljeno 4 (i++) te consumer koristi uvijek 4
+      consumer(i);                                      //kada zavrsi 1 sec for petlja se vec izvrtila 3 puta i na i je spremljeno 4 (i++) te consumer koristi uvijek 4
     }
   },
 }
