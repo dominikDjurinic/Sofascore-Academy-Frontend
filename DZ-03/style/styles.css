@@ -1,0 +1,233 @@
+body{
+    margin: 0px;
+    font-family: 'Inika';
+    background-color: whitesmoke;
+    height: 100vh;
+}
+
+header{
+    width: 100%;
+    height: 15vh;
+    background-image: url("../slike/back.jpg");
+    background-size: 100%;
+}
+
+.home-div{
+    height: 100%;
+    padding: 0px 5px;
+    display: flex;
+    align-items: center;
+}
+
+.home-div:hover{
+    background-color: #8E0217;
+    cursor: pointer;
+}
+
+#totalDiamondHeader{
+    color: white;
+    margin: 0px 5px;
+}
+
+.total-plus-diamonds{
+    display: flex;
+    align-items: center;
+}
+
+
+.profile-container{
+    height: 5vh;
+    width: 100%;
+    background-color: #C8021F;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+}
+
+.profil{
+    height: 100%;
+    width: fit-content;
+    background-color: #C8021F;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+
+.profil:hover{
+    background-color: #8E0217;
+    cursor: pointer;
+}
+
+#profile-img{
+    width: 15%;
+}
+
+#profileName{
+    color: white;
+    margin: 0px;
+}
+
+.right-div{
+    display: flex;
+    justify-content: right;
+}
+
+.izbornik{
+    background-color: #8E0217;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    position: fixed;
+    top: 5vh;
+}
+
+
+.izbor{
+    color: white;  
+}
+
+.izbor-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.izbor-div:hover{
+    background-color: #C8021F;
+    cursor: pointer;
+}
+
+footer > div {
+    background-color: #C8021F;
+    width: 100%;
+    height: 5vh;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sofa-power{
+    color: whitesmoke;
+    font-size: smaller;
+}
+
+#sofa{
+    color: #2C3EC4;
+    font: bold;
+}
+
+.appName{
+    text-transform: uppercase;
+    width: 60%;
+    font-size: 60px;
+    margin: 5px 0px;
+    text-shadow: 2px 2px gray;
+}
+
+.quizName{
+    font-size: 40px;
+    margin: 5px 0px;
+    margin-right: 50px;
+}
+
+.quiz-word{
+    color: #C8021F;
+}
+
+#logo-icon{
+    width: auto;
+}
+
+.main-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20vh 0px;
+}
+
+
+.descript{
+    width: 70%;
+    font-size: large;
+}
+
+.btn{
+    width: 200px;
+    padding: 10px 0px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin: 20px 15px;
+    font-size: medium;
+}
+
+.lgn{
+    background-color: #C8021F;
+    font-weight: bold;
+    color: white;
+    margin-left: 0px;
+}
+
+.lgn:hover{
+    background-color: #8E0217;
+}
+
+.anonim:hover{
+    background-color: darkgrey;
+}
+
+.menu-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.sub-container{
+    background-color: white;
+    width: 35%;
+    margin: 20px 0px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px #D9D9D9;
+}
+
+
+/*ikone*/
+.icon-white{
+    color: white;
+}
+
+.icon-black{
+    color: black;
+}
+
+.icon-red{
+    color: #C8021F;
+}
+
+.icon-blue{
+    color: #4584B6;
+}
+
+.icon-small{
+    font-size: 15px;
+}
+
+
+.icon-big{
+    font-size: 50px;
+}
+
+.footLogoName{
+    text-shadow: 1px 1px #8E0217;
+    font-weight: bold;
+}
