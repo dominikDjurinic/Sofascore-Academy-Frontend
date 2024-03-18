@@ -13,60 +13,65 @@
 
 <body>
     <header>
-        <div class="profile-container">
+        <div class="profile-container" id="profile-container">
             <div class="home-div" id="home-return">
                 <img src="../slike/small-logo.png">
+                <span class="logoName">RIM TIM TAGI DIGI DIM</span>
             </div>
-            <div class="profil" id="profil">
-                <div class="total-plus-diamonds">
-                    <h3 id="totalDiamondHeader">1256</h3><i class="material-icons icon-white">diamond</i>
+            <div class="div-right" id="profil-right-div">
+                <div class="profil" id="profil">
+                    <div class="total-plus-diamonds">
+                        <h3 id="totalDiamondHeader">1256</h3><i class="material-icons icon-white">diamond</i>
+                    </div>
+                    <i class="material-icons icon-white" style="font-size: 30px;">expand_more</i>
+                    <p id="profileName"></p>
+                    <img id="profile-img" src="../slike/profil.png">
                 </div>
-                <i class="material-icons icon-white" style="font-size: 30px;">expand_more</i>
-                <p id="profileName"></p>
-                <img id="profile-img" src="../slike/profil.png">
+                <div class="izbornik" id="izbornik">
+                    <div class="izbor-div">
+                        <p class="izbor" id="myProfile">My profile</p>
+                    </div>
+                    <div class="izbor-div">
+                        <p class="izbor" id="logOut">Log Out</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="right-div">
-            <div class="izbornik" id="izbornik">
-                <div class="izbor-div" id="myProfile">
-                    <p class="izbor">My profile</p>
-                </div>
-                <div class="izbor-div">
-                    <p class="izbor" id="logOut">Log Out</p>
-                </div>
-            </div>
+            
         </div>
     </header>
 
-    <div class="menu-container">
-        <div class="sub-container">
-            <h2 id="hello-msg">Hello, <span id="user-name">sofa</span> !</h2>
-            <p>Are you ready for today's challenges?</p>
-            <div class="total-points">
-                <p>Total diamonds:</p>
-                <div class="total-plus-diamonds">
-                    <h3 id="totalDiamondHello">1256</h3><i class="material-icons icon-blue">diamond</i>
+    <article>
+        <div class="menu-container">
+            <div class="sub-container">
+                <h2 id="hello-msg">Hello, <span id="user-name">sofa</span> !</h2>
+                <p>Are you ready for today's challenges?</p>
+                <div class="total-points">
+                    <p>Total diamonds:</p>
+                    <div class="total-plus-diamonds">
+                        <h3 id="totalDiamondHello">1256</h3><i class="material-icons icon-blue">diamond</i>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="sub-container game-column">
-                <h2>Select a mode:</h2>
-                <div class="game-modes">
-                    <div class="cardMode" id="quizGame">
-                        <img src="../slike/logo2.png">
-                        <h3>Play <span class="quiz-word">Quiz</span> games</h3>
+            <div class="sub-container game-column">
+                    <h2>Select a mode:</h2>
+                    <div class="game-modes">
+                        <div class="cardMode" id="quizGame">
+                            <img class="mode-img" src="../slike/logo2.png">
+                            <h3>Play <span class="quiz-word">Quiz</span> games</h3>
+                        </div>
+                        <div class="cardMode" id="createQuizGame">
+                            <img class="mode-img" src="../slike/editLogo.png">
+                            <h3>Create <span class="quiz-word">new Quiz</span> game</h3>
+                        </div>
                     </div>
-                    <div class="cardMode" id="createQuizGame">
-                        <img src="../slike/editLogo.png">
-                        <h3>Create <span class="quiz-word">new Quiz</span> game</h3>
-                    </div>
-                </div>
+            </div>
         </div>
-    </div>
-
+    
+    </article>
+    
     <footer>
         <div class="foot-div">
-            <p class="sofa-power"><span class="footLogoName">RIM TIM TAGI DIGI DIM</span> powered by <span id="sofa">Sofascore</span></p>     
+            <p class="sofa-power"><span class="logoName">RIM TIM TAGI DIGI DIM</span> powered by <span id="sofa">Sofascore</span> 2024.</p>     
         </div>
     </footer>
 

@@ -7,9 +7,13 @@ body{
 
 header{
     width: 100%;
-    height: 15vh;
+    height: 10%;
     background-image: url("../slike/back.jpg");
     background-size: 100%;
+}
+
+article{
+    margin: 5vh;
 }
 
 .home-div{
@@ -36,7 +40,7 @@ header{
 
 
 .profile-container{
-    height: 5vh;
+    height: fit-content;
     width: 100%;
     background-color: #C8021F;
     display: flex;
@@ -44,6 +48,8 @@ header{
     align-items: center;
     position: fixed;
     top: 0;
+    right: 0;
+    left: 0;
 }
 
 .profil{
@@ -70,25 +76,28 @@ header{
     margin: 0px;
 }
 
-.right-div{
+.div-right{
+    height: 100%;
     display: flex;
-    justify-content: right;
+    flex-direction: column;
+    align-items: center;
+    
 }
 
 .izbornik{
     background-color: #8E0217;
     height: 10vh;
-    display: flex;
     flex-direction: column;
     align-items: center;
     display: none;
     position: fixed;
-    top: 5vh;
 }
 
 
 .izbor{
     color: white;  
+    width: 100%;
+    text-align: center;
 }
 
 .izbor-div{
@@ -168,15 +177,23 @@ footer > div {
     font-size: medium;
 }
 
-.lgn{
+.btn-red{
     background-color: #C8021F;
-    font-weight: bold;
     color: white;
     margin-left: 0px;
+    box-shadow: 2px 2px #8E0217;
 }
 
-.lgn:hover{
+.btn-red:hover{
     background-color: #8E0217;
+}
+
+.btn-gray:hover{
+    background-color: darkgrey;
+}
+
+#btn-lgn{
+    font-weight: bold;
 }
 
 .anonim:hover{
@@ -188,14 +205,16 @@ footer > div {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 20px;
+    /*margin: 20px;*/
+    width: 100%;
+    
 }
 
 .sub-container{
     background-color: white;
-    width: 35%;
+    min-width: 40%;
     margin: 20px 0px;
-    padding: 20px;
+    padding: 0px 2%;
     border-radius: 10px;
     box-shadow: 3px 3px #D9D9D9;
 }
@@ -227,7 +246,23 @@ footer > div {
     font-size: 50px;
 }
 
-.footLogoName{
+.logoName{
     text-shadow: 1px 1px #8E0217;
     font-weight: bold;
+    color: white;
+    margin: 0px 5px;
+}
+
+.alert-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    position: fixed;
+    padding: 0px 3%;
+    top: 40vh;
+    left: 35vw;
+    box-shadow: 3px 3px #D9D9D9;
+    display: none;
 }

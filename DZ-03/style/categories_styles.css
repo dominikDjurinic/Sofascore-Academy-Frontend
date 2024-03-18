@@ -1,0 +1,107 @@
+body{
+    min-height: 150vh;
+}
+
+.info-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3% 0px;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-container > div{
+    margin: 0px 30px;
+}
+
+.info > h3, .info > div > h3{
+    margin: 0px;
+}
+
+.selected-container{
+    border: solid #C8021F;
+}
+
+.scale-table{
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.difficulty-table{
+    text-align: center;
+    border-collapse: collapse;
+    width: 70%;
+}
+
+td{
+    height: 5px;
+    font-weight: bold;
+}
+
+.red-cell{
+    background-color: #C8021F;
+}
+
+.yellow-cell{
+    background-color: #ECC629;
+}
+
+.green-cell{
+    background-color: #27905B;
+}
+
+.scale-plus-diamonds{
+    display: flex;
+}
+
+.info-scale{
+    padding: 3% 0px;
+}
+
+.sub-container > h2{
+    text-align: center;
+}
+
+.cardsCateg{
+    height: 400px;
+    overflow-y: scroll;
+    margin: 3% 2%;
+}
+
+.category-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    padding: 0px 3%;
+    margin: 2% 0px;
+    width: 90%;
+    border: solid whitesmoke;
+}
+
+.category-card:hover{
+    border: solid #D9D9D9;
+    background-color: #D9D9D9;
+    box-shadow: 2px 2px gray;
+    cursor: pointer;
+}
+
+.category-card > p{
+    padding: 0px 10%;
+    text-align: center;
+}
+
+.categoryDescript{
+    width: 500px;
+}
+
+#minusTotal{
+    display: none;
+}

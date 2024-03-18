@@ -26,6 +26,7 @@
     padding: 5px 10px;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .hint{
@@ -41,6 +42,7 @@
     background-color: #FF8F9F;
     border: solid #FF8F9F;
     display: none;
+    justify-content: center;
 }
 
 #close-x{

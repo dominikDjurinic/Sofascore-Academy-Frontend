@@ -1,33 +1,53 @@
 document.getElementById("profileName").innerHTML = localStorage.getItem("email");
 
-document.getElementById("home-return").onclick = function(){
+document.getElementById("home-return").onclick = () => {
     location.href = "../pages/menu.html";
 };
 
-document.getElementById("logOut").onclick = function(){
+function heightProfile(){
+    
+    let height = document.getElementById("profile-container").offsetHeight;
+    console.log(height)
+    document.getElementById("home-return").style.height = `${height+11}px`;
+    document.getElementById("profil-right-div").style.height = `${height+11}px`;
+    document.getElementById("izbornik").style.top = `${height+11}px`;
+    
+}
+
+heightProfile();
+
+function initialDiamonds(){
+    let total = localStorage.getItem("totalDiamonds");
+    document.getElementById("totalDiamondHeader").innerHTML = total;
+    document.getElementById("totalDiamondHello").innerHTML = total;
+}
+
+initialDiamonds();
+
+document.getElementById("logOut").onclick = () => {
     location.href = "../pages/index.html";
     localStorage.clear;
 };
 
-document.getElementById("quizGame").onclick = function(){
+document.getElementById("quizGame").onclick = () => {
     location.href = "../pages/categories.html";
 };
 
 document.getElementById("user-name").innerHTML = localStorage.getItem("email");
 
-let counter = 0;
+function izbornikMove(){
+    document.getElementById("profil").style.backgroundColor = "#8E0217"
+    document.getElementById("izbornik").style.display = 'flex';
+    let width = document.getElementById("profil").offsetWidth;
+    document.getElementById("izbornik").style.width = `${width}px`;
+    console.log(document.getElementById("profil").offsetWidth);
+}
 
-document.getElementById("profil").onclick = function(){
-    ++counter;
-    if(counter%2==0){
-        document.getElementById("izbornik").style.display = 'none';
-        document.getElementById("profil").style.backgroundColor = "#C8021F"
-    }else{
-        document.getElementById("profil").style.backgroundColor = "#8E0217"
-        document.getElementById("izbornik").style.display = 'flex';
-        let width = document.getElementById("profil").offsetWidth;
-        document.getElementById("izbornik").style.width = `${width}px`;
-        console.log(document.getElementById("profil").offsetWidth);
-    }
-    
-};
+document.getElementById("profil-right-div").onmouseover = () => {
+    izbornikMove();
+}
+
+document.getElementById("profil-right-div").onmouseout = () => {
+    document.getElementById("izbornik").style.display = 'none';
+    document.getElementById("profil").style.backgroundColor = "#C8021F";
+}

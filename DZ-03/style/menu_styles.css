@@ -12,17 +12,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 20px;
 }
 
 .game-column{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .game-modes{
     display: flex;
     justify-content: center;
+    padding: 5% 5%;
 }
 
 .cardMode{
@@ -34,7 +37,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 40%;
+    width: 60%;
     margin: 10px 30px;
 }
 
@@ -47,4 +50,8 @@
 div.cardMode > h3{
     width: 60%;
     text-align: center;
+}
+
+.mode-img{
+    width: 60%;
 }

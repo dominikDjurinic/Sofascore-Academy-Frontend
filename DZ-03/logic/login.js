@@ -1,8 +1,8 @@
-document.getElementById("btn-back").onclick = function(){
+document.getElementById("btn-back").onclick = () => {
     location.href = "../pages/index.html";
 };
 
-document.getElementById("close-x").onclick = function(){
+document.getElementById("close-x").onclick = () => {
     document.getElementById("incorrect").style.display = "none";
 };
 
@@ -22,7 +22,7 @@ function validation(){
     }
 }
 
-document.getElementById("lgn-btn").onclick = function(){
+document.getElementById("lgn-btn").onclick = () => {
     let valid = validation();
     console.log(valid);
     if(valid === true){
