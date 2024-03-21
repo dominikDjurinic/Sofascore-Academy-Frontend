@@ -34,57 +34,65 @@ let pay;
 
 //Polje s objektima kategorija
 let categories = [{
+    id: 21,
     name:"Sport",
     questions:"15",
     price:"160",
-    image:"",
+    image:"../slike/sport.png",
     descript:"Sports are fun! Do you realy know everything about sport?"
 },{
+    id: 23,
     name:"History",
     questions:"15",
     price:"250",
-    image:"",
+    image:"../slike/history.png",
     descript:"History is the best mirror of the future."
 },{
+    id: 22,
     name:"Geography",
     questions:"15",
     price:"250",
-    image:"",
+    image:"../slike/geography.png",
     descript:"If you're wondering where you'd like to go on your next adventure, open the map and move your finger randomly. It is certainly an exciting adventure."
 },{
+    id: 28,
     name:"Vehicles",
     questions:"15",
     price:"180",
-    image:"",
+    image:"../slike/vehicles.png",
     descript:"What was the first car invented? When and where was the first Formula 1 race held? If you know the answers to the questions, then you are truly a vehicle lover."
 },{
+    id: 27,
     name:"Animals",
     questions:"15",
     price:"200",
-    image:"",
+    image:"../slike/animals.png",
     descript:"Monkeys are like people - they sleep, eat, make noise, rest, eat and sleep again."
 },{
-    name:"Computer science",
+    id: 18,
+    name:"Computer Science",
     questions:"15",
     price:"300",
-    image:"",
+    image:"../slike/computer.png",
     descript:"Computers are part of our everyday life. A mobile phone is nothing but a reduced version of a computer that we can carry with us everywhere."
 },{
+    id: 12,
     name:"Music",
     questions:"15",
     price:"230",
-    image:"",
+    image:"../slike/music.png",
     descript:"Music accompanies us at all times. Whether we wake up to an alarm, eat, cook, drive, entertain or even sleep."
 },{
+    id: 11,
     name:"Film",
     questions:"15",
     price:"230",
-    image:"",
+    image:"../slike/film.png",
     descript:"In films, we recognize ourselves and the environment that surrounds us. We follow the development of the situation and change our moods a large number of times while watching."
 }
 ];
 
-
+//ponistavanje selekcije kategorije
 function deselectCategoryCard(deselectCat){
     console.log(deselectCat);
     document.getElementById(`${kategorije[deselectCat]}`).style.border = "solid whitesmoke";
@@ -106,6 +114,7 @@ function deselectCategoryCard(deselectCat){
     };
 }
 
+//selekcija kategorije u izborniku kategorija
 function selectedCategoryCard(selectCat){
     let ind = kategorije.indexOf(selectCat);
     newSelected = ind;
@@ -118,7 +127,7 @@ function selectedCategoryCard(selectCat){
         document.getElementById(`${kategorije[ind]}`).style.boxShadow = "2px 2px gray";
 }
 
-
+//inicijalna selekcija prve kategorije po dolasku na stranicu
 function initialFirstSelect(){
     lastSelected = 0;
     selectedCategoryCard('sport');
@@ -128,72 +137,86 @@ function initialFirstSelect(){
 
 initialFirstSelect();
 
-
+//ispuna podataka o kategoriji unutar containera za pregled odabrane kategorije
 function categoryDescriptSelection(ind){
     document.getElementById("selCategoryTitle").innerHTML = categories[ind].name;
     document.getElementById("selCategory").innerHTML = categories[ind].name;
     document.getElementById("numQuestion").innerHTML = categories[ind].questions;
     document.getElementById("startPrice").innerHTML = categories[ind].price;
+    document.getElementById("categoryImg").src = categories[ind].image;
     document.getElementById("categoryDescript").innerHTML = categories[ind].descript;
     document.getElementById("startPriceAlert").innerHTML = categories[ind].price;
 }
 
+//ispuna skale s raspodjelom diamondsa po pitanjima
 function scaleComplete(price){
     let add_part = Number(price)/5;
+    localStorage.setItem("add_part",String(add_part));
     for(let i=1;i<16;i++){
         document.getElementById(`${i}`).innerHTML = i*add_part;
     }
 }
+
+let selectedId;
 
 document.getElementById("sport").onclick = () => {
     console.log("sport")
     selectedCategoryCard('sport');
     categoryDescriptSelection(0);
     scaleComplete(categories[0].price);
+    selectedId = 0;
 };
 
 document.getElementById("history").onclick = () => {
     selectedCategoryCard('history');
     categoryDescriptSelection(1);
     scaleComplete(categories[1].price);
+    selectedId = 1;
 };
 
 document.getElementById("geography").onclick = () => {
     selectedCategoryCard('geography');
     categoryDescriptSelection(2);
     scaleComplete(categories[2].price);
+    selectedId = 2;
 };
 
 document.getElementById("vehicles").onclick = () => {
     selectedCategoryCard('vehicles');
     categoryDescriptSelection(3);
     scaleComplete(categories[3].price);
+    selectedId = 3;
 };
 
 document.getElementById("animals").onclick = () => {
     selectedCategoryCard('animals');
     categoryDescriptSelection(4);
     scaleComplete(categories[4].price);
+    selectedId = 4;
 };
 
 document.getElementById("computer").onclick = () => {
     selectedCategoryCard('computer');
     categoryDescriptSelection(5);
     scaleComplete(categories[5].price);
+    selectedId = 5;
 };
 
 document.getElementById("music").onclick = () => {
     selectedCategoryCard('music');
     categoryDescriptSelection(6);
     scaleComplete(categories[6].price);
+    selectedId = 6;
 };
 
 document.getElementById("film").onclick = () => {
     selectedCategoryCard('film');
     categoryDescriptSelection(7);
     scaleComplete(categories[7].price);
+    selectedId = 7;
 };
 
+//transakcija odnosno placanje startnine
 function transactionPay(pay){
     let total = localStorage.getItem("totalDiamonds");
     total = total - pay;
@@ -203,9 +226,11 @@ function transactionPay(pay){
 
 //buttons
 document.getElementById("btn-Start").onclick = () => {
+    document.getElementById("btn-Start").disabled = true;
     document.getElementById("btn-Start").style.cursor = "not-allowed";
     document.getElementById("btn-Start").style.opacity = "0.6";
     document.getElementById("alert-div").style.display = "flex";
+    document.getElementById("cat-body").style.opacity = "0.4";
 };
 
 document.getElementById("btn-pay").onclick = () => {
@@ -217,7 +242,11 @@ document.getElementById("btn-pay").onclick = () => {
    document.getElementById("btn-Start").style.opacity = "1";
    document.getElementById("totalDiamondPay").innerHTML = "-" + strPay;
    document.getElementById("minusTotal").style.display = "flex";
-
+   document.getElementById("cat-body").style.opacity = "1";
+   let selectedCategoryId = categories[selectedId].id;
+   let selectedCategory = categories[selectedId].name;
+   localStorage.setItem("categoryId", String(selectedCategoryId));
+   localStorage.setItem("categoryName", String(selectedCategory));
    setTimeout(() => {
     document.getElementById("minusTotal").style.display = "none";
     location.href = "../pages/quiz.html";
@@ -226,9 +255,11 @@ document.getElementById("btn-pay").onclick = () => {
 };
 
 document.getElementById("btn-canclePay").onclick = () => {
+    document.getElementById("btn-Start").disabled = false;
     document.getElementById("alert-div").style.display = "none";
     document.getElementById("btn-Start").style.cursor = "pointer";
     document.getElementById("btn-Start").style.opacity = "1";
+    document.getElementById("cat-body").style.opacity = "1";
 };
 
 
@@ -248,6 +279,15 @@ document.getElementById("profil-right-div").onmouseout = () => {
     document.getElementById("profil").style.backgroundColor = "#C8021F";
 }
 
+document.getElementById("instr-read").onclick = () => {
+    document.getElementById("inst-div").style.display = "flex";
+    document.getElementById("cat-body").style.opacity = "0.1";
+};
+
+document.getElementById("btn-end").onclick = () => {
+    document.getElementById("inst-div").style.display = "none";
+    document.getElementById("cat-body").style.opacity = "1";
+};
 /*
 
 let counter = 0;

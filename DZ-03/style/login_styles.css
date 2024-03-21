@@ -153,13 +153,3 @@ input[type=checkbox]:checked{                           /*attribute selector i p
 .lgn-button:hover{                                  /*pseudo-klase - odreduju stanje elementa te primjenu posebnog dizajna za to stanje*//*hover = pokazivac preko elementa*/
     background-color: #8E0217;
 }
-
-.returnBtn{
-    background-color: whitesmoke;
-    font-family: 'Inika';
-    font: medium;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
