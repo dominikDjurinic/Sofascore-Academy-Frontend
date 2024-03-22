@@ -1,5 +1,7 @@
 # RIM TIM TAGI DIGI DIM Quiz games
 
+![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+
 *Have fun, test your knowledge and learn something new.*
 
 Aplikacija obiluje kvizovima različitih kategorija i nagrada.
