@@ -17,12 +17,10 @@ function initialDiamonds(){
 initialDiamonds();
 
 function heightProfile(){
-    
     let height = document.getElementById("profile-container").offsetHeight;
     document.getElementById("home-return").style.height = `${height+11}px`;
     document.getElementById("profil-right-div").style.height = `${height+11}px`;
     document.getElementById("izbornik").style.top = `${height+11}px`;
-    
 }
 
 heightProfile();
@@ -127,9 +125,12 @@ function selectedCategoryCard(selectCat){
         document.getElementById(`${kategorije[ind]}`).style.boxShadow = "2px 2px gray";
 }
 
+let selectedId;
+
 //inicijalna selekcija prve kategorije po dolasku na stranicu
 function initialFirstSelect(){
     lastSelected = 0;
+    selectedId = 0;
     selectedCategoryCard('sport');
     categoryDescriptSelection(0);
     scaleComplete(categories[0].price);
@@ -148,7 +149,7 @@ function categoryDescriptSelection(ind){
     document.getElementById("startPriceAlert").innerHTML = categories[ind].price;
 }
 
-//ispuna skale s raspodjelom diamondsa po pitanjima
+//ispuna skale s raspodjelom diamondsa po pitanjima s obzirom na startninu
 function scaleComplete(price){
     let add_part = Number(price)/5;
     localStorage.setItem("add_part",String(add_part));
@@ -157,7 +158,7 @@ function scaleComplete(price){
     }
 }
 
-let selectedId;
+
 
 document.getElementById("sport").onclick = () => {
     console.log("sport")
@@ -243,6 +244,7 @@ document.getElementById("btn-pay").onclick = () => {
    document.getElementById("totalDiamondPay").innerHTML = "-" + strPay;
    document.getElementById("minusTotal").style.display = "flex";
    document.getElementById("cat-body").style.opacity = "1";
+   console.log(selectedId);
    let selectedCategoryId = categories[selectedId].id;
    let selectedCategory = categories[selectedId].name;
    localStorage.setItem("categoryId", String(selectedCategoryId));
@@ -288,20 +290,3 @@ document.getElementById("btn-end").onclick = () => {
     document.getElementById("inst-div").style.display = "none";
     document.getElementById("cat-body").style.opacity = "1";
 };
-/*
-
-let counter = 0;
-document.getElementById("profil").onclick = () => {
-    ++counter;
-    if(counter%2==0){
-        document.getElementById("izbornik").style.display = 'none';
-        document.getElementById("profil").style.backgroundColor = "#C8021F"
-    }else{
-        document.getElementById("profil").style.backgroundColor = "#8E0217"
-        document.getElementById("izbornik").style.display = 'flex';
-        let width = document.getElementById("profil").offsetWidth;
-        document.getElementById("izbornik").style.width = `${width}px`;
-        console.log(document.getElementById("profil").offsetWidth);
-    }
-    
-};*/

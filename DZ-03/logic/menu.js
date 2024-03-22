@@ -1,17 +1,15 @@
-document.getElementById("profileName").innerHTML = localStorage.getItem("email");
+document.getElementById("profileName").innerHTML = localStorage.getItem("email");   
 
 document.getElementById("home-return").onclick = () => {
     location.href = "../pages/menu.html";
 };
 
 function heightProfile(){
-    
     let height = document.getElementById("profile-container").offsetHeight;
     console.log(height)
     document.getElementById("home-return").style.height = `${height+11}px`;
     document.getElementById("profil-right-div").style.height = `${height+11}px`;
     document.getElementById("izbornik").style.top = `${height+11}px`;
-    
 }
 
 heightProfile();
@@ -33,8 +31,10 @@ document.getElementById("quizGame").onclick = () => {
     location.href = "../pages/categories.html";
 };
 
+//postavljanje emaila korisnika u pozdravnu poruku
 document.getElementById("user-name").innerHTML = localStorage.getItem("email");
 
+//prikaz izbornika profila
 function izbornikMove(){
     document.getElementById("profil").style.backgroundColor = "#8E0217"
     document.getElementById("izbornik").style.display = 'flex';

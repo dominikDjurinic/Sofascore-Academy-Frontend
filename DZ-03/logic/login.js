@@ -6,6 +6,7 @@ document.getElementById("close-x").onclick = () => {
     document.getElementById("incorrect").style.display = "none";
 };
 
+//provjera ispravnosti emaila i lozinke
 function validation(){
     let email = document.getElementById("mail").value;
     let pass = document.getElementById("pass").value;
