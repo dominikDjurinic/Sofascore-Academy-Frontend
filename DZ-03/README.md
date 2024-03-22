@@ -1,6 +1,6 @@
 # RIM TIM TAGI DIGI DIM Quiz games
 
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/dz3/DZ-03/slike/titleReadme.png)
 
 *Have fun, test your knowledge and learn something new.*
 
