@@ -19,6 +19,7 @@
     justify-content: center;                        /*centriranje u odnosu na x-os kada je redak*/
     font-family: Arial, Helvetica, sans-serif;
     padding: 50px;
+    
 }
 
 .hint-container{
@@ -50,8 +51,8 @@
 }
 
 .forma{
-    width: 20%;
-    padding: 50px 0px;
+    width: 350px;
+    padding: 30px 50px;
     border: solid whitesmoke;
     border-radius: 10px;
     box-shadow: 3px 3px whitesmoke;
@@ -83,12 +84,12 @@
 }
 
 .btnForm{
-    width: 100%;
+    width: 90%;
     gap: 60px;
 }
 
 .register-form{
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -148,6 +149,7 @@ input[type=checkbox]:checked{                           /*attribute selector i p
     cursor: pointer;
     border-radius: 10px;
     border: 0px;
+    box-shadow: 2px 2px #8E0217;
 }
 
 .lgn-button:hover{                                  /*pseudo-klase - odreduju stanje elementa te primjenu posebnog dizajna za to stanje*//*hover = pokazivac preko elementa*/

@@ -138,29 +138,30 @@ document.getElementById("cnf-btn").onclick = () => {
     document.getElementById("next-btn").disabled = true;
     document.getElementById("next-btn").style.opacity = "0.2";
 
-    setTimeout(async () => {      //API Documentation: Code 5: Rate Limit Too many requests have occurred. Each IP can only access the API once every 5 seconds
-        let catId = Number(category)
-        let difficulty;
-        ++counter;
-        if(counter < 6){
-            difficulty = "easy";
-        }else if(counter >= 6 && counter < 11){
-            difficulty = "medium";
-        }else{
-            difficulty = "hard";
-        }
-        await fetchQuestionsAndAnswers(catId, difficulty);  //po pritisku na confirm poziva se funkcija fetchQuestionsAndAnswers() za dohvat sljedećeg pitanja
-        document.getElementById("next-btn").disabled = false;
-        document.getElementById("next-btn").style.opacity = "1";
-    },4000) //5s-1s for response
-
     //provjera ispravnosti odabranog odgovora
     /*CORRECT ANSWER*/
     if (selectedAnswer === correctAnsID){
-        document.getElementById(`div-aw${selectedAnswer}`).style.backgroundColor = "#27905B";
-        document.getElementById(`abcd-${selectedAnswer}`).style.backgroundColor = "#27905B";
+
+        setTimeout(async () => {      //API Documentation: Code 5: Rate Limit Too many requests have occurred. Each IP can only access the API once every 5 seconds
+            let catId = Number(category)
+            let difficulty;
+            ++counter;
+            if(counter < 6){
+                difficulty = "easy";
+            }else if(counter >= 6 && counter < 11){
+                difficulty = "medium";
+            }else{
+                difficulty = "hard";
+            }
+            await fetchQuestionsAndAnswers(catId, difficulty);  //po pritisku na confirm poziva se funkcija fetchQuestionsAndAnswers() za dohvat sljedećeg pitanja
+            document.getElementById("next-btn").disabled = false;
+            document.getElementById("next-btn").style.opacity = "1";
+        },4000) //5s-1s for response
+
+        document.getElementById(`div-aw${selectedAnswer}`).style.backgroundColor = "#01E873";
+        document.getElementById(`abcd-${selectedAnswer}`).style.backgroundColor = "#01E873";
         document.getElementById("responseAlert-div").style.display = "flex";
-        document.getElementById("responseAlert-div").style.backgroundColor = "#8FD0AF";
+        document.getElementById("responseAlert-div").style.backgroundColor = "#01E873";
         document.getElementById("icon-check").innerHTML = "done";
         document.getElementById("icon-check").style.color = "#27905B";
         document.getElementById("checkResponse").innerHTML = "Correct answer";
@@ -182,15 +183,15 @@ document.getElementById("cnf-btn").onclick = () => {
             document.getElementById("next-btn").style.display = "flex";
         }
     }else{/*INCORRECT ANSWER*/
-        document.getElementById(`div-aw${correctAnsID}`).style.backgroundColor = "#27905B";//8FD0AF
-        document.getElementById(`abcd-${correctAnsID}`).style.backgroundColor = "#27905B";
-        document.getElementById(`div-aw${selectedAnswer}`).style.backgroundColor = "#C8021F";
-        document.getElementById(`abcd-${selectedAnswer}`).style.backgroundColor = "#C8021F";
+        document.getElementById(`div-aw${correctAnsID}`).style.backgroundColor = "#01E873";//8FD0AF
+        document.getElementById(`abcd-${correctAnsID}`).style.backgroundColor = "#01E873";
+        document.getElementById(`div-aw${selectedAnswer}`).style.backgroundColor = "#F1092B";
+        document.getElementById(`abcd-${selectedAnswer}`).style.backgroundColor = "#F1092B";
         
         document.getElementById("responseAlert-div").style.display = "flex";
-        document.getElementById("responseAlert-div").style.backgroundColor = "#EEC0C7";
+        document.getElementById("responseAlert-div").style.backgroundColor = "#F1092B";
         document.getElementById("icon-check").innerHTML = "close";
-        document.getElementById("icon-check").style.color = "#C8021F";
+        document.getElementById("icon-check").style.color = "#8E0217";
         document.getElementById("checkResponse").innerHTML = "Incorrect answer";
         document.getElementById(`ch${selectedAnswer}`).innerHTML = "close";
         document.getElementById(`ch${selectedAnswer}`).style.color = "#C8021F";

@@ -55,3 +55,13 @@ div.cardMode > h3{
 .mode-img{
     width: 60%;
 }
+
+@media screen and (max-width: 800px) {
+    .sub-container{
+        min-width: 400px !important;
+    }
+}
+
+.sub-container{
+    min-width: 600px;
+}

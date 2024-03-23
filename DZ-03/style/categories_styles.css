@@ -1,9 +1,39 @@
+@media screen and (max-width: 1400px) {
+    article{
+        height: 150vh;
+    }
+    .main-container{
+        flex-wrap: wrap;
+    }
+    .sub-height{
+        height: 40% !important; 
+    }
+}
+
+@media screen and (max-width: 730px) {
+    #selected-container{
+        height: auto !important;
+    }
+
+    .wrapper{
+        flex-wrap: wrap;
+    }
+
+    .btn-ins{
+        margin-top: 20px;
+    }
+
+    .info-scale{
+        margin: 0 !important;
+    }
+}
+
 .info-container{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    
     height: 20%;
+    margin: 3% 0px;
     gap: 5%;
 }
 
@@ -14,7 +44,6 @@
     justify-content: center;
     max-height: 1%;
 }
-
 
 .info > p{
     text-align: center;
@@ -34,7 +63,7 @@
 }
 
 .sub-height{
-    height: 70%;
+    height: 75%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -46,11 +75,7 @@
 
 .info-scale{
     padding: 3% 0px;
-    margin: 5% 0px;
-}
-
-.sub-container{
-    min-width: 50%;
+    margin: 10% 0px;
 }
 
 .sub-container > h2{
@@ -89,12 +114,21 @@
 
 .categoryDescript{
     width: 500px;
+    text-align: center;
+}
+
+.btn-ins > .btn{
+    width: 100%;
+    padding: 10%;
+    margin: 0;
 }
 
 .btn-ins{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .btn-ins > p{
@@ -103,15 +137,14 @@
     font-size: smaller;
     margin: 0px;
     cursor: pointer;
+    text-align: center;
 }
+
 
 #minusTotal{
     display: none;
 }
 
-#btn-Start{
-    margin-left: 30px;
-}
 
 .returnBtn{
     background-color: white;
