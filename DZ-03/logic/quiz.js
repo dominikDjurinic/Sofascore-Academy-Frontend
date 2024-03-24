@@ -141,7 +141,7 @@ document.getElementById("cnf-btn").onclick = () => {
     //provjera ispravnosti odabranog odgovora
     /*CORRECT ANSWER*/
     if (selectedAnswer === correctAnsID){
-
+        document.getElementById("loader").style.visibility = "visible";
         setTimeout(async () => {      //API Documentation: Code 5: Rate Limit Too many requests have occurred. Each IP can only access the API once every 5 seconds
             let catId = Number(category)
             let difficulty;
@@ -156,6 +156,7 @@ document.getElementById("cnf-btn").onclick = () => {
             await fetchQuestionsAndAnswers(catId, difficulty);  //po pritisku na confirm poziva se funkcija fetchQuestionsAndAnswers() za dohvat sljedećeg pitanja
             document.getElementById("next-btn").disabled = false;
             document.getElementById("next-btn").style.opacity = "1";
+            document.getElementById("loader").style.visibility = "hidden";
         },4000) //5s-1s for response
 
         document.getElementById(`div-aw${selectedAnswer}`).style.backgroundColor = "#01E873";
@@ -173,14 +174,16 @@ document.getElementById("cnf-btn").onclick = () => {
         document.getElementById("totalPlus").innerHTML = String(add_part);
         document.getElementById("totalPlush").style.color = "black";
         document.getElementById("diamondPlus").style.color = "#4584B6";
-
-        if(counter === 16){
+        document.getElementById("totalPlusDiv").style.visibility = "visible";
+        
+        if(counter === 15){
             document.getElementById("next-btn").style.display = "none";
+            document.getElementById("loader").style.visibility = "hidden";
             totalSum = newTotal + Number(lastTotal);
             localStorage.setItem("totalDiamonds",String(totalSum));
-            document.getElementById("end-btn").style.display = "flex";
+            document.getElementById("end-btn").style.display = "initial";
         }else{
-            document.getElementById("next-btn").style.display = "flex";
+            document.getElementById("next-btn").style.display = "initial";
         }
     }else{/*INCORRECT ANSWER*/
         document.getElementById(`div-aw${correctAnsID}`).style.backgroundColor = "#01E873";//8FD0AF
@@ -203,7 +206,7 @@ document.getElementById("cnf-btn").onclick = () => {
     }else{                              //inace 0 dobiti
             newTotal = 0;
         }
-        document.getElementById("end-btn").style.display = "flex";
+        document.getElementById("end-btn").style.display = "initial";
     }
 
     document.getElementById("cnf-btn").style.display = "none";
@@ -233,9 +236,7 @@ document.getElementById("next-btn").onclick = () => {
     for(let i=1;i<5;i++){
         document.getElementById(`ch${i}`).style.color = "white";
     }
-    document.getElementById("totalPlush").style.color = "whitesmoke";
-    document.getElementById("diamondPlus").style.color = "whitesmoke";
-    
+    document.getElementById("totalPlusDiv").style.visibility = "hidden";
 }
 
 //zavrsetak kviza pobjedom ili gubitkom

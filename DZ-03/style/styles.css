@@ -3,6 +3,9 @@ body{
     font-family: 'Inika';
     background-color: whitesmoke;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 header{

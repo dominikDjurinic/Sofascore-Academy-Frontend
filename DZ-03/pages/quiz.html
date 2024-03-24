@@ -20,7 +20,7 @@
             <div class="total-plus-diamonds">
                 <h3 id="totalDiamond">0</h3><i class="material-icons icon-blue">diamond</i>
             </div>
-            <div class="total-plus-diamonds totalPlus">
+            <div class="total-plus-diamonds totalPlus" id="totalPlusDiv">
                 <h3 id="totalPlush">+<span id="totalPlus"></span></h3><i class="material-icons" id="diamondPlus">diamond</i>
             </div>
         </div>
@@ -78,9 +78,12 @@
                         <i class="material-icons ch" id="ch4">done</i>
                     </div>
                 </div>
-                <button class="btn btn-cnf" id="cnf-btn" disabled>Confirm</button>
-                <button class="btn" id="next-btn">Next question</button>
-                <button class="btn" id="end-btn">End quiz</button>
+                <div class="btns-div">
+                    <div class="loader" id="loader"></div>
+                    <button class="btn btn-cnf" id="cnf-btn" disabled>Confirm</button>
+                    <button class="btn" id="next-btn">Next question</button>
+                    <button class="btn" id="end-btn">End quiz</button>
+                </div>
             </div>
         </div>
     </article>
