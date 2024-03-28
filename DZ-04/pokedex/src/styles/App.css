@@ -1,0 +1,56 @@
+.light-theme{
+  --back-surface: #E3350D;
+  --back-surface-2: #FFFFFF;
+  --back-surface-3: #EEEEEE;
+  --text-color: #262626;
+  --text-msg-color: #FFFFFF;
+  --title-color: #FFFFFF;
+  --form-text-color: #E3350D;
+  --back-photoCard-color: #EEEEEE;
+  --back-detailsCard-color: #FFFFFF;
+  --btn-color-important: #EEEEEE;
+  --btn-form-color: #E3350D;
+  --btn-color-hover: #bd2806;
+  --btn-color: #e04f2f;
+}
+
+.dark-theme{
+  --back-surface: #4D638C;
+  --back-surface-2: #4D638C;
+  --back-surface-3: #354159;
+  --text-color: #A1A1A1;
+  --text-msg-color: #A1A1A1;
+  --title-color: #FFFFFF;
+  --form-text-color: #FFFFFF;
+  --back-photoCard-color: #354159;
+  --back-detailsCard-color: #1F2735;
+  --btn-color-important: #EEEEEE;
+  --btn-form-color: #A1A1A1;
+  --btn-color-hover: #354159;
+  --btn-color: #6d8cc7;
+}
+
+
+.message{
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.foot-div{
+  background-color: var(--back-surface);
+  width: 100%;
+  height: 5vh;
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hf-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
