@@ -54,3 +54,27 @@
   justify-content: space-between;
   height: 100vh;
 }
+
+
+.LoadEndMsg{
+  display: flex;
+  justify-content: center;
+}
+
+.topScroll-div{
+  background-color: var(--back-surface);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 6vh;
+  right: 10px;
+  cursor: pointer;
+}
+
+.icon-white{
+  color: var(--btn-color-important);
+}
