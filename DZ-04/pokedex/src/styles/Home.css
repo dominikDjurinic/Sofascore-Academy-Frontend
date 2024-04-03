@@ -14,10 +14,25 @@
     gap: 5%;
 }
 
+@media screen and (max-width: 900px) {
+    .homeTitle{
+        flex-direction: column;
+    }
+    .homeName{
+        font-size: 50px !important;
+    }
+    .btnStart-div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 .homeTitle{
     display: flex;
     align-items: center;
 }
+
 
 .homeName{
     margin: 0;

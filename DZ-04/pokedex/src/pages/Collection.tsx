@@ -26,6 +26,7 @@ export function Collection(){
     const [loading,setLoading] = useState(false);
     const [end,setEnd] = useState(false);
     const [scrollTop,setScrollTop] = useState(false);
+    const [widthChanged, setWidthChanged] = useState(window.screen.width);
 
     useEffect(() => {
 
@@ -54,22 +55,20 @@ export function Collection(){
     },[nextApi])
 
     const handleScroll = () => {
-    if (window.innerHeight + Math.round(document.documentElement.scrollTop) < document.body.offsetHeight || loading) {
-        console.log(document.documentElement.scrollTop)
-        return;
-    }
-    if(responsePokemons[nextApi].next===null){ //provjera kraja pokemona
-        setLoading(false);
-        setEnd(true);
-        return;
-    } 
-    setNextApi(nextApi+1);
-
+        if (window.innerHeight + Math.round(document.documentElement.scrollTop) < document.body.offsetHeight || loading) {
+            return;
+        }
+        if(responsePokemons[nextApi].next===null){ //provjera kraja pokemona
+            setLoading(false);
+            setEnd(true);
+            return;
+        } 
+        setNextApi(nextApi+1);
     };
     
     useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
     }, [loading]);
 
     const onScroll = () => {
@@ -82,7 +81,14 @@ export function Collection(){
 
     useEffect(() =>{
         window.addEventListener('scroll', onScroll);
-        console.log("provjeravam") 
+    }, [])
+
+    const onResize = () => {       //odredivanje tocne velicine za odabir PokemonCard
+        setWidthChanged(window.screen.width);
+    }
+
+    useEffect(() =>{ //promjena velicine prozora
+        window.addEventListener('resize', onResize);
     }, [])
 
 
@@ -96,10 +102,14 @@ export function Collection(){
                 <Header/>
                 {responsePokemons.map(({results}) => (
                     results.map(({name, url},ind)=> {
-                        if(ind%2===0){
+                        if(widthChanged<=900){
                             return <PokemonCard key={name} name={name} url={url}/>
                         }else{
-                            return <PokemonCardSwitch key={name} name={name} url={url}/>
+                            if(ind%2===0){
+                                return <PokemonCard key={name} name={name} url={url}/>
+                            }else{
+                                return <PokemonCardSwitch key={name} name={name} url={url}/>
+                            }
                         }
                     }
                     ))

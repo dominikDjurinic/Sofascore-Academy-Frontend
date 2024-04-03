@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import '../styles/PokemonCard.css'
 import { Details } from './Details'
+import { Type } from './Type.tsx'
 
 interface StatsItem {
     base_stat: number
@@ -42,6 +43,7 @@ interface PokemonDet {
     id: number
     species: SpiecesItem
     sprites: SpritesItem
+    name: string
 }
 
 export function PokemonCardSwitch(props: {name:string, url:string}){
@@ -77,10 +79,10 @@ export function PokemonCardSwitch(props: {name:string, url:string}){
                     <h1 className='namePokemon'>{numGenerator} {props.name}</h1>
                     <div className='description-div switch-des-div'>
                         <div className='details-div'>
-                            <p>Health points: <span>{pokemon.stats[0].base_stat}</span></p>
-                            <p>Height: <span>{pokemon.height}</span></p>
-                            <p>Weight: <span>{pokemon.weight}</span></p>
-                            <p>Type: <span>{pokemon.types.map(({type})=> type.name + " ")}</span></p>
+                            <p>Health points: <span>{pokemon.stats[0].base_stat} HP</span></p>
+                            <p>Height: <span>{pokemon.height*10} cm</span></p>
+                            <p>Weight: <span>{pokemon.weight} kg</span></p>
+                            <div className='types'><p>Type: </p><div className='types'>{pokemon.types.map(({type},ind)=> {return <Type key={pokemon.name+ind} type={type.name}/>})}</div></div>
                             <Details url={pokemon.species.url}/>
                         </div>
                         <div className='fullView-div'>
