@@ -1,0 +1,23 @@
+.menuHome{
+    background-color: var(--back-surface);
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border: solid 2px var(--menu-surface);
+    margin: 10px 0px;
+    border-radius: 5px;
+}
+
+.menuHomeOpen{
+    display: flex;
+}
+
+.menuHomeClose{
+    display: none;
+}
+
+.choise-div-Home{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

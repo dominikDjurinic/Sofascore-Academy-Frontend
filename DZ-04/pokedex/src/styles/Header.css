@@ -31,3 +31,8 @@
     cursor: pointer;
 }
 
+.settings{
+    display: flex;
+    cursor: pointer;
+}
+

@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { PokemonCard } from "../components/PokemonCard";
 import { PokemonCardSwitch } from "../components/PokemonCardSwitch";
 import { ScrollToTop } from "../components/ScrollToTop";
+import ThemeContext from "../context/ThemeContext";
 
 interface ResponseItem {
     name: string
@@ -26,7 +27,9 @@ export function Collection(){
     const [loading,setLoading] = useState(false);
     const [end,setEnd] = useState(false);
     const [scrollTop,setScrollTop] = useState(false);
-    const [widthChanged, setWidthChanged] = useState(window.screen.width);
+    const [widthChanged, setWidthChanged] = useState(window.innerWidth);
+
+    const theme = useContext(ThemeContext);
 
     useEffect(() => {
 
@@ -36,7 +39,6 @@ export function Collection(){
                 let jsonResponse
 
                 if(nextApi===0){
-                    console.log("usao")
                     jsonResponse = await (await fetch('https://pokeapi.co/api/v2/pokemon')).json()
                 }else{
                     jsonResponse = await (await fetch(`${responsePokemons[nextApi-1].next}`)).json()
@@ -84,7 +86,7 @@ export function Collection(){
     }, [])
 
     const onResize = () => {       //odredivanje tocne velicine za odabir PokemonCard
-        setWidthChanged(window.screen.width);
+        setWidthChanged(window.innerWidth);
     }
 
     useEffect(() =>{ //promjena velicine prozora
@@ -98,7 +100,7 @@ export function Collection(){
 
     return(
         <>
-            <div className="light-theme">
+            <div className={`${theme.theme}-theme`}>
                 <Header/>
                 {responsePokemons.map(({results}) => (
                     results.map(({name, url},ind)=> {

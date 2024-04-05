@@ -77,7 +77,9 @@ export function PokemonCard(props: {name:string, url:string}){
     return(
         <>
             <div className='poke-row'>
-            <img className='heart-icon icon' src="../public/images/heart-dark.png"></img>
+                <div className='heart-icon'>
+                    <i className="material-symbols-outlined light-dark-red icon-gray">favorite</i>
+                </div>
                 <div className='pokemon-imgDiv'>
                     <img src={pokemon.sprites.other['official-artwork'].front_default} id='pokemonImg'></img>
                 </div>

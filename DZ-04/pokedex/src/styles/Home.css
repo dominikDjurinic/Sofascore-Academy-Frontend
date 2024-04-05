@@ -6,7 +6,7 @@
 .homeBack{
     width: 100%;
     color: var(--text-msg-color);
-    height: 95vh;
+    min-height: 95vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -90,4 +90,21 @@
     to{
         transform: rotate(359deg);
     }
+}
+
+.settingsHome{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60px;
+    position: fixed;
+    right: 10px;
+    bottom: 5vh;
+    cursor: pointer;
+}
+
+.settingHome-div{
+    width: 100%;
+    border-radius: 50%;
+    /*background-color: var(--menu-surface);*/
 }

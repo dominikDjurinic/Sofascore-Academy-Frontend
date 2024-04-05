@@ -1,12 +1,17 @@
 import { useNavigate } from 'react-router-dom'
 import '../styles/Login.css'
 import { Footer } from '../components/Footer';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import ThemeContext from '../context/ThemeContext';
+import ProfileContext from '../context/ProfileContext';
 
 export function Login(){
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [showIncorrect, setShowIncorrect] = useState(false);
+
+    const theme = useContext(ThemeContext);
+    const username = useContext(ProfileContext);
 
     const navigate = useNavigate();
     const changeRoute = (int: number) => {                  //promjena rute, odlazak na drugu stranicu
@@ -21,6 +26,8 @@ export function Login(){
     const validation = () => {                          //provjera ispravnosti prijave korisnika
         setShowIncorrect(false);
         if(email==="sofa2024" && pass==="1234"){
+            username.changeUsername(email);
+            localStorage.setItem("username", email);
             changeRoute(2);
         }else{
             setEmail("");
@@ -33,8 +40,9 @@ export function Login(){
         setShowIncorrect(false);
     }
 
+
     return(
-        <div className='light-theme hf-div'>
+        <div className={`${theme.theme}-theme hf-div`}>
             <div className='form-back'>
                 <div>
                     <button className="btn returnBtn" id="btn-back" onClick={() => changeRoute(1)}><i className="material-icons icon-red">close</i>Return to home page</button>

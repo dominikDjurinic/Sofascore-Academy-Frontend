@@ -77,7 +77,7 @@ export function PokemonCardSwitch(props: {name:string, url:string}){
             <div className='poke-row'>
             <div className='pokemon-descriptDiv-Switch'>
                     <h1 className='namePokemon'>{numGenerator} {props.name}</h1>
-                    <div className='description-div switch-des-div'>
+                    <div className='description-div-switch switch-des-div'>
                         <div className='details-div'>
                             <p>Health points: <span>{pokemon.stats[0].base_stat} HP</span></p>
                             <p>Height: <span>{pokemon.height*10} cm</span></p>
@@ -94,7 +94,9 @@ export function PokemonCardSwitch(props: {name:string, url:string}){
                         </div>
                     </div>
                 </div>
-            <img className='heart-icon-switch icon' src="../public/images/heart-dark.png"></img>
+                <div className='heart-icon-switch'>
+                    <i className="material-symbols-outlined light-dark-red icon-gray">favorite</i>
+                </div>
                 <div className='pokemon-imgDiv-Switch'>
                     <img src={pokemon.sprites.other['official-artwork'].front_default} id='pokemonImg'></img>
                 </div>
