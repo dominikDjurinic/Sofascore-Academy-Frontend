@@ -2,7 +2,7 @@ import { useState } from 'react'
 import '../styles/Header.css'
 import { Menu } from './Menu'
 
-export function Header(){
+export function Header(props:{open:(open:boolean)=>void, opened:boolean}){
 
     const [openMenu, setMenuOpen] = useState(false);
     const [chosenSettings,setChosenSettings] = useState(false)
@@ -10,8 +10,8 @@ export function Header(){
     return (
         <>
             <div className="header-container">
-                <div>
-                    <i className="material-symbols-outlined light-dark icon-white">favorite</i>
+                <div onClick={() => props.open(true)}>
+                    <i className={`material-symbols-outlined ${props.opened?"light-dark-hovered":""} light-dark icon-white`}>favorite</i>
                 </div>
                 <div className="headerTitle">
                     <img className='logoImg' src="../public/images/pokeball.png"></img>

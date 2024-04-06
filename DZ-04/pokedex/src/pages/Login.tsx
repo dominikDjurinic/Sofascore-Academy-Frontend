@@ -51,7 +51,7 @@ export function Login(){
                     </div>
                     {showIncorrect===true ? (
                         <div className="hint-container incorrect" id="incorrect">
-                        <i className="material-icons icon-black" id="close-x" onClick={closeMsg}>close</i><p><span>Incorrect email or password.</span> Try again!</p>
+                            <i className="material-icons icon-black" id="close-x" onClick={closeMsg}>close</i><p><span>Incorrect email or password.</span> Try again!</p>
                         </div>
                     ):(<></>)}
                 </div>

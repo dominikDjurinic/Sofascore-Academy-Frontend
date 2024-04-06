@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import '../styles/PokemonCard.css'
 import { Details } from './Details'
 import { Type } from './Type.tsx'
+import { Heart } from './Heart.tsx'
 
 interface StatsItem {
     base_stat: number
@@ -22,6 +23,7 @@ interface SpiecesItem {
 
 interface ArtWorkItem{
     front_default: string
+    front_shiny: string
 }
 
 interface OtherItem{
@@ -32,8 +34,9 @@ interface SpritesItem {
     front_default: string
     back_default: string
     other: OtherItem
+    front_shiny: string
+    back_shiny: string
 }
-
   
 interface PokemonDet {
     stats: StatsItem[]
@@ -46,9 +49,17 @@ interface PokemonDet {
     name: string
 }
 
-export function PokemonCardSwitch(props: {name:string, url:string}){
+interface Favorite{
+    name: string
+    id: number
+    image: string   
+}
+
+
+export function PokemonCardSwitch(props: {name:string, url:string,favorite:Favorite[], editFavorite:(favArray:Favorite[])=>void}){
     
     const [pokemon, setPokemon] = useState<PokemonDet|undefined>(undefined);
+    const [selectedFav,setSelectedFav] = useState(false);
 
 
     useEffect(() => {
@@ -65,12 +76,23 @@ export function PokemonCardSwitch(props: {name:string, url:string}){
         fetchDetailsPokemon();
     },[])
 
+    
+    useEffect(()=>{
+        const ind = props.favorite.findIndex((fav:Favorite)=>{return fav.name===props.name });
+        if(ind===-1){ //select
+            setSelectedFav(false)
+        }else{//deselect
+            setSelectedFav(true)
+        }
+    },[props.favorite])
+
 
     if (!pokemon) {
         return null
     }
 
     const numGenerator = "#" + ('0000'+ pokemon?.id).slice(-5);
+  
 
     return(
         <>
@@ -88,17 +110,15 @@ export function PokemonCardSwitch(props: {name:string, url:string}){
                         <div className='fullView-div'>
                             <p>Full view:</p>
                             <div>
-                                <img className='fullViewImg' src={pokemon.sprites.front_default}></img>
-                                <img className='fullViewImg' src={pokemon.sprites.back_default}></img>
+                                <img className='fullViewImg' src={`${selectedFav?pokemon.sprites.front_shiny:pokemon.sprites.front_default}`}></img>
+                                <img className='fullViewImg' src={`${selectedFav?pokemon.sprites.back_shiny:pokemon.sprites.back_default}`}></img>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className='heart-icon-switch'>
-                    <i className="material-symbols-outlined light-dark-red icon-gray">favorite</i>
-                </div>
+                <Heart name={props.name} id={pokemon.id} image={pokemon.sprites.other['official-artwork'].front_shiny} favorite={props.favorite} editFavorite={props.editFavorite} callFrom='pokCardSwitch'/>
                 <div className='pokemon-imgDiv-Switch'>
-                    <img src={pokemon.sprites.other['official-artwork'].front_default} id='pokemonImg'></img>
+                    <img src={`${selectedFav?pokemon.sprites.other['official-artwork'].front_shiny:pokemon.sprites.other['official-artwork'].front_default}`} id='pokemonImg'></img>
                 </div>
             </div>
         </>

@@ -3,6 +3,7 @@ import '../styles/PokemonCard.css'
 import '../components/Details.tsx'
 import { Details } from '../components/Details.tsx'
 import { Type } from './Type.tsx'
+import { Heart } from './Heart.tsx'
 
 interface StatsItem {
     base_stat: number
@@ -23,6 +24,7 @@ interface SpiecesItem {
 
 interface ArtWorkItem{
     front_default: string
+    front_shiny:string
 }
 
 interface OtherItem{
@@ -33,6 +35,8 @@ interface SpritesItem {
     front_default: string
     back_default: string
     other: OtherItem
+    front_shiny: string
+    back_shiny: string
 }
 
   
@@ -47,10 +51,18 @@ interface PokemonDet {
     name: string
 }
 
+interface Favorite{
+    name: string
+    id: number
+    image: string   
+}
 
-export function PokemonCard(props: {name:string, url:string}){    
+
+
+export function PokemonCard(props: {name:string, url:string, favorite:Favorite[], editFavorite:(favArray:Favorite[])=>void}){    
 
     const [pokemon, setPokemon] = useState<PokemonDet|undefined>(undefined);
+    const [selectedFav,setSelectedFav] = useState(false);
 
 
     useEffect(() => {
@@ -67,6 +79,14 @@ export function PokemonCard(props: {name:string, url:string}){
         fetchDetailsPokemon();
     },[])
 
+    useEffect(()=>{
+        const ind = props.favorite.findIndex((fav:Favorite)=>{return fav.name===props.name });
+        if(ind===-1){ //select
+            setSelectedFav(false)
+        }else{//deselect
+            setSelectedFav(true)
+        }
+    },[props.favorite])
 
     if (!pokemon) {
         return null
@@ -77,11 +97,9 @@ export function PokemonCard(props: {name:string, url:string}){
     return(
         <>
             <div className='poke-row'>
-                <div className='heart-icon'>
-                    <i className="material-symbols-outlined light-dark-red icon-gray">favorite</i>
-                </div>
+                <Heart name={props.name} id={pokemon.id} image={pokemon.sprites.other['official-artwork'].front_shiny} favorite={props.favorite} editFavorite={props.editFavorite} callFrom='pokCard'/>
                 <div className='pokemon-imgDiv'>
-                    <img src={pokemon.sprites.other['official-artwork'].front_default} id='pokemonImg'></img>
+                    <img src={`${selectedFav?pokemon.sprites.other['official-artwork'].front_shiny:pokemon.sprites.other['official-artwork'].front_default}`} id='pokemonImg'></img>
                 </div>
                 <div className='pokemon-descriptDiv'>
                     <h1>{numGenerator} {props.name}</h1>
@@ -96,8 +114,8 @@ export function PokemonCard(props: {name:string, url:string}){
                         <div className='fullView-div'>
                             <p>Full view:</p>
                             <div>
-                                <img className='fullViewImg' src={pokemon.sprites.front_default}></img>
-                                <img className='fullViewImg' src={pokemon.sprites.back_default}></img>
+                                <img className='fullViewImg' src={`${selectedFav?pokemon.sprites.front_shiny:pokemon.sprites.front_default}`}></img>
+                                <img className='fullViewImg' src={`${selectedFav?pokemon.sprites.back_shiny:pokemon.sprites.back_default}`}></img>
                             </div>
                         </div>
                     </div>

@@ -5,6 +5,8 @@ import { PokemonCard } from "../components/PokemonCard";
 import { PokemonCardSwitch } from "../components/PokemonCardSwitch";
 import { ScrollToTop } from "../components/ScrollToTop";
 import ThemeContext from "../context/ThemeContext";
+import { Modal } from "../components/Modal";
+import RemoveContext from "../context/RemoveContext";
 
 interface ResponseItem {
     name: string
@@ -18,6 +20,12 @@ interface PokemonResponse {
     results: ResponseItem[]
 }
 
+interface Favorite{
+    name: string
+    id: number
+    image: string   
+}
+
 
 
 export function Collection(){
@@ -28,8 +36,19 @@ export function Collection(){
     const [end,setEnd] = useState(false);
     const [scrollTop,setScrollTop] = useState(false);
     const [widthChanged, setWidthChanged] = useState(window.innerWidth);
+    const [openModal, setOpenModal] = useState(false);
+    const [favorites, setFavorites] = useState<Favorite[]>([]);
 
     const theme = useContext(ThemeContext);
+
+    const removingPokemons = (newArray:string[]) =>{
+        setRemoveList(()=>({
+            removeList:newArray, 
+            removingPokemons
+        }));
+    }
+
+    const [removeList, setRemoveList] = useState({removeList:[''], removingPokemons});
 
     useEffect(() => {
 
@@ -93,24 +112,43 @@ export function Collection(){
         window.addEventListener('resize', onResize);
     }, [])
 
+    useEffect(()=>{
+        if(!openModal){
+            let favorite = favorites;
+            removeList.removeList.forEach((name)=> favorite=favorite.filter((fav:Favorite)=>{return fav.name!==name}));
+            setFavorites(favorite);
+        }
+    },[openModal])
 
     if (!responsePokemons) {
         return null
     }
 
+    const switchModal = (open:boolean) => {
+        setOpenModal(open);
+    }
+
+    const editFavorites = (editedFavorite:Favorite[]) => {
+        setFavorites(editedFavorite);
+    }
+
+   
+
     return(
         <>
+        <RemoveContext.Provider value={removeList}>
             <div className={`${theme.theme}-theme`}>
-                <Header/>
+                <Modal open={openModal} close={switchModal} favorite={favorites} editFavorite={editFavorites}/>
+                <Header open={switchModal} opened={openModal}/>
                 {responsePokemons.map(({results}) => (
                     results.map(({name, url},ind)=> {
                         if(widthChanged<=900){
-                            return <PokemonCard key={name} name={name} url={url}/>
+                            return <PokemonCard key={name} name={name} url={url} favorite={favorites} editFavorite={editFavorites}/>
                         }else{
                             if(ind%2===0){
-                                return <PokemonCard key={name} name={name} url={url}/>
+                                return <PokemonCard key={name} name={name} url={url} favorite={favorites} editFavorite={editFavorites}/>
                             }else{
-                                return <PokemonCardSwitch key={name} name={name} url={url}/>
+                                return <PokemonCardSwitch key={name} name={name} url={url} favorite={favorites} editFavorite={editFavorites}/>
                             }
                         }
                     }
@@ -124,7 +162,7 @@ export function Collection(){
                 {scrollTop && <ScrollToTop/>}
                 <Footer/>
             </div>
-            
+        </RemoveContext.Provider>  
         </>
     )
 }
