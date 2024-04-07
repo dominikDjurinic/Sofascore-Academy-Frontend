@@ -2,7 +2,7 @@
 
 ![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/dz4/DZ-04/pokedex/public/images/main.png)
 
-Aplikacija prikazuje **kolekciju Pokémon** preuzetu putem besplatnog API-ja https://pokeapi.co/docs/v2 .
+Aplikacija prikazuje **kolekciju Pokémon** preuzetu putem besplatnog API-ja [Poke API](https://pokeapi.co/docs/v2) .
 
 U aplikaciji je moguće pročitati **detaljan opis** pojedinačnog pokemona te vidjeti njegovu **ilustraciju**.
 
