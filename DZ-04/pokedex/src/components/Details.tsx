@@ -19,7 +19,7 @@ export function Details(props: {url:string}){
 
     useEffect(() => {
 
-        const fetchFlavorText = async () => {       //dohvat podataka s opisom pokemona s URI-ja
+        const fetchFlavorText = async () => {       /**FETCH - dohvat podataka s opisom pokemona s dohvacene poveznice**/
             try {
                 const jsonResponse = await (await fetch(`${props.url}`)).json()
                 setPokemonDetails(jsonResponse);

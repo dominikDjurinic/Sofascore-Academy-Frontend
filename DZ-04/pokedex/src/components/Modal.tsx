@@ -8,7 +8,7 @@ interface Favorite{
     image: string   
 }
 
-export function Modal(props:{open:boolean, close:(close:boolean)=>void, favorite:Favorite[], editFavorite:(favArray:Favorite[])=>void}){
+export function Modal(props:{open:boolean, close:(close:boolean)=>void, favorite:Favorite[], editFavorite:(favArray:Favorite[])=>void}){ //modal komponenta s izabranim favoritima
 
 
     if(props.open){

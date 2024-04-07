@@ -7,7 +7,7 @@ interface Favorite{
     image: string   
 }
 
-export function FavoritePokemonCard(props:{name:string, id:number, image:string, favorite:Favorite[], editFavorite:(favArray:Favorite[])=>void}){
+export function FavoritePokemonCard(props:{name:string, id:number, image:string, favorite:Favorite[], editFavorite:(favArray:Favorite[])=>void}){ //kartica izabranog pokemona u Modal komponenti
 
     const numGenerator = "#" + ('0000'+ props.id).slice(-5);
 

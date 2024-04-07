@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import '../styles/MenuHome.css'
 import ThemeContext from '../context/ThemeContext';
 
-export function MenuHome(props:{open:boolean}){
+export function MenuHome(props:{open:boolean}){ //izbornik početne stranice
 
 
     const theme = useContext(ThemeContext);

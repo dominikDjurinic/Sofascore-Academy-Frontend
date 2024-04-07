@@ -27,7 +27,6 @@ interface Favorite{
 }
 
 
-
 export function Collection(){
 
     const [responsePokemons,setResponsePokemons] = useState<PokemonResponse[]>([]);
@@ -41,18 +40,18 @@ export function Collection(){
 
     const theme = useContext(ThemeContext);
 
-    const removingPokemons = (newArray:string[]) =>{
+    const removingPokemons = (newArray:string[]) =>{  //funkcija za promjenu contexta RemoveContext od child komponenta
         setRemoveList(()=>({
             removeList:newArray, 
             removingPokemons
         }));
     }
 
-    const [removeList, setRemoveList] = useState({removeList:[''], removingPokemons});
+    const [removeList, setRemoveList] = useState({removeList:[''], removingPokemons});  //potvrduje dislike/ favorite remove iz Modal komponente nakon zatvaranja
 
     useEffect(() => {
 
-        const fetchPokemons = async () => {
+        const fetchPokemons = async () => {     /**FETCH - dohvat pokemona s API-ja**/
             setLoading(true)
             try {
                 let jsonResponse
@@ -60,10 +59,8 @@ export function Collection(){
                 if(nextApi===0){
                     jsonResponse = await (await fetch('https://pokeapi.co/api/v2/pokemon')).json()
                 }else{
-                    jsonResponse = await (await fetch(`${responsePokemons[nextApi-1].next}`)).json()
+                    jsonResponse = await (await fetch(`${responsePokemons[nextApi-1].next}`)).json()  //dohvat sa sljedeće poveznice
                 }
-
-                console.log(jsonResponse)
                 setResponsePokemons([...responsePokemons,jsonResponse])
                 setLoading(false)
             } catch (e) {
@@ -75,7 +72,7 @@ export function Collection(){
 
     },[nextApi])
 
-    const handleScroll = () => {
+    const handleScroll = () => {            /**detekcija kraja scrolla (INFINITE SCROLL)**/
         if (window.innerHeight + Math.round(document.documentElement.scrollTop) < document.body.offsetHeight || loading) {
             return;
         }
@@ -84,7 +81,7 @@ export function Collection(){
             setEnd(true);
             return;
         } 
-        setNextApi(nextApi+1);
+        setNextApi(nextApi+1);  //dohvat sljedecih 20 pokemona
     };
     
     useEffect(() => {
@@ -92,7 +89,7 @@ export function Collection(){
         return () => window.removeEventListener('scroll', handleScroll);
     }, [loading]);
 
-    const onScroll = () => {
+    const onScroll = () => {        //povratak na vrh stranice
         if(document.documentElement.scrollTop > 0){
             setScrollTop(true)
         }else{
@@ -104,15 +101,15 @@ export function Collection(){
         window.addEventListener('scroll', onScroll);
     }, [])
 
-    const onResize = () => {       //odredivanje tocne velicine za odabir PokemonCard
+    const onResize = () => {       //odredivanje tocne velicine ekrana za odabir ispravnog dizajna PokemonCard (responzivnost)
         setWidthChanged(window.innerWidth);
     }
 
-    useEffect(() =>{ //promjena velicine prozora
+    useEffect(() =>{            //promjena velicine prozora
         window.addEventListener('resize', onResize);
     }, [])
 
-    useEffect(()=>{
+    useEffect(()=>{             //nakon zatvaranja Modal komponente potrebno remove favorita koje je korisnik dislike
         if(!openModal){
             let favorite = favorites;
             removeList.removeList.forEach((name)=> favorite=favorite.filter((fav:Favorite)=>{return fav.name!==name}));
@@ -124,11 +121,14 @@ export function Collection(){
         return null
     }
 
-    const switchModal = (open:boolean) => {
+    const switchModal = (open:boolean) => {     //otvori ili zatvori Modal komponentu
+        if(open){
+            removingPokemons([]);
+        }
         setOpenModal(open);
     }
 
-    const editFavorites = (editedFavorite:Favorite[]) => {
+    const editFavorites = (editedFavorite:Favorite[]) => {      //promjena favorita
         setFavorites(editedFavorite);
     }
 

@@ -1,6 +1,6 @@
 import { createContext } from "react"
 
-const ThemeContext = createContext({
+const ThemeContext = createContext({        //CONTEXT - globalni pristup podacima o temi od svih komponenti, izbjegavamo prop drilling
     theme: "",
     changeTheme: () => {}
 })

@@ -1,4 +1,4 @@
-.light-theme{
+.light-theme{                 /*varijable boja s obzirom na LIGHT THEME*/
   --back-surface: #E3350D;
   --back-surface-2: #FFFFFF;
   --back-surface-3: #EEEEEE;
@@ -16,7 +16,7 @@
   --btn-color: #e04f2f;
 }
 
-.dark-theme{
+.dark-theme{                  /*varijable boja s obzirom na DARK THEME*/
   --back-surface: #4D638C;
   --back-surface-2: #4D638C;
   --back-surface-3: #354159;

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import ThemeContext from '../context/ThemeContext';
 import ProfileContext from '../context/ProfileContext';
 
-export function Menu(props:{open:boolean}){
+export function Menu(props:{open:boolean}){ //izbornik stranice Collection
 
     const navigate = useNavigate();
     const changeRoute = () => {

@@ -16,7 +16,7 @@ export function Heart(props:{name:string, id:number, image:string, favorite:Favo
 
     let favorites:Favorite[] = [];
 
-    useEffect(()=>{
+    useEffect(()=>{     //označavanje favorita
         if(props.callFrom==='favCard'){
             return
         }
@@ -28,7 +28,7 @@ export function Heart(props:{name:string, id:number, image:string, favorite:Favo
         }
     },[favorites])
 
-    const addRemoveFavorite = () => {     
+    const addRemoveFavorite = () => {     //odabir ili brisanje favorita
         const ind = props.favorite.findIndex((fav:Favorite)=>{return fav.name===props.name });
         if(ind===-1){ //select
             favorites.push(...props.favorite,{name:props.name,id:props.id,image:props.image});

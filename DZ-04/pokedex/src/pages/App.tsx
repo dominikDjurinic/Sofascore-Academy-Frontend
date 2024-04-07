@@ -9,7 +9,7 @@ import ProfileContext from '../context/ProfileContext';
 
 function App() {
    
-  const changeTheme = () => {
+  const changeTheme = () => {     //funkcija za promjenu contexta ThemeContext od child komponenta
     setTheme((previous)=> ({
       theme: previous.theme === "light" ? "dark":"light",
       changeTheme
@@ -17,9 +17,9 @@ function App() {
     
   }
 
-  const [theme,setTheme] = useState({theme: localStorage.getItem("theme")||"light", changeTheme});  //on reload of page keep theme
+  const [theme,setTheme] = useState({theme: localStorage.getItem("theme")||"light", changeTheme});  //lokalno pohranjujemo temu, ostaje i nakon reloada
 
-  const changeUsername = (newUser:string) => {
+  const changeUsername = (newUser:string) => {    //funkcija za promjenu konteksta ProfileContext od child komponenta
     setUsername(()=> ({
       username: newUser,
       changeUsername
@@ -27,7 +27,7 @@ function App() {
     
   }
 
-  const [username,setUsername] = useState({username: localStorage.getItem("username")||"No user", changeUsername}); ////on reload of page keep username
+  const [username,setUsername] = useState({username: localStorage.getItem("username")||"No user", changeUsername}); //lokalno pohranjujemo username, ostaje i nakon reloada
 
 
   return (

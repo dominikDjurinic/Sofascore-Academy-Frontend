@@ -67,7 +67,7 @@ export function PokemonCard(props: {name:string, url:string, favorite:Favorite[]
 
     useEffect(() => {
 
-        const fetchDetailsPokemon = async () => {
+        const fetchDetailsPokemon = async () => {       /**FETCH - dohvat detalja o pojedinom pokemonu iz dohvacenog API-ja**/
             try {
                 const jsonResponse = await (await fetch(`${props.url}`)).json()
                 setPokemon(jsonResponse)
@@ -79,7 +79,7 @@ export function PokemonCard(props: {name:string, url:string, favorite:Favorite[]
         fetchDetailsPokemon();
     },[])
 
-    useEffect(()=>{
+    useEffect(()=>{     //odabir favorita
         const ind = props.favorite.findIndex((fav:Favorite)=>{return fav.name===props.name });
         if(ind===-1){ //select
             setSelectedFav(false)
@@ -92,7 +92,7 @@ export function PokemonCard(props: {name:string, url:string, favorite:Favorite[]
         return null
     }
 
-    const numGenerator = "#" + ('0000'+ pokemon?.id).slice(-5);
+    const numGenerator = "#" + ('0000'+ pokemon?.id).slice(-5);     //generiranje id pokemona za prikaz na kartici
     
     return(
         <>

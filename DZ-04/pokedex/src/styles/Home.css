@@ -14,7 +14,7 @@
     gap: 5%;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 900px) {/*responzivnost stranice s obzirom na breakpoint od 900px*/
     .homeTitle{
         flex-direction: column;
     }
@@ -83,7 +83,7 @@
     background-color: var(--btn-color-hover);
 }
 
-@keyframes rotation {
+@keyframes rotation {   /*animacija vrtnje pokeball s početne stranice*/
     from{
         transform: rotate(0deg);
     }
@@ -106,5 +106,4 @@
 .settingHome-div{
     width: 100%;
     border-radius: 50%;
-    /*background-color: var(--menu-surface);*/
 }

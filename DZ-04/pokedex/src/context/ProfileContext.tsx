@@ -1,6 +1,6 @@
 import { createContext } from "react"
 
-const ProfileContext = createContext({
+const ProfileContext = createContext({      //CONTEXT - globalni pristup username
     username: "",
     changeUsername: (user:string) => {user}
 })
