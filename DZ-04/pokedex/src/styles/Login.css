@@ -153,10 +153,10 @@ input[type=checkbox]:checked{                           /*attribute selector i p
     cursor: pointer;
     border-radius: 10px;
     border: 0px;
-    
+    box-shadow: 2px 2px var(--back-surface-3);
 }
 
-.lgn-button:hover{                                  /*pseudo-klase - odreduju stanje elementa te primjenu posebnog dizajna za to stanje*//*hover = pokazivac preko elementa*/
+.lgn-button:hover{                                  
     background-color: var(--btn-color-hover);
 }
 
@@ -170,4 +170,8 @@ input[type=checkbox]:checked{                           /*attribute selector i p
     justify-content: space-between;
     margin: 0px 10px;
     padding: 10px;
+}
+
+.icon-close{
+    color: var(--menu-surface);
 }

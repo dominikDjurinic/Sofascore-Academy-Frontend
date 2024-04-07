@@ -45,7 +45,7 @@ export function Login(){
         <div className={`${theme.theme}-theme hf-div`}>
             <div className='form-back'>
                 <div>
-                    <button className="btn returnBtn" id="btn-back" onClick={() => changeRoute(1)}><i className="material-icons icon-red">close</i>Return to home page</button>
+                    <button className="btn returnBtn" id="btn-back" onClick={() => changeRoute(1)}><i className="material-icons icon-close">close</i>Return to home page</button>
                     <div className="hint-container hint">
                     <p><span>! HINT:</span> test E-mail : <span>sofa2024</span>, test Password : <span>1234</span></p>
                     </div>

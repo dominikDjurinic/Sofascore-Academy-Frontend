@@ -86,7 +86,6 @@ export function PokemonCardSwitch(props: {name:string, url:string,favorite:Favor
         }
     },[props.favorite])
 
-
     if (!pokemon) {
         return null
     }
@@ -109,16 +108,19 @@ export function PokemonCardSwitch(props: {name:string, url:string,favorite:Favor
                         </div>
                         <div className='fullView-div'>
                             <p>Full view:</p>
-                            <div>
-                                <img className='fullViewImg' src={`${selectedFav?pokemon.sprites.front_shiny:pokemon.sprites.front_default}`}></img>
-                                <img className='fullViewImg' src={`${selectedFav?pokemon.sprites.back_shiny:pokemon.sprites.back_default}`}></img>
+                            <div className='fullImage-div'>
+                                <img className={`fullViewImg ${selectedFav?"pokeOpOut transFullView op0":"pokeOpIn transFullView op1"}`} src={pokemon.sprites.front_default}></img>
+                                <img className={`fullViewImg backView ${selectedFav?"pokeOpOut transFullView op0":"pokeOpIn transFullView op1"}`} src={pokemon.sprites.back_default}></img>
+                                <img className={`fullViewImg ${selectedFav?"pokeOpIn transFullView op1":"pokeOpOut transFullView op0"}`} src={pokemon.sprites.front_shiny}></img>
+                                <img className={`fullViewImg backView ${selectedFav?"pokeOpIn transFullView op1":"pokeOpOut transFullView op0"}`} src={pokemon.sprites.back_shiny}></img>
                             </div>
                         </div>
                     </div>
                 </div>
                 <Heart name={props.name} id={pokemon.id} image={pokemon.sprites.other['official-artwork'].front_shiny} favorite={props.favorite} editFavorite={props.editFavorite} callFrom='pokCardSwitch'/>
                 <div className='pokemon-imgDiv-Switch'>
-                    <img src={`${selectedFav?pokemon.sprites.other['official-artwork'].front_shiny:pokemon.sprites.other['official-artwork'].front_default}`} id='pokemonImg'></img>
+                    <img className={`pokemonSize ${selectedFav?"pokeTranslateOutSwitch transImageSwitch op0":"pokeTranslateInSwitch transImageSwitch op1"}`} src={pokemon.sprites.other['official-artwork'].front_default}></img>
+                    <img className={`pokemonSize ${selectedFav?"pokeTranslateInSwitch transImageSwitch op1":"pokeTranslateOutSwitch transImageSwitch op0"}`} src={pokemon.sprites.other['official-artwork'].front_shiny}></img>
                 </div>
             </div>
         </>

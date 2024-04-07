@@ -6,7 +6,7 @@
     position: fixed;
     left: 10%;
     top: 10%;
-    z-index: 1;
+    z-index: 3;
 }
 
 .backdrop{
@@ -16,6 +16,7 @@
     width:100vw;
     height:100vh;
     background-color:rgba(0,0,0,0.3);
+    z-index: 3;
 }
 
 .closeBtn{

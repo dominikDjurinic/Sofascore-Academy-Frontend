@@ -99,7 +99,8 @@ export function PokemonCard(props: {name:string, url:string, favorite:Favorite[]
             <div className='poke-row'>
                 <Heart name={props.name} id={pokemon.id} image={pokemon.sprites.other['official-artwork'].front_shiny} favorite={props.favorite} editFavorite={props.editFavorite} callFrom='pokCard'/>
                 <div className='pokemon-imgDiv'>
-                    <img src={`${selectedFav?pokemon.sprites.other['official-artwork'].front_shiny:pokemon.sprites.other['official-artwork'].front_default}`} id='pokemonImg'></img>
+                    <img className={`pokemonSize ${selectedFav?"pokeTranslateOut transImage op0":"pokeTranslateIn transImage op1"}`} src={pokemon.sprites.other['official-artwork'].front_default}></img>
+                    <img className={`pokemonSize ${selectedFav?"pokeTranslateIn transImage op1":"pokeTranslateOut transImage op0"}`} src={pokemon.sprites.other['official-artwork'].front_shiny}></img>
                 </div>
                 <div className='pokemon-descriptDiv'>
                     <h1>{numGenerator} {props.name}</h1>
@@ -113,9 +114,11 @@ export function PokemonCard(props: {name:string, url:string, favorite:Favorite[]
                         </div>
                         <div className='fullView-div'>
                             <p>Full view:</p>
-                            <div>
-                                <img className='fullViewImg' src={`${selectedFav?pokemon.sprites.front_shiny:pokemon.sprites.front_default}`}></img>
-                                <img className='fullViewImg' src={`${selectedFav?pokemon.sprites.back_shiny:pokemon.sprites.back_default}`}></img>
+                            <div className='fullImage-div'>
+                                <img className={`fullViewImg ${selectedFav?"pokeOpOut transFullView op0":"pokeOpIn transFullView op1"}`} src={pokemon.sprites.front_default}></img>
+                                <img className={`fullViewImg backView ${selectedFav?"pokeOpOut transFullView op0":"pokeOpIn transFullView op1"}`} src={pokemon.sprites.back_default}></img>
+                                <img className={`fullViewImg ${selectedFav?"pokeOpIn transFullView op1":"pokeOpOut transFullView op0"}`} src={pokemon.sprites.front_shiny}></img>
+                                <img className={`fullViewImg backView ${selectedFav?"pokeOpIn transFullView op1":"pokeOpOut transFullView op0"}`} src={pokemon.sprites.back_shiny}></img>
                             </div>
                         </div>
                     </div>
