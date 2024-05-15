@@ -1,16 +1,17 @@
 import { useThemeContext } from '@/context/ThemeContext'
 import { SportInfo } from '@/model/sports'
-import Footer from '@/modules/Footer'
 import { Header } from '@/modules/Header'
 import { capitalize } from '@/utils/capitalizeWord'
 import { useIsServer } from '@/utils/useIsServer'
 import { Box, Button } from '@kuma-ui/core'
 import { error } from 'console'
 import { GetServerSideProps } from 'next'
+import { redirect } from 'next/navigation'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
+import Footer from '@/modules/Footer'
 
-export default function Home(props:{selectedSport:string, sports:SportInfo[]}) {
+export default function Sports(props:{selectedSport:string, sports:SportInfo[]}) {
   const { setIsDark } = useThemeContext()
 
   return (
@@ -33,7 +34,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const { params, res } = context
   
     //@ts-ignore
+    const { sportName } = params
 
+    if(sportName==='football'){
+        redirect('/')
+    }
 
     const resp = await fetch(`https://academy-backend.sofascore.dev/sports`)
 
@@ -43,7 +48,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const details:SportInfo[] = await resp.json()
 
-    let selectedSport = details.find(({slug})=>slug==='football')?.name
+    if(details.find(({slug})=>slug===sportName)===undefined){
+        return {notFound:true}
+    }
+
+    let selectedSport = details.find(({slug})=>slug===sportName)?.name
 
     const sports:SportInfo[] = details
 
