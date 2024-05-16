@@ -1,54 +1,53 @@
 import { useThemeContext } from '@/context/ThemeContext'
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { SportInfo } from '@/model/sports'
 import Footer from '@/modules/Footer'
 import { Header } from '@/modules/Header'
-import { capitalize } from '@/utils/capitalizeWord'
-import { useIsServer } from '@/utils/useIsServer'
 import { Box, Button } from '@kuma-ui/core'
-import { error } from 'console'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
 
-export default function Home(props:{selectedSport:string, sports:SportInfo[]}) {
+export default function Home(props: { selectedSport: string; sports: SportInfo[] }) {
   const { setIsDark } = useThemeContext()
+  const { mobileWindowSize } = useWindowSizeContext()
 
   return (
     <>
       <Head>
         <title>Sofascore - {props.selectedSport}</title>
       </Head>
-      <Box as='main'>
-        <Header selectedSport={props.selectedSport} sports={props.sports}/>
-        <Box as='h1' color='colors.primary'>
-        </Box>
-        <Button onClick={() => setIsDark((v) => !v)}>Toggle theme</Button>
-        <Footer/>
+      <Box as="main">
+        <Header selectedSport={props.selectedSport} sports={props.sports} />
+        {mobileWindowSize ? (
+          <Box as="h1" color="colors.primary">
+            Ja sam mobile version of app!
+          </Box>
+        ) : null}
+        <Button onClick={() => setIsDark(v => !v)}>Toggle theme</Button>
+        <Footer />
       </Box>
     </>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { params, res } = context
-  
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { res } = context
+
+  try {
     //@ts-ignore
-
-
     const resp = await fetch(`https://academy-backend.sofascore.dev/sports`)
 
-    if(resp.status===404){
-        return {notFound:true}
-    }
+    const details: SportInfo[] = await resp.json()
 
-    const details:SportInfo[] = await resp.json()
+    let selectedSport = details.find(({ slug }) => slug === 'football')?.name
 
-    let selectedSport = details.find(({slug})=>slug==='football')?.name
-
-    const sports:SportInfo[] = details
+    const sports: SportInfo[] = details
 
     return {
-        props: {selectedSport, sports}
+      props: { selectedSport, sports },
     }
-      
+  } catch (error) {
+    res.statusCode = 404
+    return { notFound: true }
   }
+}

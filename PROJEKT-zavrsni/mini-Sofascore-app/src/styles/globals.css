@@ -2,22 +2,50 @@
     --max-width: 1100px;
     --border-radius: 12px;
     font-family: 'Roboto';
-
-    --surface-s1: #F0EEDF;
-    --surface-s2: #FFFFFF;
-    --primary-default: teal;
-    --primary-variant: darkblue;
-    --on-surface-nLv1: #121212;
-    --on-surface-nLv2: rgba(18, 18, 18, 0.85);
+    --color-primary-variant: #1327ba;
+    --color-secondary-variant: #dddbc9;
+    --color-primary-default: #374df5;
+    --color-secondary-default: #f0eedf;
+    --color-primary-highlight: #e1edfe;
+    --color-secondary-highlight: #f7f6ef;
+    --on-color-on-color-primary: #fff;
+    --surface-surface-1: #fff;
+    --surface-surface-0: #eff3f8;
+    --surface-surface-2: rgba(192, 207, 228, 0.2);
+    --on-surface-on-surface-lv-1: #121212;
+    --on-color-on-color-secondary: rgba(255, 255, 255, 0.6);
+    --on-surface-on-surface-lv-2: rgba(18, 18, 18, 0.4);
+    --on-surface-on-surface-lv-3: rgba(18, 18, 18, 0.2);
+    --on-surface-on-surface-lv-4: rgba(18, 18, 18, 0.1);
+    --status-error: #ea4545;
+    --status-alert: #d8b127;
+    --status-success: #1da86d;
+    --specific-live: #e93030;
 }
 
 .dark {
-    --surface-s1: #494643;
-    --surface-s2: #000000;
-    --primary-default: #1ae1e1;
-    --primary-variant: #007fc4;
-    --on-surface-nLv1: #e0e0e0;
-    --on-surface-nLv2: rgba(224, 224, 224, 0.85);
+    --max-width: 1100px;
+    --border-radius: 12px;
+    font-family: 'Roboto';
+    --color-primary-variant: #afbeff;
+    --color-secondary-variant: #404039;
+    --color-primary-default: #849afd;
+    --color-secondary-default: #3a3a39;
+    --color-primary-highlight: #2d385c;
+    --color-secondary-highlight: #171616;
+    --on-color-on-color-primary: #fff;
+    --surface-surface-1: #21242d;
+    --surface-surface-0: #101114;
+    --surface-surface-2: rgba(0, 0, 0, 0.4);
+    --on-surface-on-surface-lv-1: #ffffff;
+    --on-color-on-color-secondary: rgba(255, 255, 255, 0.6);
+    --on-surface-on-surface-lv-2: rgba(255, 255, 255, 0.4);
+    --on-surface-on-surface-lv-3: rgba(255, 255, 255, 0.2);
+    --on-surface-on-surface-lv-4: rgba(255, 255, 255, 0.1);
+    --status-error: #f26666;
+    --status-alert: #ecca51;
+    --status-success: #30b87f;
+    --specific-live: #f14b4b;
 }
 
 * {
@@ -34,7 +62,7 @@ body {
 
 body {
     color: var(--on-surface-nLv1);
-    background: var(--surface-s1);
+    background: var(--surface-surface-0);
 }
 
 a {
