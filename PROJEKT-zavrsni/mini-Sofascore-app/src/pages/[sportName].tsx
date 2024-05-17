@@ -1,26 +1,34 @@
-import { useThemeContext } from '@/context/ThemeContext'
 import { SportInfo } from '@/model/sports'
 import { Header } from '@/modules/Header'
-import { Box, Button } from '@kuma-ui/core'
+import { Box, Flex } from '@kuma-ui/core'
 import { GetServerSideProps } from 'next'
 import { redirect } from 'next/navigation'
-import Head from 'next/head'
 import Footer from '@/modules/Footer'
-//import { useWindowSizeContext } from '@/context/WindowSizeContext'
+import { useEffect } from 'react'
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
+import { LeaguesPanel } from '@/modules/Leagues'
 
-export default function Sports(props: { selectedSport: string; sports: SportInfo[] }) {
-  const { setIsDark } = useThemeContext()
-  //const { mobileWindowSize } = useWindowSizeContext()
+export default function Sports(props: { selectedSport: string; sports: SportInfo[]; selSlug: string }) {
+  const { mobileWindowSize } = useWindowSizeContext()
+
+  useEffect(() => {
+    document.title = 'Sofascore - ' + props.selectedSport
+  }, [props.selectedSport])
 
   return (
     <>
-      <Head>
-        <title>Sofascore - {props.selectedSport}</title>
-      </Head>
       <Box as="main">
-        <Header selectedSport={props.selectedSport} sports={props.sports} />
-        <Box as="h1" color="colors.primary"></Box>
-        <Button onClick={() => setIsDark(v => !v)}>Toggle theme</Button>
+        <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
+        <Box h="48px" w="100%"></Box>
+        <Flex justifyContent="center">
+          {mobileWindowSize ? (
+            <Box as="h1" color="colors.primary">
+              Ja sam mobile version of app!
+            </Box>
+          ) : (
+            <LeaguesPanel selectedSport={props.selSlug} />
+          )}
+        </Flex>
         <Footer />
       </Box>
     </>
@@ -46,12 +54,13 @@ export const getServerSideProps: GetServerSideProps = async context => {
       return { notFound: true }
     }
 
+    const selSlug = details.find(({ slug }) => slug === sportName)?.slug
     let selectedSport = details.find(({ slug }) => slug === sportName)?.name
 
     const sports: SportInfo[] = details
 
     return {
-      props: { selectedSport, sports },
+      props: { selectedSport, sports, selSlug },
     }
   } catch (error) {
     res.statusCode = 404

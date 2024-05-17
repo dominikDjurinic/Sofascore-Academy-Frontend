@@ -16,7 +16,16 @@ export default function Footer() {
 
   return (
     <>
-      <VStack justify="center" w="100%" h="116px" alignItems="center" bgColor="var(--surface-surface-1)" gap="24px">
+      <VStack
+        justify="center"
+        w="100%"
+        h="116px"
+        alignItems="center"
+        bgColor="var(--surface-surface-1)"
+        gap="24px"
+        position="absolute"
+        bottom="0px"
+      >
         <Box cursor="pointer" w="fit-content" h="fit-content" onClick={() => homeRoute()}>
           <Image src={isDark ? logo1 : logo2} alt="logo icon" width={132} height={20}></Image>
         </Box>
