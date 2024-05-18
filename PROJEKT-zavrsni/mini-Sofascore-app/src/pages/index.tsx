@@ -1,5 +1,5 @@
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
-import { SportInfo } from '@/model/sports'
+import { Leagues, SportInfo } from '@/model/sports'
 import { EventList } from '@/modules/Event/EventList'
 import { EventWidget } from '@/modules/Event/EventWidget'
 import Footer from '@/modules/Footer'
@@ -9,7 +9,12 @@ import { Box, Flex } from '@kuma-ui/core'
 import { GetServerSideProps } from 'next'
 import { useEffect } from 'react'
 
-export default function Home(props: { selSlug: string; selectedSport: string; sports: SportInfo[] }) {
+export default function Home(props: {
+  selSlug: string
+  selectedSport: string
+  sports: SportInfo[]
+  leagues: Leagues[]
+}) {
   const { mobileWindowSize } = useWindowSizeContext()
 
   useEffect(() => {
@@ -22,8 +27,8 @@ export default function Home(props: { selSlug: string; selectedSport: string; sp
         <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
         <Box h="48px" w="100%"></Box>
         <Flex justifyContent="center" gap="24px">
-          {mobileWindowSize ? null : <LeaguesPanel selectedSport={props.selSlug} />}
-          <EventList />
+          {mobileWindowSize ? null : <LeaguesPanel selectedSport={props.selSlug} leagues={props.leagues} />}
+          <EventList leagues={props.leagues} />
           {mobileWindowSize ? null : <EventWidget />}
         </Flex>
         <Footer />
@@ -47,8 +52,13 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const sports: SportInfo[] = details
 
+    const resp2 = await fetch('https://academy-backend.sofascore.dev/sport/football/tournaments')
+
+    const details2: Leagues[] = await resp2.json()
+
+    const leagues: Leagues[] = details2
     return {
-      props: { selSlug, selectedSport, sports },
+      props: { selSlug, selectedSport, sports, leagues },
     }
   } catch (error) {
     res.statusCode = 404

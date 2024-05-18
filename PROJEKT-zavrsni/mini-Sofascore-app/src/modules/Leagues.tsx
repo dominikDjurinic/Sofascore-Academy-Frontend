@@ -1,26 +1,14 @@
 import { Box, Text, Flex, Image } from '@kuma-ui/core'
 import { Leagues } from '@/model/sports'
-import useSWR from 'swr'
-import { useEffect, useState } from 'react'
 import { Panel } from '@/components/Panel'
 
-export function LeaguesPanel(props: { selectedSport: string }) {
-  const [leagues, setLeagues] = useState<Leagues[]>()
-
-  const { data, error } = useSWR(`/api/sport/${props.selectedSport}/tournaments`)
-
-  console.log(error)
-
-  useEffect(() => {
-    setLeagues(data)
-  }, [data])
-
+export function LeaguesPanel(props: { selectedSport: string; leagues: Leagues[] }) {
   return (
     <Panel>
       <Box p="20px 16px" fontSize="20px" fontWeight="bold" color="var(--on-surface-on-surface-lv-1)">
         Leagues
       </Box>
-      {leagues?.map(({ name, id }) => (
+      {props.leagues.map(({ name, id }) => (
         <Flex
           key={id}
           alignItems="center"

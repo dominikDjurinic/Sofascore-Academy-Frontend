@@ -5,7 +5,8 @@ import left from '../../public/images/ic_left.png'
 import right from '../../public/images/ic_right.png'
 import { daysInWeek } from '@/model/daysInWeek'
 
-export function DateNavigation() {
+// eslint-disable-next-line no-unused-vars
+export function DateNavigation(props: { currentDate: (currDate: Date) => void }) {
   const today = new Date()
   const days = daysInWeek
 
@@ -20,6 +21,7 @@ export function DateNavigation() {
       nextDate.setDate(prevDate.getDate() + i)
       dates.push(nextDate)
     }
+    props.currentDate(new Date())
     return dates
   }
 
@@ -33,19 +35,21 @@ export function DateNavigation() {
     let centralDateNew: Date = new Date(centralDate)
 
     centralDateNew.setDate(centralDateNew.getDate() + next) //novi central date +1 ili -1 ili 0 inicijalno
-    console.log(centralDateNew)
 
     setCentralDate(new Date(centralDateNew))
+    props.currentDate(centralDateNew)
 
-    let prevDate: Date = centralDateNew //uzima novi central date
+    let prevDate: Date = new Date(centralDateNew) //uzima novi central date
     prevDate.setDate(prevDate.getDate() - 3)
 
     for (let i = 0; i < 7; ++i) {
-      let nextDate: Date = new Date()
-      nextDate.setDate(prevDate.getDate() + i)
-      dates.push(nextDate)
+      let nextDate: Date = new Date(prevDate)
+      nextDate.setDate(nextDate.getDate() + i)
+      dates.push(new Date(nextDate))
     }
+
     setNewDates(dates)
+    console.log('New dates:' + newDates)
   }
 
   return (
@@ -81,7 +85,7 @@ export function DateNavigation() {
       {newDates?.map(date => (
         <VStack
           w="48px"
-          key={date.getDate() + date.getMonth()}
+          key={date.toUTCString()}
           p="10px 5px"
           justify="center"
           alignItems="center"
@@ -102,7 +106,7 @@ export function DateNavigation() {
               ? 'TODAY'
               : days[date.getDay()]}
           </Text>
-          <Text>{date.getDate() + '. ' + (date.getMonth() + 1) + '.'}</Text>
+          <Text>{new Date(date).toLocaleDateString('hr-HR', { day: '2-digit', month: 'numeric' })}</Text>
         </VStack>
       ))}
     </Flex>

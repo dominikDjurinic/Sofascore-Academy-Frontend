@@ -32,7 +32,7 @@ export interface TournamentEvent {
     }
   }
   status: string
-  startDate: Date
+  startDate: string
   homeScore: {
     total: number
     period1: number

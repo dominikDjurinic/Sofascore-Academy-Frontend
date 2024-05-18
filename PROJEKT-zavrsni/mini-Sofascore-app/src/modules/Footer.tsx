@@ -23,8 +23,9 @@ export default function Footer() {
         alignItems="center"
         bgColor="var(--surface-surface-1)"
         gap="24px"
-        position="absolute"
+        position="sticky"
         bottom="0px"
+        marginTop="20px"
       >
         <Box cursor="pointer" w="fit-content" h="fit-content" onClick={() => homeRoute()}>
           <Image src={isDark ? logo1 : logo2} alt="logo icon" width={132} height={20}></Image>
