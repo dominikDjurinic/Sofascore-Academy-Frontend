@@ -11,7 +11,7 @@ export default function Settings() {
       <Box h="48px" w="100%"></Box>
       <Flex justifyContent="center">
         <VStack
-          width="30%"
+          minWidth="40%"
           borderRadius="16px"
           bgColor="var(--surface-surface-1)"
           boxShadow="1px 1px rgba(0, 0, 0, 0.08)"

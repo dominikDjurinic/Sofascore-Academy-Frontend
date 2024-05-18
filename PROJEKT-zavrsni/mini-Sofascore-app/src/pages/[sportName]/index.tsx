@@ -7,6 +7,8 @@ import Footer from '@/modules/Footer'
 import { useEffect } from 'react'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { LeaguesPanel } from '@/modules/Leagues'
+import { EventList } from '@/modules/Event/EventList'
+import { EventWidget } from '@/modules/Event/EventWidget'
 
 export default function Sports(props: { selectedSport: string; sports: SportInfo[]; selSlug: string }) {
   const { mobileWindowSize } = useWindowSizeContext()
@@ -20,14 +22,10 @@ export default function Sports(props: { selectedSport: string; sports: SportInfo
       <Box as="main">
         <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
         <Box h="48px" w="100%"></Box>
-        <Flex justifyContent="center">
-          {mobileWindowSize ? (
-            <Box as="h1" color="colors.primary">
-              Ja sam mobile version of app!
-            </Box>
-          ) : (
-            <LeaguesPanel selectedSport={props.selSlug} />
-          )}
+        <Flex justifyContent="center" gap="24px">
+          {mobileWindowSize ? null : <LeaguesPanel selectedSport={props.selSlug} />}
+          <EventList />
+          {mobileWindowSize ? null : <EventWidget />}
         </Flex>
         <Footer />
       </Box>
