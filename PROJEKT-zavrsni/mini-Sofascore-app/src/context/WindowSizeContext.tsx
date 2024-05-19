@@ -11,7 +11,6 @@ export const WindowSizeContextProvider = ({ children }: PropsWithChildren) => {
   const [mobileWindowSize, setMobileWindowSize] = useState<boolean>(false)
 
   useEffect(() => {
-    console.log('WINDOW WIDTH ' + window.innerWidth)
     const handleResizeWindow = () => {
       if (Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) <= 990) {
         setMobileWindowSize(true)

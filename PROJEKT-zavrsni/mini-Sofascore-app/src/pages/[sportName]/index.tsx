@@ -4,7 +4,7 @@ import { Box, Flex } from '@kuma-ui/core'
 import { GetServerSideProps } from 'next'
 import { redirect } from 'next/navigation'
 import Footer from '@/modules/Footer'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { LeaguesPanel } from '@/modules/Leagues'
 import { EventList } from '@/modules/Event/EventList'
@@ -18,8 +18,11 @@ export default function Sports(props: {
 }) {
   const { mobileWindowSize } = useWindowSizeContext()
 
+  const [selectedSlug, setSelectedSlug] = useState(props.selSlug)
+
   useEffect(() => {
     document.title = 'Sofascore - ' + props.selectedSport
+    setSelectedSlug(props.selSlug)
   }, [props.selectedSport])
 
   return (
@@ -29,7 +32,7 @@ export default function Sports(props: {
         <Box h="48px" w="100%"></Box>
         <Flex justifyContent="center" gap="24px">
           {mobileWindowSize ? null : <LeaguesPanel selectedSport={props.selSlug} leagues={props.leagues} />}
-          <EventList leagues={props.leagues} />
+          <EventList leagues={props.leagues} selSlug={selectedSlug} />
           {mobileWindowSize ? null : <EventWidget />}
         </Flex>
         <Footer />

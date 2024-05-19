@@ -4,17 +4,7 @@ import { Leagues } from '@/model/sports'
 import { EventLeague } from './EventLeague'
 import { useState } from 'react'
 
-export function EventList(props: { leagues: Leagues[] }) {
-  /*const [leagues, setLeagues] = useState<Leagues[]>()
-
-  const { data, error } = useSWR(`/api/sport/${props.selectedSport}/tournaments`)
-
-  console.log(error)
-
-  useEffect(() => {
-    setLeagues(data)
-  }, [data])*/
-
+export function EventList(props: { leagues: Leagues[]; selSlug: string }) {
   const [currentDate, setCurrentDate] = useState<Date>(new Date())
 
   const settingDate = (currDate: Date) => {
@@ -23,9 +13,9 @@ export function EventList(props: { leagues: Leagues[] }) {
 
   return (
     <Panel>
-      <DateNavigation currentDate={settingDate} />
-      {props.leagues.map(({ id, name }) => (
-        <EventLeague key={id} leagueId={id} currentDate={currentDate} leagueName={name} />
+      <DateNavigation key={props.selSlug} currentDate={settingDate} />
+      {props.leagues.map(({ id, name, country }) => (
+        <EventLeague key={id} leagueId={id} currentDate={currentDate} leagueName={name} leagueCountry={country.name} />
       ))}
     </Panel>
   )

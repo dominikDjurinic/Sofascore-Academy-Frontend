@@ -1,6 +1,6 @@
 import { Text, Flex, VStack } from '@kuma-ui/core'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import left from '../../public/images/ic_left.png'
 import right from '../../public/images/ic_right.png'
 import { daysInWeek } from '@/model/daysInWeek'
@@ -21,7 +21,6 @@ export function DateNavigation(props: { currentDate: (currDate: Date) => void })
       nextDate.setDate(prevDate.getDate() + i)
       dates.push(nextDate)
     }
-    props.currentDate(new Date())
     return dates
   }
 
@@ -31,13 +30,11 @@ export function DateNavigation(props: { currentDate: (currDate: Date) => void })
   const newDatesFunc = (next: number) => {
     let dates: Date[] = []
 
-    console.log(centralDate)
     let centralDateNew: Date = new Date(centralDate)
 
     centralDateNew.setDate(centralDateNew.getDate() + next) //novi central date +1 ili -1 ili 0 inicijalno
 
     setCentralDate(new Date(centralDateNew))
-    props.currentDate(centralDateNew)
 
     let prevDate: Date = new Date(centralDateNew) //uzima novi central date
     prevDate.setDate(prevDate.getDate() - 3)
@@ -49,8 +46,11 @@ export function DateNavigation(props: { currentDate: (currDate: Date) => void })
     }
 
     setNewDates(dates)
-    console.log('New dates:' + newDates)
   }
+
+  useEffect(() => {
+    props.currentDate(new Date(centralDate))
+  }, [centralDate])
 
   return (
     <Flex position="relative" bgColor="var(--color-primary-variant)" height="48px" justify="space-between" p="0px 10px">
@@ -102,7 +102,7 @@ export function DateNavigation(props: { currentDate: (currDate: Date) => void })
               date.getDate() === new Date().getDate() && date.getMonth() === new Date().getMonth() ? 'bold' : 'normal'
             }`}
           >
-            {date.getDate() === new Date().getDate() && new Date().getMonth() === today.getMonth()
+            {date.getDate() === new Date().getDate() && new Date().getMonth() === date.getMonth()
               ? 'TODAY'
               : days[date.getDay()]}
           </Text>
