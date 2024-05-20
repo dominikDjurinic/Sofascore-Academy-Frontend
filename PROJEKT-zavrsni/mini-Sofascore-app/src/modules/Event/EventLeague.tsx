@@ -2,20 +2,124 @@ import { TournamentEvent } from '@/model/events'
 import { Flex, Text, VStack, Image } from '@kuma-ui/core'
 import { useEffect, useState } from 'react'
 //import right from '../../../public/images/ic_pointer_right@2x.png'
-//import useSWR from 'swr'
+import useSWR from 'swr'
 
 export function EventLeague(props: { leagueId: number; leagueName: string; leagueCountry: string; currentDate: Date }) {
-  const [preData, setPreData] = useState<TournamentEvent[]>()
   const [tournaments, setTournaments] = useState<TournamentEvent[]>()
   const [nextPrev, setNextPrev] = useState('next')
+  const [previous, setPrevious] = useState('next')
+  const [prevDate, setPrevDate] = useState(new Date(props.currentDate))
   const [page, setPage] = useState(0)
   const [refresh, setRefresh] = useState(false)
-  const [refresh2, setRefresh2] = useState(false)
 
   const today = new Date()
 
-  //const { data, error } = useSWR(`/api/tournament/${props.leagueId}/events/${nextPrev}/${page}`)
+  const { data, error } = useSWR<TournamentEvent[], Error>(
+    `/api/tournament/${props.leagueId}/events/${nextPrev}/${page}`
+  )
 
+  console.log(error)
+
+  useEffect(() => {
+    if (props.currentDate >= today) {
+      if (previous === 'last') {
+        setPage(0)
+      }
+      if (prevDate < props.currentDate) {
+        setPrevDate(new Date(props.currentDate))
+      }
+      setNextPrev('next') //next = today and next days
+    } else {
+      if (previous === 'next') {
+        setPage(0)
+      }
+      if (prevDate > props.currentDate) {
+        setPrevDate(new Date(props.currentDate))
+      }
+      setNextPrev('last') //last = previous days
+    }
+    setRefresh(!refresh)
+  }, [props.currentDate])
+
+  useEffect(() => {
+    let finded = false
+
+    switch (nextPrev) {
+      case 'last':
+        setPrevious(nextPrev)
+        if (data !== undefined) {
+          for (let i = 0; i < data.length; i++) {
+            if (checkDate(data[i].startDate, props.currentDate) === true) {
+              setTournaments(data)
+              finded = true
+              break
+            }
+          }
+          if (finded === true) {
+            break
+          }
+          if (new Date(data[data.length - 1].startDate) < props.currentDate) {
+            //noviji datum
+            if (props.currentDate > prevDate) {
+              if (page !== 0) {
+                setPage(page => page - 1)
+              } else {
+                setTournaments([])
+              }
+            } else {
+              setTournaments([])
+            }
+          } else if (new Date(data[0].startDate) > props.currentDate) {
+            //stariji datum
+            if (props.currentDate <= prevDate) {
+              setPage(page => page + 1)
+            }
+            setTournaments([])
+          } else {
+            setTournaments([])
+          }
+        }
+        break
+      case 'next':
+        setPrevious(nextPrev)
+
+        if (data !== undefined) {
+          for (let i = 0; i < data.length; i++) {
+            if (checkDate(data[i].startDate, props.currentDate) === true) {
+              setTournaments(data)
+              finded = true
+              break
+            }
+          }
+          if (finded === true) {
+            break
+          }
+          if (new Date(data[data.length - 1].startDate) < props.currentDate) {
+            //noviji datum
+            if (props.currentDate >= prevDate) {
+              setPage(page => page + 1)
+            }
+            setTournaments([])
+          } else if (new Date(data[0].startDate) > props.currentDate) {
+            //stariji datum
+
+            if (props.currentDate < prevDate) {
+              if (page !== 0) {
+                setPage(page => page - 1)
+              } else {
+                setTournaments([])
+              }
+            } else {
+              setTournaments([])
+            }
+          } else {
+            setTournaments([])
+          }
+        }
+        break
+    }
+  }, [data, refresh])
+  /*
   const fetchData = async () => {
     const resp = await fetch(`/api/tournament/${props.leagueId}/events/${nextPrev}/${page}`)
     const details: TournamentEvent[] = await resp.json()
@@ -53,24 +157,6 @@ export function EventLeague(props: { leagueId: number; leagueName: string; leagu
             setTournaments([])
             setPage(0)
           }
-          /*
-        if (
-          preData?.find(({ startDate }) => {
-            const start = new Date(startDate)
-            start === props.currentDate
-          }) === undefined
-        ) {
-          if (preData !== undefined) {
-            if (new Date(preData[0].startDate) > props.currentDate) {
-              setPage(page => page + 1)
-              break
-            } else setTournaments(data)
-          }
-        } else {
-          console.log('finded')
-          setTournaments(data)
-        }
-        break*/
         }
         break
       case 'next':
@@ -94,25 +180,6 @@ export function EventLeague(props: { leagueId: number; leagueName: string; leagu
             setPage(0)
             setTournaments([])
           }
-
-          /*if (
-          
-          
-          preData?.forEach(({startDate})=>{checkDate(startDate,props.currentDate)})
-        ) {
-          console.log(props.currentDate.getDate())
-          console.log('didnt finded')
-          if (preData !== undefined) {
-            console.log(new Date(preData[5].startDate).getDate())
-            if (new Date(preData[preData.length - 1].startDate) < props.currentDate) {
-              setPage(page => page + 1)
-              break
-            } else setTournaments(data)
-          }
-        } else {
-          console.log('finded')
-          setTournaments(data)
-        }*/
         }
         break
     }
@@ -126,7 +193,7 @@ export function EventLeague(props: { leagueId: number; leagueName: string; leagu
       setNextPrev('last') //last = previous days
     }
     setRefresh(!refresh)
-  }, [props.currentDate])
+  }, [props.currentDate])*/
 
   const checkDate = (date1: string, date2: Date) => {
     const dateNew = new Date(date1)
