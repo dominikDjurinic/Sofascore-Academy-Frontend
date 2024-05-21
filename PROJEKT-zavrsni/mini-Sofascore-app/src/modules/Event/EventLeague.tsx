@@ -6,12 +6,12 @@ import useSWR from 'swr'
 
 export function EventLeague(props: { leagueId: number; leagueName: string; leagueCountry: string; currentDate: Date }) {
   const [tournaments, setTournaments] = useState<TournamentEvent[]>()
-  const [nextPrev, setNextPrev] = useState('next')
+  /*const [nextPrev, setNextPrev] = useState('next')
   const [previous, setPrevious] = useState('next')
   const [prevDate, setPrevDate] = useState(new Date(props.currentDate))
   const [page, setPage] = useState(0)
   const [refresh, setRefresh] = useState(false)
-
+*/
   const today = new Date()
 
   const { data, error } = useSWR<TournamentEvent[], Error>(
@@ -19,7 +19,7 @@ export function EventLeague(props: { leagueId: number; leagueName: string; leagu
   )
 
   console.log(error)
-
+  /*
   useEffect(() => {
     if (props.currentDate >= today) {
       if (previous === 'last') {
@@ -118,7 +118,7 @@ export function EventLeague(props: { leagueId: number; leagueName: string; leagu
         }
         break
     }
-  }, [data, refresh])
+  }, [data, refresh])*/
   /*
   const fetchData = async () => {
     const resp = await fetch(`/api/tournament/${props.leagueId}/events/${nextPrev}/${page}`)

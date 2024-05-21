@@ -28,7 +28,7 @@ export default function Home(props: {
         <Box h="48px" w="100%"></Box>
         <Flex justifyContent="center" gap="24px">
           {mobileWindowSize ? null : <LeaguesPanel selectedSport={props.selSlug} leagues={props.leagues} />}
-          <EventList leagues={props.leagues} />
+          <EventList leagues={props.leagues} selSlug={props.selSlug} />
           {mobileWindowSize ? null : <EventWidget />}
         </Flex>
         <Footer />
