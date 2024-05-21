@@ -1,4 +1,4 @@
-import { Text, Flex, VStack } from '@kuma-ui/core'
+import { Text, Flex, VStack, Box } from '@kuma-ui/core'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import left from '../../public/images/ic_left.png'
@@ -53,7 +53,13 @@ export function DateNavigation(props: { currentDate: (currDate: Date) => void })
   }, [centralDate])
 
   return (
-    <Flex position="relative" bgColor="var(--color-primary-variant)" height="48px" justify="space-between" p="0px 10px">
+    <Flex
+      position="relative"
+      bgColor="var(--color-primary-variant)"
+      height="fit-content"
+      justify="space-between"
+      p="0px 10px"
+    >
       <Flex
         m="8px"
         position="absolute"
@@ -83,30 +89,37 @@ export function DateNavigation(props: { currentDate: (currDate: Date) => void })
         <Image src={right} alt="iconRight" width={24} height={24}></Image>
       </Flex>
       {newDates?.map(date => (
-        <VStack
-          w="48px"
-          key={date.toUTCString()}
-          p="10px 5px"
-          justify="center"
-          alignItems="center"
-          color="var(--surface-surface-1)"
-          fontSize="12px"
-          borderBottom={`${
-            date.getDate() === centralDate.getDate() && date.getMonth() === centralDate.getMonth()
-              ? '4px solid var(--surface-surface-1)'
-              : '4px solid var(--color-primary-variant)'
-          }`}
-        >
-          <Text
-            fontWeight={`${
-              date.getDate() === new Date().getDate() && date.getMonth() === new Date().getMonth() ? 'bold' : 'normal'
-            }`}
+        <VStack key={date.toUTCString()}>
+          <VStack
+            w="48px"
+            p="10px 5px"
+            justify="center"
+            alignItems="center"
+            color="var(--surface-surface-1)"
+            fontSize="12px"
           >
-            {date.getDate() === new Date().getDate() && new Date().getMonth() === date.getMonth()
-              ? 'TODAY'
-              : days[date.getDay()]}
-          </Text>
-          <Text>{new Date(date).toLocaleDateString('hr-HR', { day: '2-digit', month: 'numeric' })}</Text>
+            <Text
+              fontWeight={`${
+                date.getDate() === new Date().getDate() && date.getMonth() === new Date().getMonth() ? 'bold' : 'normal'
+              }`}
+            >
+              {date.getDate() === new Date().getDate() && date.getMonth() === new Date().getMonth()
+                ? 'TODAY'
+                : days[date.getDay()]}
+            </Text>
+            <Text>{new Date(date).toLocaleDateString('hr-HR', { day: '2-digit', month: 'numeric' })}</Text>
+          </VStack>
+          {date.getDate() === centralDate.getDate() && date.getMonth() === centralDate.getMonth() ? (
+            <Box minWidth="100%" h="4px" backgroundColor="var(--surface-surface-1)" borderRadius="2px"></Box>
+          ) : (
+            <Box
+              minWidth="100%"
+              h="4px"
+              backgroundColor="var(--surface-surface-1)"
+              borderRadius="2px"
+              visibility="hidden"
+            ></Box>
+          )}
         </VStack>
       ))}
     </Flex>

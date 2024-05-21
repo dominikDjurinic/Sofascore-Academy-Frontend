@@ -75,6 +75,20 @@ a {
     text-transform: capitalize;
 }
 
+.horizontalDiv{
+    min-width: 80%;
+    height: 4px;
+    background-color: var(--surface-surface-1);
+    border-radius: 2px;
+}
+
+.verticalDiv{
+    width: 1px;
+    min-height: 40px;
+    background-color: var(--on-surface-on-surface-lv-4);
+    border-radius: 2px;
+}
+
 @media (prefers-color-scheme: dark) {
     html {
         color-scheme: dark;

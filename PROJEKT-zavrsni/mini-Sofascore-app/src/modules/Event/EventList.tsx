@@ -4,9 +4,11 @@ import { Leagues } from '@/model/sports'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { SportDateEvent } from '@/model/events'
-import { Text, Image, Box, Flex, VStack } from '@kuma-ui/core'
+import { Text, Box, Flex, VStack } from '@kuma-ui/core'
 import { EventCell } from './EventCell'
 import { fullDaysInWeek } from '@/model/daysInWeek'
+import Image from 'next/image'
+import right from '../../../public/images/ic_pointer_right@2x.png'
 
 export function EventList(props: { leagues: Leagues[]; selSlug: string }) {
   const [currentDate, setCurrentDate] = useState<Date>(new Date())
@@ -51,8 +53,9 @@ export function EventList(props: { leagues: Leagues[]; selSlug: string }) {
         gap="5px"
       >
         <Text>
-          {new Date(currentDate) !== new Date()
-            ? `${
+          {currentDate.getDate() === new Date().getDate() && currentDate.getMonth() === new Date().getMonth()
+            ? 'Today'
+            : `${
                 fullDaysInWeek[currentDate.getDay()] +
                 ' - ' +
                 currentDate.getDate() +
@@ -61,14 +64,13 @@ export function EventList(props: { leagues: Leagues[]; selSlug: string }) {
                 '. ' +
                 currentDate.getFullYear() +
                 '.'
-              }`
-            : 'Today'}
+              }`}
         </Text>
         <Text color="var(--on-surface-on-surface-lv-2)">
           {data?.length !== undefined ? `${data?.length + ' Events'}` : '0 Events'}
         </Text>
       </Flex>
-      {props.leagues.map(({ id, name, country }) => (
+      {props.leagues.map(({ id, name, country }, index) => (
         <VStack key={id} width="100%">
           <Flex
             p="20px 16px"
@@ -76,20 +78,30 @@ export function EventList(props: { leagues: Leagues[]; selSlug: string }) {
             fontWeight="bold"
             color="var(--on-surface-on-surface-lv-1)"
             alignItems="center"
-            gap="5px"
+            gap="10px"
           >
             <Image src={`/api/tournament/${id}/image`} alt="league logo" width={32} height={32}></Image>
             <Text>{country.name}</Text>
+            <Image src={right} alt="icon right" width={24} height={24}></Image>
             <Text color="var(--on-surface-on-surface-lv-2)">{name}</Text>
             {data !== undefined && data?.length > 0 ? null : (
               <Text color="var(--on-surface-on-surface-lv-2)"> - No match</Text>
             )}
           </Flex>
           {data?.map(event => (
-            <Box key={event.id} width="100%">
+            <Box
+              key={event.id}
+              width="100%"
+              _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
+              cursor="pointer"
+              fontSize="14px"
+            >
               {checkTournamentId(event.tournament.id, id) === true ? <EventCell event={event} /> : null}
             </Box>
           ))}
+          {index === props.leagues.length - 1 ? null : (
+            <Box minWidth="100%" h="1px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>
+          )}
         </VStack>
       ))}
     </Panel>

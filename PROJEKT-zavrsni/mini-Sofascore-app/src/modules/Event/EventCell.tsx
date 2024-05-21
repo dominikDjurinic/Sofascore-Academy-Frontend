@@ -1,5 +1,6 @@
 import { SportDateEvent } from '@/model/events'
-import { Flex, Text, VStack } from '@kuma-ui/core'
+import { Box, Flex, Text, VStack } from '@kuma-ui/core'
+import Image from 'next/image'
 
 export function EventCell(props: { event: SportDateEvent }) {
   const setEventStatus = (eventStatus: string) => {
@@ -12,23 +13,59 @@ export function EventCell(props: { event: SportDateEvent }) {
     }
   }
 
+  const whoWon = () => {
+    if (props.event.homeScore.total > props.event.awayScore.total) {
+      return 2
+    } else if (props.event.homeScore.total < props.event.awayScore.total) {
+      return 1
+    } else {
+      return 3
+    }
+  }
+
   return (
-    <Flex width="100%" justify="space-between" padding="10px">
-      <VStack justify="center" alignItems="center">
+    <Flex alignItems="center" gap="3px" h="fit-content">
+      <VStack justify="center" alignItems="center" padding="10px 10px" color="var(--on-surface-on-surface-lv-2)">
         <Text>
           {new Date(props.event.startDate).toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit' })}
         </Text>
         <Text>{setEventStatus(props.event.status)}</Text>
       </VStack>
-
-      <VStack justify="center" alignItems="center">
-        <Text>{props.event.homeTeam.name}</Text>
-        <Text>{props.event.awayTeam.name}</Text>
-      </VStack>
-      <VStack justify="center" alignItems="center">
-        <Text>{props.event.homeScore.total}</Text>
-        <Text>{props.event.awayScore.total}</Text>
-      </VStack>
+      <Box minWidth="1px" h="40px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>
+      <Flex width="100%" justify="space-between" padding="10px">
+        <VStack justify="center">
+          <Flex gap="8px" alignItems="center" p="5px 0px">
+            <Image src={`/api/team/${props.event.homeTeam.id}/image`} alt="league logo" width={16} height={16}></Image>
+            <Text
+              color={`${whoWon() === 1 || whoWon() === 3 ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+            >
+              {props.event.homeTeam.name}
+            </Text>
+          </Flex>
+          <Flex gap="8px" alignItems="center" p="5px 0px">
+            <Image src={`/api/team/${props.event.awayTeam.id}/image`} alt="league logo" width={16} height={16}></Image>
+            <Text
+              color={`${whoWon() === 2 || whoWon() === 3 ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+            >
+              {props.event.awayTeam.name}
+            </Text>
+          </Flex>
+        </VStack>
+        <VStack justify="center" padding="0px 10px">
+          <Text
+            color={`${whoWon() === 1 || whoWon() === 3 ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+            p="5px 0px"
+          >
+            {props.event.homeScore.total}
+          </Text>
+          <Text
+            color={`${whoWon() === 2 || whoWon() === 3 ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+            p="5px 0px"
+          >
+            {props.event.awayScore.total}
+          </Text>
+        </VStack>
+      </Flex>
     </Flex>
   )
 }

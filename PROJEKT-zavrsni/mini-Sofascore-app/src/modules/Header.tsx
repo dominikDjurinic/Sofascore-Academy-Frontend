@@ -51,7 +51,7 @@ export function Header(props: { selectedSport: string | null; sports: SportInfo[
         </Flex>
       </Flex>
       {props.homePage && props.selectedSport !== null && props.sports !== null ? (
-        <Flex justify={'center'} alignItems={'center'} h="64px" color="var(--surface-surface-1)">
+        <Flex justify={'center'} alignItems={'center'} h="fit-content" color="var(--surface-surface-1)">
           {props.sports.map(({ name, slug, id }) => (
             <TabIcon key={name} name={name} slug={slug} id={id} selectedSport={props.selectedSport} />
           ))}
