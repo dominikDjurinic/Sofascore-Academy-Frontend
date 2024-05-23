@@ -10,6 +10,7 @@ export function Panel({ children }: PropsWithChildren) {
       boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
       paddingBottom="16px"
       overflow="hidden"
+      height="fit-content"
     >
       {children}
     </VStack>

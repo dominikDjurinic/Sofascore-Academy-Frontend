@@ -23,7 +23,7 @@ export default function Footer() {
         alignItems="center"
         bgColor="var(--surface-surface-1)"
         gap="24px"
-        position="sticky"
+        position="absolute"
         bottom="0px"
         marginTop="20px"
       >

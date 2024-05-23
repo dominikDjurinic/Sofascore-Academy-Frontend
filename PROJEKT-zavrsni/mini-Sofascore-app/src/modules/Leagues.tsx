@@ -1,6 +1,7 @@
 import { Box, Text, Flex, Image } from '@kuma-ui/core'
 import { Leagues } from '@/model/sports'
 import { Panel } from '@/components/Panel'
+//import Image from 'next/image'
 
 export function LeaguesPanel(props: { selectedSport: string; leagues: Leagues[] }) {
   return (
@@ -17,7 +18,12 @@ export function LeaguesPanel(props: { selectedSport: string; leagues: Leagues[] 
           _hover={{ backgroundColor: 'var(--surface-surface-0)' }}
           cursor="pointer"
         >
-          <Image src={`api/tournament/${id}/image`} alt="league logo" width={40} height={40}></Image>
+          <Image
+            src={`https://academy-backend.sofascore.dev/tournament/${id}/image`}
+            alt="league logo"
+            width={40}
+            height={40}
+          ></Image>
           <Text fontSize="14px" fontWeight="bold" color="var(--on-surface-on-surface-lv-1)">
             {name}
           </Text>

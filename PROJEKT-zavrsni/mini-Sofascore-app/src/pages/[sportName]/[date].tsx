@@ -1,0 +1,82 @@
+import { Box, Flex } from '@kuma-ui/core'
+import { SportDateEvent } from '@/model/events'
+import { GetServerSideProps } from 'next'
+import { Header } from '@/modules/Header'
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
+import { Leagues, SportInfo } from '@/model/sports'
+import { LeaguesPanel } from '@/modules/Leagues'
+import { EventList } from '@/modules/Event/EventList'
+import { EventWidget } from '@/modules/Event/EventWidget'
+import Footer from '@/modules/Footer'
+import { useEffect } from 'react'
+
+export default function DateEvent(props: {
+  events: SportDateEvent[]
+  selectedSport: string
+  sports: SportInfo[]
+  leagues: Leagues[]
+  selSLug: string
+  selDate: string
+}) {
+  const { mobileWindowSize } = useWindowSizeContext()
+
+  console.log(props.selDate)
+  useEffect(() => {
+    document.title = 'Sofascore - ' + props.selectedSport
+  }, [props.selDate])
+
+  return (
+    <>
+      <Box as="main" minHeight="100vh" position="relative">
+        <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
+        <Box h="48px" w="100%"></Box>
+        <Flex justifyContent="center" gap="24px" paddingBottom="130px">
+          {mobileWindowSize ? null : <LeaguesPanel selectedSport={props.selSLug} leagues={props.leagues} />}
+          <EventList leagues={props.leagues} selSlug={props.selSLug} data={props.events} date={props.selDate} />
+          {mobileWindowSize ? null : <EventWidget />}
+        </Flex>
+        <Footer />
+      </Box>
+    </>
+  )
+}
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { params, res } = context
+  //console.log(params?.date)
+
+  try {
+    //@ts-ignore
+    const selDate = params?.date
+    console.log(selDate)
+    const selSlug = params?.sportName
+    console.log(selSlug)
+
+    const res = await fetch(`https://academy-backend.sofascore.dev/sports`)
+
+    const detail: SportInfo[] = await res.json()
+
+    const sports: SportInfo[] = detail
+
+    const resp = await fetch(`https://academy-backend.sofascore.dev/sport/${selSlug}/events/${selDate}`)
+
+    const details: SportDateEvent[] = await resp.json()
+
+    const events: SportDateEvent[] = details
+
+    const resp2 = await fetch(`https://academy-backend.sofascore.dev/sport/${selSlug}/tournaments`)
+
+    const details2: Leagues[] = await resp2.json()
+
+    const selectedSport = details2[0].sport.name
+
+    const leagues: Leagues[] = details2
+
+    return {
+      props: { events, selectedSport, sports, selSlug, leagues, selDate },
+    }
+  } catch (error) {
+    res.statusCode = 404
+    return { notFound: true }
+  }
+}

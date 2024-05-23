@@ -9,20 +9,26 @@ import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { LeaguesPanel } from '@/modules/Leagues'
 import { EventList } from '@/modules/Event/EventList'
 import { EventWidget } from '@/modules/Event/EventWidget'
+import { SportDateEvent } from '@/model/events'
+import { useSlugContext } from '@/context/SlugContext'
 
 export default function Sports(props: {
   selectedSport: string
   sports: SportInfo[]
   selSlug: string
   leagues: Leagues[]
+  events: SportDateEvent[]
+  date: string
 }) {
   const { mobileWindowSize } = useWindowSizeContext()
+  const { setSlug } = useSlugContext()
 
   const [selectedSlug, setSelectedSlug] = useState(props.selSlug)
 
   useEffect(() => {
     document.title = 'Sofascore - ' + props.selectedSport
     setSelectedSlug(props.selSlug)
+    setSlug(props.selSlug)
   }, [props.selectedSport])
 
   return (
@@ -30,9 +36,9 @@ export default function Sports(props: {
       <Box as="main">
         <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
         <Box h="48px" w="100%"></Box>
-        <Flex justifyContent="center" gap="24px">
+        <Flex justifyContent="center" gap="24px" paddingBottom="130px">
           {mobileWindowSize ? null : <LeaguesPanel selectedSport={props.selSlug} leagues={props.leagues} />}
-          <EventList leagues={props.leagues} selSlug={selectedSlug} />
+          <EventList leagues={props.leagues} selSlug={selectedSlug} data={props.events} date={props.date} />
           {mobileWindowSize ? null : <EventWidget />}
         </Flex>
         <Footer />
@@ -43,6 +49,12 @@ export default function Sports(props: {
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const { params, res } = context
+  const formattingDate = () => {
+    const format = new Date().toISOString().split('T')[0]
+    return format
+  }
+
+  const today = formattingDate()
 
   try {
     //@ts-ignore
@@ -71,8 +83,16 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const leagues: Leagues[] = details2
 
+    const resp3 = await fetch(`https://academy-backend.sofascore.dev/sport/${selSlug}/events/${today}`)
+
+    const detail: SportDateEvent[] = await resp3.json()
+
+    const events: SportDateEvent[] = detail
+
+    const date = formattingDate()
+
     return {
-      props: { selectedSport, sports, selSlug, leagues },
+      props: { selectedSport, sports, selSlug, leagues, events, date },
     }
   } catch (error) {
     res.statusCode = 404

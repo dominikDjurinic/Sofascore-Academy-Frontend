@@ -1,36 +1,44 @@
-import { DateNavigation } from '@/components/DateNavigation'
 import { Panel } from '@/components/Panel'
 import { Leagues } from '@/model/sports'
 import { useEffect, useState } from 'react'
-import useSWR from 'swr'
 import { SportDateEvent } from '@/model/events'
 import { Text, Box, Flex, VStack } from '@kuma-ui/core'
 import { EventCell } from './EventCell'
 import { fullDaysInWeek } from '@/model/daysInWeek'
 import Image from 'next/image'
 import right from '../../../public/images/ic_pointer_right@2x.png'
+import { DateNavigation } from '@/components/DateNavigation2'
+//import useSWR from 'swr'
+//import { useSlugContext } from '@/context/SlugContext'
 
-export function EventList(props: { leagues: Leagues[]; selSlug: string }) {
-  const [currentDate, setCurrentDate] = useState<Date>(new Date())
+export function EventList(props: { leagues: Leagues[]; selSlug: string; date: string; data: SportDateEvent[] }) {
+  /*const formattingDate = () => {
+    const format = currentDate.toISOString().split('T')[0]
+    return format
+  }*/
 
-  const settingDate = (currDate: Date) => {
-    setCurrentDate(new Date(currDate))
-  }
+  //const { slug } = useSlugContext()
 
   const formattingDate = () => {
-    const format = currentDate.toISOString().split('T')[0]
+    const format = new Date(props.date)
     return format
   }
 
-  const [formattedDate, setFormattedDate] = useState(formattingDate)
+  const [currentDate, setCurrentDate] = useState<Date>(formattingDate)
+  /*
+  const settingDate = (currDate: Date) => {
+    setCurrentDate(new Date(currDate))
+  }
+  */
+  //const [formattedDate, setFormattedDate] = useState(formattingDate)
 
-  const { data, error } = useSWR<SportDateEvent[], Error>(`/api/sport/${props.selSlug}/events/${formattedDate}`)
+  //const { data, error, isLoading } = useSWR<SportDateEvent[], Error>(`/api/sport/${slug}/events/${props.date}`)
 
-  console.log(error)
+  //console.log(error)
 
   useEffect(() => {
-    setFormattedDate(formattingDate)
-  }, [currentDate])
+    setCurrentDate(formattingDate)
+  }, [props.date])
 
   const checkTournamentId = (dataId: number, tournamentId: number) => {
     if (dataId === tournamentId) {
@@ -42,7 +50,7 @@ export function EventList(props: { leagues: Leagues[]; selSlug: string }) {
 
   return (
     <Panel>
-      <DateNavigation key={props.selSlug} currentDate={settingDate} />
+      <DateNavigation key={props.date} date={props.date} />
       <Flex
         p="20px 16px"
         fontSize="14px"
@@ -67,7 +75,7 @@ export function EventList(props: { leagues: Leagues[]; selSlug: string }) {
               }`}
         </Text>
         <Text color="var(--on-surface-on-surface-lv-2)">
-          {data?.length !== undefined ? `${data?.length + ' Events'}` : '0 Events'}
+          {props.data?.length !== undefined ? `${props.data?.length + ' Events'}` : '0 Events'}
         </Text>
       </Flex>
       {props.leagues.map(({ id, name, country }, index) => (
@@ -84,11 +92,12 @@ export function EventList(props: { leagues: Leagues[]; selSlug: string }) {
             <Text>{country.name}</Text>
             <Image src={right} alt="icon right" width={24} height={24}></Image>
             <Text color="var(--on-surface-on-surface-lv-2)">{name}</Text>
-            {data !== undefined && data?.length > 0 ? null : (
+
+            {props.data !== undefined && props.data?.length > 0 ? null : (
               <Text color="var(--on-surface-on-surface-lv-2)"> - No match</Text>
             )}
           </Flex>
-          {data?.map(event => (
+          {props.data?.map(event => (
             <Box
               key={event.id}
               width="100%"
