@@ -52,7 +52,9 @@ export function TabIcon(props: { name: string; slug: string; id: number; selecte
           width={16}
           height={16}
         ></Image>
-        <Text>{props.name}</Text>
+        <Text fontWeight={`${props.selectedSport !== null && props.selectedSport === props.name ? 'bold' : 'normal'}`}>
+          {props.name}
+        </Text>
       </Flex>
       {props.selectedSport !== null && props.selectedSport === props.name ? (
         <Box minWidth="100%" h="4px" backgroundColor="var(--surface-surface-1)" borderRadius="2px"></Box>

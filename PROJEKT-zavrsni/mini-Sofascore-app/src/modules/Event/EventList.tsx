@@ -7,7 +7,8 @@ import { EventCell } from './EventCell'
 import { fullDaysInWeek } from '@/model/daysInWeek'
 import Image from 'next/image'
 import right from '../../../public/images/ic_pointer_right@2x.png'
-import { DateNavigation } from '@/components/DateNavigation2'
+import { DateNavigation } from '@/components/DateNavigation'
+
 //import useSWR from 'swr'
 //import { useSlugContext } from '@/context/SlugContext'
 
@@ -17,14 +18,13 @@ export function EventList(props: { leagues: Leagues[]; selSlug: string; date: st
     return format
   }*/
 
-  //const { slug } = useSlugContext()
-
   const formattingDate = () => {
     const format = new Date(props.date)
     return format
   }
 
   const [currentDate, setCurrentDate] = useState<Date>(formattingDate)
+
   /*
   const settingDate = (currDate: Date) => {
     setCurrentDate(new Date(currDate))
@@ -92,11 +92,12 @@ export function EventList(props: { leagues: Leagues[]; selSlug: string; date: st
             <Text>{country.name}</Text>
             <Image src={right} alt="icon right" width={24} height={24}></Image>
             <Text color="var(--on-surface-on-surface-lv-2)">{name}</Text>
-
-            {props.data !== undefined && props.data?.length > 0 ? null : (
-              <Text color="var(--on-surface-on-surface-lv-2)"> - No match</Text>
-            )}
           </Flex>
+          {props.data !== undefined && props.data?.length > 0 ? null : (
+            <Text fontSize="14px" fontWeight="bold" color="var(--on-surface-on-surface-lv-2)" p="20px 16px">
+              No match
+            </Text>
+          )}
           {props.data?.map(event => (
             <Box
               key={event.id}

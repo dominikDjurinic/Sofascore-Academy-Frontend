@@ -10,6 +10,7 @@ import { LeaguesPanel } from '@/modules/Leagues'
 import { Box, Flex } from '@kuma-ui/core'
 import { GetServerSideProps } from 'next'
 import { useEffect } from 'react'
+import Head from 'next/head'
 
 export default function Home(props: {
   selSlug: string
@@ -23,12 +24,24 @@ export default function Home(props: {
   const { setSlug } = useSlugContext()
 
   useEffect(() => {
-    document.title = 'Sofascore - ' + props.selectedSport
     setSlug(props.selSlug)
   }, [props.selectedSport])
 
+  const setTitle = () => {
+    if (props.selSlug === 'football') {
+      return `Football⚽ | Sofascore`
+    } else if (props.selSlug === 'basketball') {
+      return `Basketball🏀 | Sofascore`
+    } else {
+      return `American-Football🏈 | Sofascore`
+    }
+  }
+
   return (
     <>
+      <Head>
+        <title>{setTitle()}</title>
+      </Head>
       <Box as="main">
         <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
         <Box h="48px" w="100%"></Box>

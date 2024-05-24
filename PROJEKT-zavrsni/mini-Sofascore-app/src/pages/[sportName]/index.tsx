@@ -11,6 +11,7 @@ import { EventList } from '@/modules/Event/EventList'
 import { EventWidget } from '@/modules/Event/EventWidget'
 import { SportDateEvent } from '@/model/events'
 import { useSlugContext } from '@/context/SlugContext'
+import Head from 'next/head'
 
 export default function Sports(props: {
   selectedSport: string
@@ -26,13 +27,25 @@ export default function Sports(props: {
   const [selectedSlug, setSelectedSlug] = useState(props.selSlug)
 
   useEffect(() => {
-    document.title = 'Sofascore - ' + props.selectedSport
     setSelectedSlug(props.selSlug)
     setSlug(props.selSlug)
   }, [props.selectedSport])
 
+  const setTitle = () => {
+    if (props.selSlug === 'football') {
+      return `Football⚽ | Sofascore`
+    } else if (props.selSlug === 'basketball') {
+      return `Basketball🏀 | Sofascore`
+    } else {
+      return `American-Football🏈 | Sofascore`
+    }
+  }
+
   return (
     <>
+      <Head>
+        <title>{setTitle()}</title>
+      </Head>
       <Box as="main">
         <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
         <Box h="48px" w="100%"></Box>

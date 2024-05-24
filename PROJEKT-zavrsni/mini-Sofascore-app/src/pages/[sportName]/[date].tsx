@@ -8,7 +8,8 @@ import { LeaguesPanel } from '@/modules/Leagues'
 import { EventList } from '@/modules/Event/EventList'
 import { EventWidget } from '@/modules/Event/EventWidget'
 import Footer from '@/modules/Footer'
-import { useEffect } from 'react'
+import Head from 'next/head'
+import { useSlugContext } from '@/context/SlugContext'
 
 export default function DateEvent(props: {
   events: SportDateEvent[]
@@ -19,14 +20,23 @@ export default function DateEvent(props: {
   selDate: string
 }) {
   const { mobileWindowSize } = useWindowSizeContext()
+  const { slug } = useSlugContext()
 
-  console.log(props.selDate)
-  useEffect(() => {
-    document.title = 'Sofascore - ' + props.selectedSport
-  }, [props.selDate])
+  const setTitle = () => {
+    if (slug === 'football') {
+      return `Football⚽ | Sofascore`
+    } else if (slug === 'basketball') {
+      return `Basketball🏀 | Sofascore`
+    } else {
+      return `American-Football🏈 | Sofascore`
+    }
+  }
 
   return (
     <>
+      <Head>
+        <title>{setTitle()}</title>
+      </Head>
       <Box as="main" minHeight="100vh" position="relative">
         <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
         <Box h="48px" w="100%"></Box>

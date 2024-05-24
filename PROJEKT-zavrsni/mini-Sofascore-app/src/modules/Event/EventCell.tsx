@@ -39,7 +39,7 @@ export function EventCell(props: { event: SportDateEvent }) {
         <VStack justify="center">
           <Flex gap="8px" alignItems="center" p="5px 0px">
             <Image
-              src={`/api/team/${props.event.homeTeam.id}/image`}
+              src={`https://academy-backend.sofascore.dev/team/${props.event.homeTeam.id}/image`}
               alt="league logo"
               width={16}
               height={16}
@@ -53,7 +53,7 @@ export function EventCell(props: { event: SportDateEvent }) {
           </Flex>
           <Flex gap="8px" alignItems="center" p="5px 0px">
             <Image
-              src={`/api/team/${props.event.awayTeam.id}/image`}
+              src={`https://academy-backend.sofascore.dev/team/${props.event.awayTeam.id}/image`}
               alt="league logo"
               width={16}
               height={16}

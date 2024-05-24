@@ -6,6 +6,17 @@ const nextConfig = {
   rewrites: async () => {
     return [{ source: '/api/:path*', destination: 'https://academy-backend.sofascore.dev/:path*' }]
   },
+  images: {
+    //images load optimization
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'academy-backend.sofascore.dev',
+        port: '',
+      },
+    ],
+  },
 }
 
 export default withKumaUI(nextConfig)

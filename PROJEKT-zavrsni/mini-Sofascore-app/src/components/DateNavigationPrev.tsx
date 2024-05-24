@@ -1,49 +1,56 @@
 import { Text, Flex, VStack, Box } from '@kuma-ui/core'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import left from '../../public/images/ic_left.png'
 import right from '../../public/images/ic_right.png'
 import { daysInWeek } from '@/model/daysInWeek'
-import { useRouter } from 'next/router'
-import { useSlugContext } from '@/context/SlugContext'
 
 // eslint-disable-next-line no-unused-vars
-export function DateNavigation(props: { date: string }) {
-  const router = useRouter()
+export function DateNavigation(props: { currentDate: (currDate: Date) => void }) {
+  const today = new Date()
   const days = daysInWeek
-
-  const [centralDate, setCentralDate] = useState<Date>(new Date(props.date))
-
-  const { slug } = useSlugContext()
-
-  const formattingDate = (date: Date) => {
-    const format = date.toISOString().split('T')[0]
-    return format
-  }
 
   const initialDates = () => {
     let dates: Date[] = []
 
-    let prevDate: Date = new Date(props.date) //uzima novi central date
-    prevDate.setDate(new Date(props.date).getDate() - 3)
-
-    setCentralDate(new Date(props.date))
+    let prevDate: Date = today //uzima novi central date
+    prevDate.setDate(prevDate.getDate() - 3)
 
     for (let i = 0; i < 7; ++i) {
-      let nextDate: Date = new Date(prevDate)
-      nextDate.setDate(new Date(nextDate).getDate() + i)
-      dates.push(new Date(nextDate))
+      let nextDate: Date = new Date()
+      nextDate.setDate(prevDate.getDate() + i)
+      dates.push(nextDate)
     }
     return dates
   }
 
-  const [newDates] = useState<Date[]>(() => initialDates())
+  const [newDates, setNewDates] = useState<Date[]>(() => initialDates())
+  const [centralDate, setCentralDate] = useState<Date>(new Date())
 
   const newDatesFunc = (next: number) => {
-    let nextDate: Date = new Date(props.date)
-    nextDate.setDate(new Date(props.date).getDate() + next)
-    router.push(`/${slug}/${formattingDate(nextDate)}`)
+    let dates: Date[] = []
+
+    let centralDateNew: Date = new Date(centralDate)
+
+    centralDateNew.setDate(centralDateNew.getDate() + next) //novi central date +1 ili -1 ili 0 inicijalno
+
+    setCentralDate(new Date(centralDateNew))
+
+    let prevDate: Date = new Date(centralDateNew) //uzima novi central date
+    prevDate.setDate(prevDate.getDate() - 3)
+
+    for (let i = 0; i < 7; ++i) {
+      let nextDate: Date = new Date(prevDate)
+      nextDate.setDate(nextDate.getDate() + i)
+      dates.push(new Date(nextDate))
+    }
+
+    setNewDates(dates)
   }
+
+  useEffect(() => {
+    props.currentDate(new Date(centralDate))
+  }, [centralDate])
 
   return (
     <Flex
