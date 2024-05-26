@@ -13,19 +13,6 @@ export function EventCell(props: { event: SportDateEvent }) {
     }
   }
 
-  const whoWon = () => {
-    if (props.event.homeScore.total > props.event.awayScore.total) {
-      return 2
-    } else if (props.event.homeScore.total < props.event.awayScore.total) {
-      return 1
-    } else if (
-      props.event.homeScore.total === props.event.awayScore.total &&
-      props.event.homeScore.total !== undefined
-    ) {
-      return 3
-    }
-  }
-
   return (
     <Flex alignItems="center" gap="3px" h="fit-content">
       <VStack justify="center" alignItems="center" padding="10px 10px" color="var(--on-surface-on-surface-lv-2)">
@@ -46,7 +33,7 @@ export function EventCell(props: { event: SportDateEvent }) {
               priority
             ></Image>
             <Text
-              color={`${whoWon() === 1 || whoWon() === 3 ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+              color={`${props.event.winnerCode === 'away' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
             >
               {props.event.homeTeam.name}
             </Text>
@@ -60,7 +47,7 @@ export function EventCell(props: { event: SportDateEvent }) {
               priority
             ></Image>
             <Text
-              color={`${whoWon() === 2 || whoWon() === 3 ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+              color={`${props.event.winnerCode === 'home' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
             >
               {props.event.awayTeam.name}
             </Text>
@@ -68,13 +55,13 @@ export function EventCell(props: { event: SportDateEvent }) {
         </VStack>
         <VStack justify="center" padding="0px 10px">
           <Text
-            color={`${whoWon() === 1 || whoWon() === 3 ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+            color={`${props.event.winnerCode === 'away' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
             p="5px 0px"
           >
             {props.event.homeScore.total}
           </Text>
           <Text
-            color={`${whoWon() === 2 || whoWon() === 3 ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+            color={`${props.event.winnerCode === 'home' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
             p="5px 0px"
           >
             {props.event.awayScore.total}

@@ -8,11 +8,19 @@ import { fullDaysInWeek } from '@/model/daysInWeek'
 import Image from 'next/image'
 import right from '../../../public/images/ic_pointer_right@2x.png'
 import { DateNavigation } from '@/components/DateNavigation'
+import { useWidgetContext } from '@/context/OpenedWidgetContext'
 
 //import useSWR from 'swr'
 //import { useSlugContext } from '@/context/SlugContext'
 
-export function EventList(props: { leagues: Leagues[]; selSlug: string; date: string; data: SportDateEvent[] }) {
+export function EventList(props: {
+  leagues: Leagues[]
+  selSlug: string
+  date: string
+  data: SportDateEvent[]
+  // eslint-disable-next-line no-unused-vars
+  id: (id: number) => void
+}) {
   /*const formattingDate = () => {
     const format = currentDate.toISOString().split('T')[0]
     return format
@@ -24,6 +32,8 @@ export function EventList(props: { leagues: Leagues[]; selSlug: string; date: st
   }
 
   const [currentDate, setCurrentDate] = useState<Date>(formattingDate)
+  const [clickedCell, setClickedCell] = useState<number | undefined>(undefined)
+  const { openedWidget, setOpenedWidget } = useWidgetContext()
 
   /*
   const settingDate = (currDate: Date) => {
@@ -105,6 +115,12 @@ export function EventList(props: { leagues: Leagues[]; selSlug: string; date: st
               _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
               cursor="pointer"
               fontSize="14px"
+              onClick={() => {
+                props.id(event.id)
+                setClickedCell(event.id)
+                setOpenedWidget(true)
+              }}
+              backgroundColor={`${clickedCell === event.id && openedWidget ? 'var(--color-primary-highlight)' : 'var(--surface-surface-1)'}`}
             >
               {checkTournamentId(event.tournament.id, id) === true ? <EventCell event={event} /> : null}
             </Box>

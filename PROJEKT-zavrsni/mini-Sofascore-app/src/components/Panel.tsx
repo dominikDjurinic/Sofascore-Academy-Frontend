@@ -1,10 +1,13 @@
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { VStack } from '@kuma-ui/core'
 import { PropsWithChildren } from 'react'
 
 export function Panel({ children }: PropsWithChildren) {
+  const { mobileWindowSize } = useWindowSizeContext()
+
   return (
     <VStack
-      minWidth="30%"
+      minWidth={`${mobileWindowSize ? '60%' : '30%'}`}
       borderRadius="16px"
       bgColor="var(--surface-surface-1)"
       boxShadow="1px 1px rgba(0, 0, 0, 0.08)"

@@ -3,12 +3,14 @@ import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { Box, Flex, Text, VStack } from '@kuma-ui/core'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import { useWidgetContext } from '@/context/OpenedWidgetContext'
 
 export function TabIcon(props: { name: string; slug: string; id: number; selectedSport: string | null }) {
   const router = useRouter()
 
   const { mobileWindowSize } = useWindowSizeContext()
   const { isDark } = useThemeContext()
+  const { setOpenedWidget } = useWidgetContext()
 
   const changeRoute = (slug: string) => {
     if (slug != 'football') router.push(`/${slug}`)
@@ -33,6 +35,10 @@ export function TabIcon(props: { name: string; slug: string; id: number; selecte
     },
   ]
 
+  const closeWidget = () => {
+    setOpenedWidget(false)
+  }
+
   return (
     <VStack>
       <Flex
@@ -43,7 +49,10 @@ export function TabIcon(props: { name: string; slug: string; id: number; selecte
         justify="center"
         alignItems="center"
         gap="4px"
-        onClick={() => changeRoute(props.slug)}
+        onClick={() => {
+          closeWidget()
+          changeRoute(props.slug)
+        }}
         flexDirection={`${mobileWindowSize ? 'column' : 'row'}`}
       >
         <Image

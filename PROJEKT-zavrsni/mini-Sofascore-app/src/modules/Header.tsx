@@ -11,10 +11,12 @@ import { useRouter } from 'next/router'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { useThemeContext } from '@/context/ThemeContext'
 import { TabIcon } from '@/components/TabIcon'
+import { useWidgetContext } from '@/context/OpenedWidgetContext'
 
 export function Header(props: { selectedSport: string | null; sports: SportInfo[] | null; homePage: boolean }) {
   const { mobileWindowSize } = useWindowSizeContext()
   const { isDark } = useThemeContext()
+  const { setOpenedWidget } = useWidgetContext()
 
   const router = useRouter()
 
@@ -24,6 +26,10 @@ export function Header(props: { selectedSport: string | null; sports: SportInfo[
 
   const changeRoute = (path: string) => {
     router.push(`/${path}`)
+  }
+
+  const closeWidget = () => {
+    setOpenedWidget(false)
   }
 
   return (
@@ -36,7 +42,15 @@ export function Header(props: { selectedSport: string | null; sports: SportInfo[
         position="relative"
         paddingLeft={`${mobileWindowSize ? '16px' : '0px'}`}
       >
-        <Box cursor="pointer" w="fit-content" h="fit-content" onClick={() => homeRoute()}>
+        <Box
+          cursor="pointer"
+          w="fit-content"
+          h="fit-content"
+          onClick={() => {
+            closeWidget()
+            homeRoute()
+          }}
+        >
           <Image src={isDark ? logo2 : logo1} alt="logo icon" width={132} height={20}></Image>
         </Box>
         <Flex right="4px" position="absolute">
@@ -45,7 +59,14 @@ export function Header(props: { selectedSport: string | null; sports: SportInfo[
               <Image src={isDark ? trophy2 : trophy1} alt="icon trophy" width={24} height={24}></Image>
             </Box>
           ) : null}
-          <Box p="12px" cursor="pointer" onClick={() => changeRoute('settings')}>
+          <Box
+            p="12px"
+            cursor="pointer"
+            onClick={() => {
+              closeWidget()
+              changeRoute('settings')
+            }}
+          >
             <Image src={isDark ? settings2 : settings1} alt="icon settings" width={24} height={24}></Image>
           </Box>
         </Flex>

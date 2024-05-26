@@ -6,6 +6,7 @@ import right from '../../public/images/ic_right.png'
 import { daysInWeek } from '@/model/daysInWeek'
 import { useRouter } from 'next/router'
 import { useSlugContext } from '@/context/SlugContext'
+import { useWidgetContext } from '@/context/OpenedWidgetContext'
 
 // eslint-disable-next-line no-unused-vars
 export function DateNavigation(props: { date: string }) {
@@ -15,6 +16,7 @@ export function DateNavigation(props: { date: string }) {
   const [centralDate, setCentralDate] = useState<Date>(new Date(props.date))
 
   const { slug } = useSlugContext()
+  const { setOpenedWidget } = useWidgetContext()
 
   const formattingDate = (date: Date) => {
     const format = date.toISOString().split('T')[0]
@@ -66,7 +68,10 @@ export function DateNavigation(props: { date: string }) {
         position="absolute"
         left="0px"
         cursor="pointer"
-        onClick={() => newDatesFunc(-1)}
+        onClick={() => {
+          newDatesFunc(-1)
+          setOpenedWidget(false)
+        }}
         p="4px"
         bgColor="var(--surface-surface-1)"
         justifyContent="center"
@@ -81,7 +86,10 @@ export function DateNavigation(props: { date: string }) {
         position="absolute"
         right="0px"
         cursor="pointer"
-        onClick={() => newDatesFunc(1)}
+        onClick={() => {
+          newDatesFunc(1)
+          setOpenedWidget(false)
+        }}
         p="4px"
         bgColor="var(--surface-surface-1)"
         justifyContent="center"

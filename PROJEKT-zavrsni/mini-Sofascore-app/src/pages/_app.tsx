@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app'
 import { SWRConfig } from 'swr'
 import { WindowSizeContextProvider } from '@/context/WindowSizeContext'
 import { SlugContextProvider } from '@/context/SlugContext'
+import { WidgetContextProvider } from '@/context/OpenedWidgetContext'
 
 //@ts-ignore
 export const fetcher = (...args) =>
@@ -19,13 +20,15 @@ export const fetcher = (...args) =>
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SWRConfig value={{ fetcher }}>
-      <SlugContextProvider>
-        <WindowSizeContextProvider>
-          <ThemeContextProvider>
-            <Component {...pageProps} />
-          </ThemeContextProvider>
-        </WindowSizeContextProvider>
-      </SlugContextProvider>
+      <WidgetContextProvider>
+        <SlugContextProvider>
+          <WindowSizeContextProvider>
+            <ThemeContextProvider>
+              <Component {...pageProps} />
+            </ThemeContextProvider>
+          </WindowSizeContextProvider>
+        </SlugContextProvider>
+      </WidgetContextProvider>
     </SWRConfig>
   )
 }

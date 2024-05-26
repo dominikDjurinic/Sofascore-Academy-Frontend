@@ -8,10 +8,13 @@ import { useEffect, useState } from 'react'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { LeaguesPanel } from '@/modules/Leagues'
 import { EventList } from '@/modules/Event/EventList'
-import { EventWidget } from '@/modules/Event/EventWidget'
+import { EventWidget } from '@/modules/Details Event/EventWidget'
 import { SportDateEvent } from '@/model/events'
 import { useSlugContext } from '@/context/SlugContext'
 import Head from 'next/head'
+import { setTitle } from '@/utils/setTitle'
+import { useWidgetContext } from '@/context/OpenedWidgetContext'
+import { Advertisement } from '@/modules/Advertisement'
 
 export default function Sports(props: {
   selectedSport: string
@@ -22,7 +25,8 @@ export default function Sports(props: {
   date: string
 }) {
   const { mobileWindowSize } = useWindowSizeContext()
-  const { setSlug } = useSlugContext()
+  const { slug, setSlug } = useSlugContext()
+  const { openedWidget } = useWidgetContext()
 
   const [selectedSlug, setSelectedSlug] = useState(props.selSlug)
 
@@ -31,28 +35,32 @@ export default function Sports(props: {
     setSlug(props.selSlug)
   }, [props.selectedSport])
 
-  const setTitle = () => {
-    if (props.selSlug === 'football') {
-      return `Football⚽ | Sofascore`
-    } else if (props.selSlug === 'basketball') {
-      return `Basketball🏀 | Sofascore`
-    } else {
-      return `American-Football🏈 | Sofascore`
-    }
+  const [id, setId] = useState(0)
+
+  const openWidget = (id: number) => {
+    setId(id)
   }
 
   return (
     <>
       <Head>
-        <title>{setTitle()}</title>
+        <title>{setTitle(slug)}</title>
       </Head>
-      <Box as="main">
+      <Box as="main" position="relative" minHeight="100vh">
         <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
         <Box h="48px" w="100%"></Box>
         <Flex justifyContent="center" gap="24px" paddingBottom="130px">
           {mobileWindowSize ? null : <LeaguesPanel selectedSport={props.selSlug} leagues={props.leagues} />}
-          <EventList leagues={props.leagues} selSlug={selectedSlug} data={props.events} date={props.date} />
-          {mobileWindowSize ? null : <EventWidget />}
+          <EventList
+            leagues={props.leagues}
+            selSlug={selectedSlug}
+            data={props.events}
+            date={props.date}
+            id={openWidget}
+          />
+          {mobileWindowSize ? null : (
+            <>{openedWidget === false ? <Advertisement /> : <EventWidget id={id} detailPage={false} />}</>
+          )}
         </Flex>
         <Footer />
       </Box>
