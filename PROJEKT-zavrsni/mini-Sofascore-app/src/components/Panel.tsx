@@ -7,7 +7,7 @@ export function Panel({ children }: PropsWithChildren) {
 
   return (
     <VStack
-      minWidth={`${mobileWindowSize ? '60%' : '30%'}`}
+      width={`${mobileWindowSize ? '90%' : '30%'}`}
       borderRadius="16px"
       bgColor="var(--surface-surface-1)"
       boxShadow="1px 1px rgba(0, 0, 0, 0.08)"

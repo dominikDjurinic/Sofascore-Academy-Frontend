@@ -29,7 +29,13 @@ export default function Match(props: {
         <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
         <Box h="48px" w="100%"></Box>
         <Flex justifyContent="center" gap="24px" paddingBottom="130px">
-          {mobileWindowSize ? null : <LeaguesPanel selectedSport={props.selectedSport} leagues={props.leagues} />}
+          {mobileWindowSize ? null : (
+            <LeaguesPanel
+              selectedSport={props.selectedSport}
+              leagues={props.leagues}
+              selLeagueId={props.data.tournament.id}
+            />
+          )}
           <EventWidget id={props.matchId} detailPage={true} />
           {mobileWindowSize ? null : <Advertisement />}
         </Flex>

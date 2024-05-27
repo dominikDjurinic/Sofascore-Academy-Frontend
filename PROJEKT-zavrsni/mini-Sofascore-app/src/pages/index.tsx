@@ -48,7 +48,9 @@ export default function Home(props: {
         <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
         <Box h="48px" w="100%"></Box>
         <Flex justifyContent="center" gap="24px" paddingBottom="130px">
-          {mobileWindowSize ? null : <LeaguesPanel selectedSport={props.selSlug} leagues={props.leagues} />}
+          {mobileWindowSize ? null : (
+            <LeaguesPanel selectedSport={props.selSlug} leagues={props.leagues} selLeagueId={undefined} />
+          )}
           <EventList
             leagues={props.leagues}
             selSlug={props.selSlug}

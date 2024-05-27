@@ -7,8 +7,8 @@ export function Advertisement() {
   return (
     <>
       <Panel>
-        <Box p="20px 16px">
-          <Text fontSize="12px" color="var(--on-surface-on-surface-lv-2)">
+        <Box>
+          <Text p="10px 10px" fontSize="12px" color="var(--on-surface-on-surface-lv-2)">
             ADVERTISEMENT
           </Text>
           <Flex justify="center" p="20px 0px" position="relative">
@@ -16,7 +16,7 @@ export function Advertisement() {
             <Link
               position="absolute"
               bottom="25px"
-              right="23%"
+              right="30%"
               href="https://corporate.sofascore.com/hr/sofascore-academy"
             >
               <Button

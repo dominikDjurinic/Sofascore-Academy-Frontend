@@ -1,14 +1,32 @@
+import { Panel } from '@/components/Panel'
 import { useThemeContext } from '@/context/ThemeContext'
+import { SportInfo } from '@/model/sports'
 import Footer from '@/modules/Footer'
 import { Header } from '@/modules/Header'
 import { Box, Button, Flex, VStack, Text } from '@kuma-ui/core'
+import { GetServerSideProps } from 'next'
+import Head from 'next/head'
 
-export default function Settings() {
+export default function Settings(props: { sports: SportInfo[] }) {
   const { isDark, setIsDark } = useThemeContext()
   return (
     <>
-      <Header selectedSport={null} sports={null} homePage={false} />
+      <Head>
+        <title>Settings⚙️ | Sofascore</title>
+      </Head>
+      <Header selectedSport={'football'} sports={props.sports} homePage={true} />
       <Box h="48px" w="100%"></Box>
+      <Panel>
+        <Box p="20px 16px" fontSize="20px" fontWeight="bold" color="var(--on-surface-on-surface-lv-1)">
+          Settings
+        </Box>
+        <VStack>
+          <Box p="20px 16px" fontSize="20px" fontWeight="bold" color="var(--on-surface-on-surface-lv-1)">
+            Settings
+          </Box>
+          <Flex></Flex>
+        </VStack>
+      </Panel>
       <Flex justifyContent="center">
         <VStack
           minWidth="40%"
@@ -45,4 +63,26 @@ export default function Settings() {
       <Footer />
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { res } = context
+  //console.log(params?.date)
+
+  try {
+    //@ts-ignore
+
+    const res = await fetch(`https://academy-backend.sofascore.dev/sports`)
+
+    const detail: SportInfo[] = await res.json()
+
+    const sports: SportInfo[] = detail
+
+    return {
+      props: { sports },
+    }
+  } catch (error) {
+    res.statusCode = 404
+    return { notFound: true }
+  }
 }

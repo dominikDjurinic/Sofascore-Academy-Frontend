@@ -2,11 +2,14 @@ import { Text, Flex, VStack, Box } from '@kuma-ui/core'
 import Image from 'next/image'
 import { useState } from 'react'
 import left from '../../public/images/ic_left.png'
-import right from '../../public/images/ic_right.png'
+import leftLight from '../../public/images/ic_leftLight.png'
+import right from '../../public/images/IconBlueRight@2x.png'
+import rightLight from '../../public/images/IconBlueRightLight@2x.png'
 import { daysInWeek } from '@/model/daysInWeek'
 import { useRouter } from 'next/router'
 import { useSlugContext } from '@/context/SlugContext'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
+import { useThemeContext } from '@/context/ThemeContext'
 
 // eslint-disable-next-line no-unused-vars
 export function DateNavigation(props: { date: string }) {
@@ -17,6 +20,7 @@ export function DateNavigation(props: { date: string }) {
 
   const { slug } = useSlugContext()
   const { setOpenedWidget } = useWidgetContext()
+  const { isDark } = useThemeContext()
 
   const formattingDate = (date: Date) => {
     const format = date.toISOString().split('T')[0]
@@ -72,14 +76,14 @@ export function DateNavigation(props: { date: string }) {
           newDatesFunc(-1)
           setOpenedWidget(false)
         }}
-        p="4px"
+        p="10px"
         bgColor="var(--surface-surface-1)"
         justifyContent="center"
         alignItems="center"
         borderRadius="2px"
         _hover={{ backgroundColor: 'var(--on-color-on-color-secondary)' }}
       >
-        <Image src={left} alt="iconLeft" width={24} height={24}></Image>
+        <Image src={isDark ? leftLight : left} alt="iconLeft" width={14} height={14}></Image>
       </Flex>
       <Flex
         m="8px"
@@ -90,14 +94,14 @@ export function DateNavigation(props: { date: string }) {
           newDatesFunc(1)
           setOpenedWidget(false)
         }}
-        p="4px"
+        p="10px"
         bgColor="var(--surface-surface-1)"
         justifyContent="center"
         alignItems="center"
         borderRadius="2px"
         _hover={{ backgroundColor: 'var(--on-color-on-color-secondary)' }}
       >
-        <Image src={right} alt="iconRight" width={24} height={24}></Image>
+        <Image src={isDark ? rightLight : right} alt="iconRight" width={14} height={14}></Image>
       </Flex>
       {newDates?.map(date => (
         <VStack key={date.toUTCString()}>

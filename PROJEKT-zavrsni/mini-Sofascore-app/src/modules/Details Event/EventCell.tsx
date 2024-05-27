@@ -49,7 +49,9 @@ export function EventCell(props: { event?: SportDateEvent | undefined }) {
               >
                 {props.event?.homeScore.total}
               </Text>
-              <Text fontSize="32px">-</Text>
+              <Text fontSize="32px" color="var(--on-surface-on-surface-lv-1)">
+                -
+              </Text>
               <Text
                 color={`${props.event?.winnerCode === 'home' || props.event?.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
                 fontSize="32px"
@@ -61,7 +63,7 @@ export function EventCell(props: { event?: SportDateEvent | undefined }) {
           )}
 
           {setEventStatus(props.event?.status) === '-' ? (
-            <VStack alignItems="center" fontSize="12px">
+            <VStack alignItems="center" fontSize="12px" color="var(--on-surface-on-surface-lv-1)">
               <Text>
                 {props.event !== undefined &&
                   new Date(props.event?.startDate).getDate() +
@@ -77,7 +79,9 @@ export function EventCell(props: { event?: SportDateEvent | undefined }) {
               </Text>
             </VStack>
           ) : (
-            <Text fontSize="12px">{setEventStatus(props.event?.status)}</Text>
+            <Text fontSize="12px" color="var(--on-surface-on-surface-lv-2)">
+              {setEventStatus(props.event?.status)}
+            </Text>
           )}
         </Flex>
         <VStack gap="8px" alignItems="center" justify="center" w="96px" h="auto">

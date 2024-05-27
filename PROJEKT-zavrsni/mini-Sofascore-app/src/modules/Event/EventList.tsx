@@ -9,6 +9,9 @@ import Image from 'next/image'
 import right from '../../../public/images/ic_pointer_right@2x.png'
 import { DateNavigation } from '@/components/DateNavigation'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
+import { useRouter } from 'next/router'
+import { formatName } from '@/utils/formatPathName'
 
 //import useSWR from 'swr'
 //import { useSlugContext } from '@/context/SlugContext'
@@ -31,6 +34,8 @@ export function EventList(props: {
     return format
   }
 
+  const router = useRouter()
+  const { mobileWindowSize } = useWindowSizeContext()
   const [currentDate, setCurrentDate] = useState<Date>(formattingDate)
   const [clickedCell, setClickedCell] = useState<number | undefined>(undefined)
   const { openedWidget, setOpenedWidget } = useWidgetContext()
@@ -118,7 +123,13 @@ export function EventList(props: {
               onClick={() => {
                 props.id(event.id)
                 setClickedCell(event.id)
-                setOpenedWidget(true)
+                if (mobileWindowSize) {
+                  router.push(
+                    `/tournament/${event.tournament.sport.slug}/${event.tournament.name}/${formatName(event.homeTeam.name, event.awayTeam.name)}/${event.id}`
+                  )
+                } else {
+                  setOpenedWidget(true)
+                }
               }}
               backgroundColor={`${clickedCell === event.id && openedWidget ? 'var(--color-primary-highlight)' : 'var(--surface-surface-1)'}`}
             >
