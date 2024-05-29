@@ -5,7 +5,7 @@ import Image from 'next/image'
 export function EventCell(props: { event: SportDateEvent }) {
   const setEventStatus = (eventStatus: string) => {
     if (eventStatus === 'inprogress') {
-      return 'IP'
+      return 'Live'
     } else if (eventStatus === 'finished') {
       return 'FT'
     } else {
@@ -19,7 +19,9 @@ export function EventCell(props: { event: SportDateEvent }) {
         <Text>
           {new Date(props.event.startDate).toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit' })}
         </Text>
-        <Text>{setEventStatus(props.event.status)}</Text>
+        <Text color={`${props.event.status === 'inprogress' ? 'var(--specific-live)' : null}`}>
+          {setEventStatus(props.event.status)}
+        </Text>
       </VStack>
       <Box minWidth="1px" h="40px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>
       <Flex width="100%" justify="space-between" padding="10px">
@@ -55,13 +57,13 @@ export function EventCell(props: { event: SportDateEvent }) {
         </VStack>
         <VStack justify="center" padding="0px 10px">
           <Text
-            color={`${props.event.winnerCode === 'away' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+            color={`${props.event.winnerCode === 'away' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : props.event.status === 'inprogress' ? 'var(--specific-live)' : 'var(--on-surface-on-surface-lv-1)'}`}
             p="5px 0px"
           >
             {props.event.homeScore.total}
           </Text>
           <Text
-            color={`${props.event.winnerCode === 'home' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+            color={`${props.event.winnerCode === 'home' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : props.event.status === 'inprogress' ? 'var(--specific-live)' : 'var(--on-surface-on-surface-lv-1)'}`}
             p="5px 0px"
           >
             {props.event.awayScore.total}

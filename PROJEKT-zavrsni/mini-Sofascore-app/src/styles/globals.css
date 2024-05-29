@@ -21,6 +21,7 @@
     --status-alert: #d8b127;
     --status-success: #1da86d;
     --specific-live: #e93030;
+    --form-color:#F2F5FA;
 }
 
 .dark {
@@ -46,6 +47,7 @@
     --status-alert: #ecca51;
     --status-success: #30b87f;
     --specific-live: #f14b4b;
+    --form-color:#14161B;
 }
 
 * {

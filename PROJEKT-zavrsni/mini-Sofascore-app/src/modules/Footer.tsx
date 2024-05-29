@@ -31,7 +31,7 @@ export default function Footer() {
           <Image src={isDark ? logo1 : logo2} alt="logo icon" width={132} height={20}></Image>
         </Box>
         <Text color="var(--on-surface-on-surface-lv-2)" fontSize="12px">
-          © 2023 Sofascore – All Rights Reserved.
+          © 2024 Sofascore – All Rights Reserved.
         </Text>
       </VStack>
     </>

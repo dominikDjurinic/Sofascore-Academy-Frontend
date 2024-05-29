@@ -7,11 +7,13 @@ import { EventCell } from './EventCell'
 import { fullDaysInWeek } from '@/model/daysInWeek'
 import Image from 'next/image'
 import right from '../../../public/images/ic_pointer_right@2x.png'
+import rightLight from '../../../public/images/ic_pointer_rightLight@2x.png'
 import { DateNavigation } from '@/components/DateNavigation'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { useRouter } from 'next/router'
 import { formatName } from '@/utils/formatPathName'
+import { useThemeContext } from '@/context/ThemeContext'
 
 //import useSWR from 'swr'
 //import { useSlugContext } from '@/context/SlugContext'
@@ -36,6 +38,7 @@ export function EventList(props: {
 
   const router = useRouter()
   const { mobileWindowSize } = useWindowSizeContext()
+  const { isDark } = useThemeContext()
   const [currentDate, setCurrentDate] = useState<Date>(formattingDate)
   const [clickedCell, setClickedCell] = useState<number | undefined>(undefined)
   const { openedWidget, setOpenedWidget } = useWidgetContext()
@@ -105,7 +108,7 @@ export function EventList(props: {
           >
             <Image src={`/api/tournament/${id}/image`} alt="league logo" width={32} height={32}></Image>
             <Text>{country.name}</Text>
-            <Image src={right} alt="icon right" width={24} height={24}></Image>
+            <Image src={isDark ? rightLight : right} alt="icon right" width={15} height={15}></Image>
             <Text color="var(--on-surface-on-surface-lv-2)">{name}</Text>
           </Flex>
           {props.data !== undefined && props.data?.length > 0 ? null : (
