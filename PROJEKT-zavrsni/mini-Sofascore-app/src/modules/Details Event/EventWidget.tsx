@@ -11,6 +11,7 @@ import useSWR from 'swr'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { formatName } from '@/utils/formatPathName'
 import { useThemeContext } from '@/context/ThemeContext'
+import { EventIncidents } from './EventIncidents'
 
 export function EventWidget(props: { id: number | undefined; detailPage: boolean }) {
   const { data, error, isLoading } = useSWR<SportDateEvent, Error>(`/api/event/${props.id}`)
@@ -43,6 +44,7 @@ export function EventWidget(props: { id: number | undefined; detailPage: boolean
       ) : (
         <EventCell event={data} />
       )}
+      <EventIncidents eventId={props.id} />
     </Panel>
   )
 }

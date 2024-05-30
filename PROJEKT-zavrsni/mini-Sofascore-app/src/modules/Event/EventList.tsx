@@ -55,6 +55,7 @@ export function EventList(props: {
   //console.log(error)
 
   useEffect(() => {
+    console.log(props.date)
     setCurrentDate(formattingDate)
   }, [props.date])
 
@@ -64,6 +65,12 @@ export function EventList(props: {
     } else {
       return false
     }
+  }
+
+  const formatTodayDate = () => {
+    const formatToday = new Date()
+    formatToday.setHours(formatToday.getHours() + 2) //prilagodba datuma našoj vremenskoj zoni
+    return formatToday
   }
 
   return (
@@ -79,7 +86,8 @@ export function EventList(props: {
         gap="5px"
       >
         <Text>
-          {currentDate.getDate() === new Date().getDate() && currentDate.getMonth() === new Date().getMonth()
+          {currentDate.getDate() === formatTodayDate().getDate() &&
+          currentDate.getMonth() === formatTodayDate().getMonth()
             ? 'Today'
             : `${
                 fullDaysInWeek[currentDate.getDay()] +

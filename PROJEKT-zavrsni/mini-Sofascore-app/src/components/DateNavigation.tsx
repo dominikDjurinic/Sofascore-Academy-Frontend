@@ -45,10 +45,17 @@ export function DateNavigation(props: { date: string }) {
 
   const [newDates] = useState<Date[]>(() => initialDates())
 
+  const formatTodayDate = () => {
+    const formatToday = new Date()
+    formatToday.setHours(formatToday.getHours() + 2) //prilagodba datuma našoj vremenskoj zoni
+    return formatToday
+  }
+
   const newDatesFunc = (next: number) => {
     let nextDate: Date = new Date(props.date)
     nextDate.setDate(new Date(props.date).getDate() + next)
-    if (nextDate.getDate() === new Date().getDate() && nextDate.getMonth() === new Date().getMonth()) {
+
+    if (nextDate.getDate() === formatTodayDate().getDate() && nextDate.getMonth() === formatTodayDate().getMonth()) {
       if (slug === 'football') {
         router.push(`/`)
       } else {
@@ -115,10 +122,12 @@ export function DateNavigation(props: { date: string }) {
           >
             <Text
               fontWeight={`${
-                date.getDate() === new Date().getDate() && date.getMonth() === new Date().getMonth() ? 'bold' : 'normal'
+                date.getDate() === formatTodayDate().getDate() && date.getMonth() === formatTodayDate().getMonth()
+                  ? 'bold'
+                  : 'normal'
               }`}
             >
-              {date.getDate() === new Date().getDate() && date.getMonth() === new Date().getMonth()
+              {date.getDate() === formatTodayDate().getDate() && date.getMonth() === formatTodayDate().getMonth()
                 ? 'TODAY'
                 : days[date.getDay()]}
             </Text>

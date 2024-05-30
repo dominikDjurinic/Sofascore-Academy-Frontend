@@ -72,8 +72,10 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const { res } = context
 
   const formattingDate = () => {
-    const format = new Date().toISOString().split('T')[0]
-    return format
+    const format = new Date()
+    format.setHours(format.getHours() + 2) //prilagodba datuma našoj vremenskoj zoni
+    const formatIso = format.toISOString().split('T')[0]
+    return formatIso
   }
 
   const today = formattingDate()
@@ -102,6 +104,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const events: SportDateEvent[] = detail
 
     const date = formattingDate()
+    console.log(date)
     return {
       props: { selSlug, selectedSport, sports, leagues, events, date },
     }
