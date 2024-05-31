@@ -8,7 +8,7 @@ interface ContextValue {
 const SlugContext = createContext<ContextValue>({} as ContextValue)
 
 export const SlugContextProvider = ({ children }: PropsWithChildren) => {
-  const [slug, setSlug] = useState('football')
+  const [slug, setSlug] = useState('')
 
   return <SlugContext.Provider value={{ slug, setSlug }}>{children}</SlugContext.Provider>
 }

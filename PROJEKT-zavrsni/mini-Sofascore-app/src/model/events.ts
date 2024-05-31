@@ -107,3 +107,18 @@ export interface TournamentEvent {
   winnerCode: string
   round: number
 }
+
+export interface TournamentDetails {
+  id: number
+  name: string
+  slug: string
+  sport: {
+    id: number
+    name: string
+    slug: string
+  }
+  country: {
+    id: number
+    name: string
+  }
+}

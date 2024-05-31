@@ -15,6 +15,11 @@ const nextConfig = {
         hostname: 'academy-backend.sofascore.dev',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.sofascore.com',
+        port: '',
+      },
     ],
   },
 }

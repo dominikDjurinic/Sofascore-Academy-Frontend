@@ -1,4 +1,6 @@
-import { Panel } from '@/components/Panel'
+import { HeadingPanel } from '@/components/HeadingPanel'
+//import { Panel } from '@/components/Panel'
+import { TournamentDetails } from '@/model/events'
 import { Leagues, SportInfo } from '@/model/sports'
 import Footer from '@/modules/Footer'
 import { Header } from '@/modules/Header'
@@ -6,29 +8,33 @@ import { LeaguesPanel } from '@/modules/Leagues'
 import { Box, Flex } from '@kuma-ui/core'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+//import Image from 'next/image'
 
 export default function LeaguePage(props: {
-  leagueName: string
   leagues: Leagues[]
   selectedSport: string
   sports: SportInfo[]
   selLeagueId: number
+  tournamentDetails: TournamentDetails
 }) {
+  const tabs = ['Matches', 'Standings']
+
   return (
     <>
       <Head>
-        <title>{props.leagueName} | Sofascore</title>
+        <title>{props.tournamentDetails.name} | Sofascore</title>
       </Head>
       <Box as="main" minHeight="100vh" position="relative">
         <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
         <Box h="48px" w="100%"></Box>
         <Flex justify="center" gap="24px" paddingBottom="130px">
           <LeaguesPanel leagues={props.leagues} selectedSport={props.selectedSport} selLeagueId={props.selLeagueId} />
-          <Panel>
-            <Box p="20px 16px" fontSize="20px" fontWeight="bold" color="var(--on-surface-on-surface-lv-1)">
-              {props.leagueName}
-            </Box>
-          </Panel>
+          <HeadingPanel
+            name={props.tournamentDetails.name}
+            country={props.tournamentDetails.country.name}
+            imageLogo={`https://academy-backend.sofascore.dev/tournament/${props.selLeagueId}/image`}
+            tabs={tabs}
+          />
         </Flex>
         <Footer />
       </Box>
@@ -60,8 +66,14 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const sports: SportInfo[] = detail
 
+    const resp3 = await fetch(`https://academy-backend.sofascore.dev/tournament/${selLeagueId}`)
+
+    const details3: TournamentDetails = await resp3.json()
+
+    const tournamentDetails: TournamentDetails = details3
+
     return {
-      props: { leagueName, leagues, selectedSport, sports, selLeagueId },
+      props: { leagues, selectedSport, sports, selLeagueId, tournamentDetails },
     }
   } catch (error) {
     res.statusCode = 404

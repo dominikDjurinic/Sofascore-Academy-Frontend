@@ -11,7 +11,7 @@ import Footer from '@/modules/Footer'
 import Head from 'next/head'
 import { useSlugContext } from '@/context/SlugContext'
 import { setTitle } from '@/utils/setTitle'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { Advertisement } from '@/modules/Advertisement'
 
@@ -20,12 +20,16 @@ export default function DateEvent(props: {
   selectedSport: string
   sports: SportInfo[]
   leagues: Leagues[]
-  selSLug: string
+  selSlug: string
   selDate: string
 }) {
   const { mobileWindowSize } = useWindowSizeContext()
-  const { slug } = useSlugContext()
+  const { slug, setSlug } = useSlugContext()
   const { openedWidget } = useWidgetContext()
+
+  useEffect(() => {
+    setSlug(props.selSlug)
+  }, [props.selSlug])
 
   const [id, setId] = useState<number | undefined>(undefined)
 
@@ -43,11 +47,11 @@ export default function DateEvent(props: {
         <Box h="48px" w="100%"></Box>
         <Flex justifyContent="center" gap="24px" paddingBottom="130px">
           {mobileWindowSize ? null : (
-            <LeaguesPanel selectedSport={props.selSLug} leagues={props.leagues} selLeagueId={undefined} />
+            <LeaguesPanel selectedSport={props.selSlug} leagues={props.leagues} selLeagueId={undefined} />
           )}
           <EventList
             leagues={props.leagues}
-            selSlug={props.selSLug}
+            selSlug={props.selSlug}
             data={props.events}
             date={props.selDate}
             id={openWidget}

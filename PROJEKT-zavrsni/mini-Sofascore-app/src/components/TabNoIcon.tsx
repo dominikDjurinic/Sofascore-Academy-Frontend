@@ -1,26 +1,53 @@
-import { Flex, Text } from '@kuma-ui/core'
-import { useRouter } from 'next/router'
+//import { useThemeContext } from '@/context/ThemeContext'
+//import { useWindowSizeContext } from '@/context/WindowSizeContext'
+import { Box, Flex, Text, VStack } from '@kuma-ui/core'
+//import { useRouter } from 'next/router'
 
-export function TabNoIcon(props: { name: string; path: string; id: number; selectedSport: string | null }) {
-  const router = useRouter()
+// eslint-disable-next-line no-unused-vars
+export function TabNoIcon(props: { name: string; selectedName: string | null; setSelectName: (data: string) => void }) {
+  //const router = useRouter()
 
-  const changeRoute = (path: string) => {
-    router.push(`/${path}`)
-  }
+  //const { mobileWindowSize } = useWindowSizeContext()
+  //const { isDark } = useThemeContext()
+
+  /*const changeRoute = (slug: string) => {
+    if (slug != 'football') router.push(`/${slug}`)
+    else router.push('/')
+  }*/
 
   return (
-    <Flex
-      cursor="pointer"
-      h="100%"
-      w="fit-content"
-      p="16px 8px"
-      justify="center"
-      alignItems="center"
-      gap="4px"
-      borderBottom={`${props.selectedSport !== null && props.selectedSport === props.name ? '4px solid var(--surface-surface-1)' : 'none'}`}
-      onClick={() => changeRoute(props.path)}
-    >
-      <Text>{props.name}</Text>
-    </Flex>
+    <VStack>
+      <Flex
+        cursor="pointer"
+        h="100%"
+        w="fit-content"
+        padding="16px 10px"
+        justify="center"
+        alignItems="center"
+        gap="4px"
+        onClick={() => {
+          props.setSelectName(props.name)
+          //changeRoute(props.slug)
+        }}
+      >
+        <Text
+          fontSize="14px"
+          color={`${props.selectedName !== null && props.selectedName === props.name ? 'var(--color-primary-default)' : 'var(--on-surface-on-surface-lv-2)'}`}
+        >
+          {props.name}
+        </Text>
+      </Flex>
+      {props.selectedName !== null && props.selectedName === props.name ? (
+        <Box minWidth="100%" h="4px" backgroundColor="var(--color-primary-default)" borderRadius="2px"></Box>
+      ) : (
+        <Box
+          minWidth="100%"
+          h="4px"
+          backgroundColor="var(--surface-surface-1)"
+          borderRadius="2px"
+          visibility="hidden"
+        ></Box>
+      )}
+    </VStack>
   )
 }

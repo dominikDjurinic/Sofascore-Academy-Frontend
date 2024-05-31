@@ -1,3 +1,4 @@
+import { useSlugContext } from '@/context/SlugContext'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { SportDateEvent } from '@/model/events'
 import { Leagues, SportInfo } from '@/model/sports'
@@ -9,6 +10,7 @@ import { LeaguesPanel } from '@/modules/Leagues'
 import { Box, Flex } from '@kuma-ui/core'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import { useEffect } from 'react'
 
 export default function Match(props: {
   selectedSport: string
@@ -16,8 +18,16 @@ export default function Match(props: {
   sports: SportInfo[]
   matchId: number
   data: SportDateEvent
+  selSlug: string
 }) {
   const { mobileWindowSize } = useWindowSizeContext()
+
+  const { setSlug } = useSlugContext()
+
+  useEffect(() => {
+    setSlug(props.selSlug)
+  }, [props.selSlug])
+
   return (
     <>
       <Head>
@@ -60,6 +70,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       return { notFound: true }
     }
 
+    const selSlug = sportName
     let selectedSport = details.find(({ slug }) => slug === sportName)?.name
 
     const sports: SportInfo[] = details
@@ -76,7 +87,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const data: SportDateEvent = details3
     return {
-      props: { selectedSport, sports, leagues, matchId, data },
+      props: { selectedSport, sports, leagues, matchId, data, selSlug },
     }
   } catch (error) {
     res.statusCode = 404

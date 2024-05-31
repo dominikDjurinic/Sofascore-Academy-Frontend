@@ -3,7 +3,9 @@ export const setTitle = (slug: string) => {
     return `Football⚽ | Sofascore`
   } else if (slug === 'basketball') {
     return `Basketball🏀 | Sofascore`
-  } else {
+  } else if (slug === 'american-football') {
     return `American-Football🏈 | Sofascore`
+  } else {
+    return ''
   }
 }

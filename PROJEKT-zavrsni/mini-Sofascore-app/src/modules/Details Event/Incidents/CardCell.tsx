@@ -7,11 +7,11 @@ import yellowCard from '../../../../public/images/ic_card_yellow@2x.png'
 export function CardCell(props: { data: Card & Goal & Period }) {
   return (
     <>
-      <Box width="100%" p="8px 8px">
+      <Box width="100%" cursor="pointer" _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}>
         <Flex alignItems="center" justify={`${props.data.teamSide === 'away' ? 'right' : 'left'}`}>
           {props.data.teamSide === 'home' ? (
             <>
-              <VStack alignItems="center" justify="center" p="8px">
+              <VStack alignItems="center" justify="center" p="16px">
                 <Image
                   src={props.data.color === 'red' ? redCard : yellowCard}
                   alt="icon card"
@@ -33,7 +33,7 @@ export function CardCell(props: { data: Card & Goal & Period }) {
                 {props.data.player.name}
               </Text>
               <Box minWidth="1px" h="40px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>
-              <VStack alignItems="center" justify="center" p="8px">
+              <VStack alignItems="center" justify="center" p="16px">
                 <Image
                   src={props.data.color === 'red' ? redCard : yellowCard}
                   alt="icon card"
