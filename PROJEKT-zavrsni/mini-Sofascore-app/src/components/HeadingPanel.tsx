@@ -1,12 +1,9 @@
 import { Box, Flex, VStack, Text } from '@kuma-ui/core'
 import Image from 'next/image'
 import { TabNoIcon } from './TabNoIcon'
-import { useState } from 'react'
 import countries from '../../public/countries.json'
 
 export function HeadingPanel(props: { name: string; country: string; imageLogo: string; tabs: string[] }) {
-  const [selectedName, setSelectedName] = useState(props.tabs[0])
-
   const alpha2Country = (country: string) => {
     const alpha2 = countries.find(({ name }) => name === country)
 
@@ -15,7 +12,7 @@ export function HeadingPanel(props: { name: string; country: string; imageLogo: 
 
   return (
     <VStack
-      width="60%"
+      width="100%"
       borderRadius="16px"
       bgColor="var(--surface-surface-1)"
       boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
@@ -45,18 +42,13 @@ export function HeadingPanel(props: { name: string; country: string; imageLogo: 
               width={16}
               height={16}
             ></Image>
-            <Text>{props.country}</Text>
+            <Text color="var(--on-surface-on-surface-lv-1)">{props.country}</Text>
           </Flex>
         </VStack>
       </Flex>
       <Flex>
         {props.tabs.map(name => (
-          <TabNoIcon
-            name={name}
-            selectedName={selectedName}
-            setSelectName={(data: string) => setSelectedName(data)}
-            key={name}
-          />
+          <TabNoIcon name={name} key={name} />
         ))}
       </Flex>
     </VStack>

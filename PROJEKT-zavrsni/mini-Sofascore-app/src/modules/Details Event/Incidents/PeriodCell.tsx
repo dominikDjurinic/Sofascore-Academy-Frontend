@@ -13,6 +13,7 @@ export function PeriodCell(props: { data: Card & Goal & Period }) {
           fontWeight="bold"
           fontSize="12px"
           p="4px 0px"
+          color="var(--on-surface-on-surface-lv-1)"
         >
           {props.data.text}
         </Flex>

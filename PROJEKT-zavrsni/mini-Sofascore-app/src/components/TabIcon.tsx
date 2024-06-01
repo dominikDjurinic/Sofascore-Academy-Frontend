@@ -1,21 +1,14 @@
 import { useThemeContext } from '@/context/ThemeContext'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { Box, Flex, Text, VStack } from '@kuma-ui/core'
-import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
+import Link from 'next/link'
 
 export function TabIcon(props: { name: string; slug: string; id: number; selectedSport: string | null }) {
-  const router = useRouter()
-
   const { mobileWindowSize } = useWindowSizeContext()
   const { isDark } = useThemeContext()
   const { setOpenedWidget } = useWidgetContext()
-
-  const changeRoute = (slug: string) => {
-    if (slug != 'football') router.push(`/${slug}`)
-    else router.push('/')
-  }
 
   const sportsIcons = [
     {
@@ -41,30 +34,33 @@ export function TabIcon(props: { name: string; slug: string; id: number; selecte
 
   return (
     <VStack>
-      <Flex
-        cursor="pointer"
-        h="100%"
-        w="fit-content"
-        padding="16px 10px"
-        justify="center"
-        alignItems="center"
-        gap="4px"
-        onClick={() => {
-          closeWidget()
-          changeRoute(props.slug)
-        }}
-        flexDirection={`${mobileWindowSize ? 'column' : 'row'}`}
-      >
-        <Image
-          src={isDark ? sportsIcons[props.id - 1].imageDark : sportsIcons[props.id - 1].image}
-          alt="logo Sport"
-          width={16}
-          height={16}
-        ></Image>
-        <Text fontWeight={`${props.selectedSport !== null && props.selectedSport === props.name ? 'bold' : 'normal'}`}>
-          {props.name}
-        </Text>
-      </Flex>
+      <Link href={`${props.slug !== 'football' ? `/${props.slug}` : '/'}`}>
+        <Flex
+          cursor="pointer"
+          h="100%"
+          w="fit-content"
+          padding="16px 10px"
+          justify="center"
+          alignItems="center"
+          gap="4px"
+          onClick={() => {
+            closeWidget()
+          }}
+          flexDirection={`${mobileWindowSize ? 'column' : 'row'}`}
+        >
+          <Image
+            src={isDark ? sportsIcons[props.id - 1].imageDark : sportsIcons[props.id - 1].image}
+            alt="logo Sport"
+            width={16}
+            height={16}
+          ></Image>
+          <Text
+            fontWeight={`${props.selectedSport !== null && props.selectedSport === props.name ? 'bold' : 'normal'}`}
+          >
+            {props.name}
+          </Text>
+        </Flex>
+      </Link>
       {props.selectedSport !== null && props.selectedSport === props.name ? (
         <Box minWidth="100%" h="4px" backgroundColor="var(--surface-surface-1)" borderRadius="2px"></Box>
       ) : (

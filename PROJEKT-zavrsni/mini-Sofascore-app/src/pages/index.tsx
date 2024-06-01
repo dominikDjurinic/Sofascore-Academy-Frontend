@@ -59,7 +59,9 @@ export default function Home(props: {
             id={openWidget}
           />
           {mobileWindowSize ? null : (
-            <>{openedWidget === false ? <Advertisement /> : <EventWidget id={id} detailPage={false} />}</>
+            <>
+              {openedWidget === false ? <Advertisement /> : <EventWidget id={id} detailPage={false} subPanel={false} />}
+            </>
           )}
         </Flex>
         <Footer />

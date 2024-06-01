@@ -46,7 +46,7 @@ export default function Match(props: {
               selLeagueId={props.data.tournament.id}
             />
           )}
-          <EventWidget id={props.matchId} detailPage={true} />
+          <EventWidget id={props.matchId} detailPage={true} subPanel={false} />
           {mobileWindowSize ? null : <Advertisement />}
         </Flex>
         <Footer />

@@ -2,7 +2,7 @@ import { Panel } from '@/components/Panel'
 import { Leagues } from '@/model/sports'
 import { useEffect, useState } from 'react'
 import { SportDateEvent } from '@/model/events'
-import { Text, Box, Flex, VStack } from '@kuma-ui/core'
+import { Text, Box, Flex, VStack, Link } from '@kuma-ui/core'
 import { EventCell } from './EventCell'
 import { fullDaysInWeek } from '@/model/daysInWeek'
 import Image from 'next/image'
@@ -11,12 +11,8 @@ import rightLight from '../../../public/images/ic_pointer_rightLight@2x.png'
 import { DateNavigation } from '@/components/DateNavigation'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
-import { useRouter } from 'next/router'
 import { formatName } from '@/utils/formatPathName'
 import { useThemeContext } from '@/context/ThemeContext'
-
-//import useSWR from 'swr'
-//import { useSlugContext } from '@/context/SlugContext'
 
 export function EventList(props: {
   leagues: Leagues[]
@@ -26,33 +22,16 @@ export function EventList(props: {
   // eslint-disable-next-line no-unused-vars
   id: (id: number) => void
 }) {
-  /*const formattingDate = () => {
-    const format = currentDate.toISOString().split('T')[0]
-    return format
-  }*/
-
   const formattingDate = () => {
     const format = new Date(props.date)
     return format
   }
 
-  const router = useRouter()
   const { mobileWindowSize } = useWindowSizeContext()
   const { isDark } = useThemeContext()
   const [currentDate, setCurrentDate] = useState<Date>(formattingDate)
   const [clickedCell, setClickedCell] = useState<number | undefined>(undefined)
   const { openedWidget, setOpenedWidget } = useWidgetContext()
-
-  /*
-  const settingDate = (currDate: Date) => {
-    setCurrentDate(new Date(currDate))
-  }
-  */
-  //const [formattedDate, setFormattedDate] = useState(formattingDate)
-
-  //const { data, error, isLoading } = useSWR<SportDateEvent[], Error>(`/api/sport/${slug}/events/${props.date}`)
-
-  //console.log(error)
 
   useEffect(() => {
     console.log(props.date)
@@ -69,7 +48,7 @@ export function EventList(props: {
 
   const formatTodayDate = () => {
     const formatToday = new Date()
-    formatToday.setHours(formatToday.getHours() + 2) //prilagodba datuma našoj vremenskoj zoni
+    formatToday.setHours(formatToday.getHours() + 2) //prilagodba datuma nasoj vremenskoj zoni
     return formatToday
   }
 
@@ -125,27 +104,34 @@ export function EventList(props: {
             </Text>
           )}
           {props.data?.map(event => (
-            <Box
+            <Link
               key={event.id}
-              width="100%"
-              _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
-              cursor="pointer"
-              fontSize="14px"
-              onClick={() => {
-                props.id(event.id)
-                setClickedCell(event.id)
-                if (mobileWindowSize) {
-                  router.push(
-                    `/tournament/${event.tournament.sport.slug}/${event.tournament.name}/${formatName(event.homeTeam.name, event.awayTeam.name)}/${event.id}`
-                  )
-                } else {
-                  setOpenedWidget(true)
+              href={`${`/tournament/${event.tournament.sport.slug}/${event.tournament.name}/${formatName(event.homeTeam.name, event.awayTeam.name)}/${event.id}`}`}
+              onClick={(e: { preventDefault: () => void }) => {
+                if (!mobileWindowSize) {
+                  e.preventDefault()
                 }
               }}
-              backgroundColor={`${clickedCell === event.id && openedWidget ? 'var(--color-primary-highlight)' : 'var(--surface-surface-1)'}`}
             >
-              {checkTournamentId(event.tournament.id, id) === true ? <EventCell event={event} /> : null}
-            </Box>
+              <Box
+                width="100%"
+                _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
+                cursor="pointer"
+                fontSize="14px"
+                onClick={() => {
+                  props.id(event.id)
+                  setClickedCell(event.id)
+                  if (!mobileWindowSize) {
+                    setOpenedWidget(true)
+                  }
+                }}
+                backgroundColor={`${clickedCell === event.id && openedWidget ? 'var(--color-primary-highlight)' : 'var(--surface-surface-1)'}`}
+              >
+                {checkTournamentId(event.tournament.id, id) === true ? (
+                  <EventCell event={event} matchCell={false} />
+                ) : null}
+              </Box>
+            </Link>
           ))}
           {index === props.leagues.length - 1 ? null : (
             <Box minWidth="100%" h="1px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>

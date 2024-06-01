@@ -1,5 +1,4 @@
-import { Panel } from '@/components/Panel'
-import { Box, Flex, Link } from '@kuma-ui/core'
+import { Box, Flex, Link, VStack } from '@kuma-ui/core'
 import Image from 'next/image'
 import close from '../../../public/images/ic_close@2x.png'
 import closeWhite from '../../../public/images/ic_close_white@2x.png'
@@ -12,17 +11,27 @@ import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { formatName } from '@/utils/formatPathName'
 import { useThemeContext } from '@/context/ThemeContext'
 import { EventIncidents } from './EventIncidents'
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
 
-export function EventWidget(props: { id: number | undefined; detailPage: boolean }) {
+export function EventWidget(props: { id: number | undefined; detailPage: boolean; subPanel: boolean }) {
   const { data, error, isLoading } = useSWR<SportDateEvent, Error>(`/api/event/${props.id}`)
 
   console.log(error)
 
   const { setOpenedWidget } = useWidgetContext()
   const { isDark } = useThemeContext()
+  const { mobileWindowSize } = useWindowSizeContext()
 
   return (
-    <Panel>
+    <VStack
+      width={`${mobileWindowSize ? `${props.subPanel ? '49%' : '90%'}` : `${props.subPanel ? '49%' : '30%'}`}`}
+      borderRadius="16px"
+      bgColor="var(--surface-surface-1)"
+      boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
+      paddingBottom="16px"
+      overflow="hidden"
+      height="fit-content"
+    >
       {props.detailPage ? null : (
         <Flex justify="space-between" p="20px 16px">
           <Box cursor="pointer" onClick={() => setOpenedWidget(false)}>
@@ -45,6 +54,6 @@ export function EventWidget(props: { id: number | undefined; detailPage: boolean
         <EventCell event={data} />
       )}
       <EventIncidents eventId={props.id} />
-    </Panel>
+    </VStack>
   )
 }

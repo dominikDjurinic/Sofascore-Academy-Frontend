@@ -27,7 +27,7 @@ export function GoalCell(props: { data: Card & Goal & Period }) {
                   backgroundColor="var(--on-surface-on-surface-lv-4)"
                   borderRadius="2px"
                 ></Box>
-                <Flex>
+                <Flex color="var(--on-surface-on-surface-lv-1)">
                   <Text p="0px 12px" fontSize="14px" fontWeight="bold">
                     {props.data.homeScore} - {props.data.awayScore}
                   </Text>
@@ -56,7 +56,7 @@ export function GoalCell(props: { data: Card & Goal & Period }) {
                   backgroundColor="var(--on-surface-on-surface-lv-4)"
                   borderRadius="2px"
                 ></Box>
-                <Flex>
+                <Flex color="var(--on-surface-on-surface-lv-1)">
                   <Text p="0px 12px" fontSize="14px" fontWeight="bold">
                     {props.data.homeScore} - {props.data.awayScore}
                   </Text>
@@ -68,7 +68,7 @@ export function GoalCell(props: { data: Card & Goal & Period }) {
             )
           ) : slug === 'basketball' ? (
             <>
-              <Flex gap="20px">
+              <Flex gap="20px" color="var(--on-surface-on-surface-lv-1)">
                 <Text
                   fontSize="12px"
                   fontWeight="bold"
@@ -89,7 +89,7 @@ export function GoalCell(props: { data: Card & Goal & Period }) {
             </>
           ) : (
             <>
-              <Flex>
+              <Flex color="var(--on-surface-on-surface-lv-1)">
                 <Text p="0px 12px" fontSize="14px">
                   {props.data.player.name}
                 </Text>

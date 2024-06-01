@@ -23,13 +23,13 @@ export function CardCell(props: { data: Card & Goal & Period }) {
                 </Text>
               </VStack>
               <Box minWidth="1px" h="40px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>
-              <Text p="0px 12px" fontSize="14px">
+              <Text p="0px 12px" fontSize="14px" color="var(--on-surface-on-surface-lv-1)">
                 {props.data.player.name}
               </Text>
             </>
           ) : (
             <>
-              <Text p="0px 12px" fontSize="14px">
+              <Text p="0px 12px" fontSize="14px" color="var(--on-surface-on-surface-lv-1)">
                 {props.data.player.name}
               </Text>
               <Box minWidth="1px" h="40px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>

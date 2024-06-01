@@ -1,8 +1,9 @@
 import { SportDateEvent } from '@/model/events'
+import { TournamentEvent } from '@/model/tournaments'
 import { Box, Flex, Text, VStack } from '@kuma-ui/core'
 import Image from 'next/image'
 
-export function EventCell(props: { event: SportDateEvent }) {
+export function EventCell(props: { event: SportDateEvent | TournamentEvent; matchCell: boolean }) {
   const setEventStatus = (eventStatus: string) => {
     if (eventStatus === 'inprogress') {
       return 'Live'
@@ -14,10 +15,17 @@ export function EventCell(props: { event: SportDateEvent }) {
   }
 
   return (
-    <Flex alignItems="center" gap="3px" h="fit-content">
+    <Flex alignItems="center" gap="3px" h="fit-content" fontSize="14px">
       <VStack justify="center" alignItems="center" padding="10px 10px" color="var(--on-surface-on-surface-lv-2)">
-        <Text>
-          {new Date(props.event.startDate).toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit' })}
+        <Text textAlign="center">
+          {props.matchCell === true
+            ? new Date(props.event.startDate).getDate() +
+              '. ' +
+              (new Date(props.event.startDate).getMonth() + 1) +
+              '. ' +
+              new Date(props.event.startDate).getFullYear() +
+              '.'
+            : new Date(props.event.startDate).toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit' })}
         </Text>
         <Text color={`${props.event.status === 'inprogress' ? 'var(--specific-live)' : null}`}>
           {setEventStatus(props.event.status)}
