@@ -21,6 +21,7 @@ export default function Settings(props: { sports: SportInfo[] }) {
   const { isDark, setIsDark } = useThemeContext()
 
   const [openSelection, setOpenSelection] = useState(false)
+
   return (
     <>
       <Head>

@@ -19,6 +19,8 @@ import { Venue } from '@/modules/TeamDetails/Venue'
 import { TournamentDetails } from '@/model/tournaments'
 import { Tournaments } from '@/modules/TeamDetails/Tournaments'
 import { TeamNextMatch } from '@/modules/TeamDetails/TeamNextMatch'
+import { PlayerDetails } from '@/model/players'
+import { Squad } from '@/modules/TeamDetails/Squad'
 
 export default function TeamPage(props: {
   leagues: Leagues[]
@@ -28,6 +30,8 @@ export default function TeamPage(props: {
   teamDetails: TeamDetails
   teamPlayers: TeamPlayer[]
   teamTournaments: TournamentDetails[]
+  players: PlayerDetails[]
+  selSlug: string
 }) {
   const tabs = ['Details', 'Matches', 'Standings', 'Squad']
 
@@ -77,7 +81,7 @@ export default function TeamPage(props: {
           />
         )
       case 'Squad':
-        return null
+        return <Squad players={props.players} teamDetails={props.teamDetails} selSlug={props.selSlug} />
     }
   }
 
@@ -114,6 +118,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   try {
     //@ts-ignore
     const teamId = params?.teamId
+    const selSlug = params?.sportName
     const resp2 = await fetch(`https://academy-backend.sofascore.dev/sport/${params?.sportName}/tournaments`)
 
     const details2: Leagues[] = await resp2.json()
@@ -146,8 +151,14 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const teamTournaments: TournamentDetails[] = details5
 
+    const resp6 = await fetch(`https://academy-backend.sofascore.dev/team/${teamId}/players`)
+
+    const details6: PlayerDetails[] = await resp6.json()
+
+    const players: PlayerDetails[] = details6
+
     return {
-      props: { leagues, selectedSport, sports, teamDetails, teamId, teamPlayers, teamTournaments },
+      props: { leagues, selectedSport, sports, teamDetails, teamId, teamPlayers, teamTournaments, players, selSlug },
     }
   } catch (error) {
     res.statusCode = 404

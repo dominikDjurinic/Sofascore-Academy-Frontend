@@ -19,6 +19,7 @@ export function MatchPanel(props: {
   eventId: (id: number) => void
   apiFor: string
   teamId?: number
+  playerId?: number
 }) {
   const { isDark } = useThemeContext()
   const { openedWidget, setOpenedWidget } = useWidgetContext()
@@ -37,7 +38,7 @@ export function MatchPanel(props: {
       case 'team':
         return `/api/team/${props.teamId}/events/${span}/${page}`
       case 'player':
-        return `/api/tournament/${props.tournamentId}/events/${span}/${page}`
+        return `/api/player/${props.playerId}/events/${span}/${page}`
     }
   }
 
@@ -133,7 +134,7 @@ export function MatchPanel(props: {
         </Flex>
       ) : (
         data?.map(data => (
-          <>
+          <Box key={data.id}>
             {data.round !== round ? (
               <Text fontSize="12px" fontWeight="bold" p="10px 10px" color="var(--on-surface-on-surface-lv-1)">
                 Round {settingRound(data.round)}
@@ -141,7 +142,6 @@ export function MatchPanel(props: {
             ) : null}
 
             <Link
-              key={data.id}
               href={`${`/tournament/${data.tournament.sport.slug}/${data.tournament.name}/${formatName(data.homeTeam.name, data.awayTeam.name)}/${data.id}`}`}
               onClick={(e: { preventDefault: () => void }) => {
                 if (!mobileWindowSize) {
@@ -163,7 +163,7 @@ export function MatchPanel(props: {
                 <EventCell event={data} matchCell={true} />
               </Box>
             </Link>
-          </>
+          </Box>
         ))
       )}
     </VStack>
