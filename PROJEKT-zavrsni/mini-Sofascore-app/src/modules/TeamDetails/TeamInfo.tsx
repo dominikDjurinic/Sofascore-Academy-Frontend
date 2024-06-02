@@ -1,5 +1,5 @@
 import { TeamDetails, TeamPlayer } from '@/model/team'
-import { Flex, Text, VStack } from '@kuma-ui/core'
+import { Box, Flex, Text, VStack } from '@kuma-ui/core'
 import Image from 'next/image'
 import placeholder from '../../../public/images/noImage.svg'
 import players from '../../../public/images/ic_team@2x.png'
@@ -19,23 +19,24 @@ export function TeamInfo(props: { teamDetails: TeamDetails; teamPlayers: TeamPla
   return (
     <>
       <VStack
-        width="49%"
+        width="100%"
         borderRadius="16px"
         bgColor="var(--surface-surface-1)"
         boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
         p="16px 0px"
         overflow="hidden"
-        height="fit-content"
+        minHeight="250px"
       >
         <Flex w="100%" justify="center" fontSize="16px" fontWeight="bold" color="var(--on-surface-on-surface-lv-1)">
           Team Info
         </Flex>
-        <Flex alignItems="center" p="8px 16px" gap="16px">
+        <Flex alignItems="center" p="16px" gap="16px">
           <Image src={placeholder} alt="coach image"></Image>
           <Text fontSize="14px" color="var(--on-surface-on-surface-lv-1)" fontWeight="bold">
             Coach: {props.teamDetails.managerName}
           </Text>
         </Flex>
+        <Box minWidth="100%" h="1px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>
         <Flex w="100%" p="8px 0px">
           <VStack w="50%" alignItems="center" gap="8px">
             <Image src={players} alt="players icon" width={35} height={35}></Image>

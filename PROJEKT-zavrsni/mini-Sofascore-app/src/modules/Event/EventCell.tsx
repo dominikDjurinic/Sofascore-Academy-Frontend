@@ -1,9 +1,8 @@
 import { SportDateEvent } from '@/model/events'
-import { TournamentEvent } from '@/model/tournaments'
 import { Box, Flex, Text, VStack } from '@kuma-ui/core'
 import Image from 'next/image'
 
-export function EventCell(props: { event: SportDateEvent | TournamentEvent; matchCell: boolean }) {
+export function EventCell(props: { event: SportDateEvent; matchCell: boolean }) {
   const setEventStatus = (eventStatus: string) => {
     if (eventStatus === 'inprogress') {
       return 'Live'
@@ -16,7 +15,13 @@ export function EventCell(props: { event: SportDateEvent | TournamentEvent; matc
 
   return (
     <Flex alignItems="center" gap="3px" h="fit-content" fontSize="14px">
-      <VStack justify="center" alignItems="center" padding="10px 10px" color="var(--on-surface-on-surface-lv-2)">
+      <VStack
+        justify="center"
+        alignItems="center"
+        w="80px"
+        padding="10px 10px"
+        color="var(--on-surface-on-surface-lv-2)"
+      >
         <Text textAlign="center">
           {props.matchCell === true
             ? new Date(props.event.startDate).getDate() +

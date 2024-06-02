@@ -1,5 +1,5 @@
 import { SportDateEvent } from '@/model/events'
-import { Box, Flex, Text, VStack } from '@kuma-ui/core'
+import { Box, Flex, Link, Text, VStack } from '@kuma-ui/core'
 import Image from 'next/image'
 
 export function EventCell(props: { event?: SportDateEvent | undefined }) {
@@ -16,25 +16,30 @@ export function EventCell(props: { event?: SportDateEvent | undefined }) {
   return (
     <>
       <Flex w="100%" justify="space-between" alignItems="center" p="16px 16px">
-        <VStack gap="8px" alignItems="center" justify="center" w="96px" h="auto">
-          {props.event !== undefined ? (
-            <Image
-              src={`https://academy-backend.sofascore.dev/team/${props.event?.homeTeam.id}/image`}
-              alt="league logo"
-              width={40}
-              height={40}
-              priority
-            ></Image>
-          ) : null}
-          <Text
-            color={`${props.event?.winnerCode === 'away' || props.event?.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
-            fontSize="14px"
-            fontWeight="bold"
-            textAlign="center"
-          >
-            {props.event?.homeTeam.name}
-          </Text>
-        </VStack>
+        <Link
+          href={`/team/${props.event?.tournament.sport.slug}/${props.event?.homeTeam.name}/${props.event?.homeTeam.id}`}
+        >
+          <VStack gap="8px" alignItems="center" justify="center" w="96px" h="auto">
+            {props.event !== undefined ? (
+              <Image
+                src={`https://academy-backend.sofascore.dev/team/${props.event?.homeTeam.id}/image`}
+                alt="league logo"
+                width={40}
+                height={40}
+                priority
+              ></Image>
+            ) : null}
+            <Text
+              color={`${props.event?.winnerCode === 'away' || props.event?.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+              fontSize="14px"
+              fontWeight="bold"
+              textAlign="center"
+            >
+              {props.event?.homeTeam.name}
+            </Text>
+          </VStack>
+        </Link>
+
         <Flex
           flexDirection={`${props.event?.status === 'notstarted' ? 'row' : 'column'}`}
           justify="center"
@@ -87,25 +92,29 @@ export function EventCell(props: { event?: SportDateEvent | undefined }) {
             </Text>
           )}
         </Flex>
-        <VStack gap="8px" alignItems="center" justify="center" w="96px" h="auto">
-          {props.event !== undefined ? (
-            <Image
-              src={`https://academy-backend.sofascore.dev/team/${props.event?.awayTeam.id}/image`}
-              alt="league logo"
-              width={40}
-              height={40}
-              priority
-            ></Image>
-          ) : null}
-          <Text
-            color={`${props.event?.winnerCode === 'home' || props.event?.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
-            fontSize="14px"
-            fontWeight="bold"
-            textAlign="center"
-          >
-            {props.event?.awayTeam.name}
-          </Text>
-        </VStack>
+        <Link
+          href={`/team/${props.event?.tournament.sport.slug}/${props.event?.awayTeam.name}/${props.event?.awayTeam.id}`}
+        >
+          <VStack gap="8px" alignItems="center" justify="center" w="96px" h="auto">
+            {props.event !== undefined ? (
+              <Image
+                src={`https://academy-backend.sofascore.dev/team/${props.event?.awayTeam.id}/image`}
+                alt="league logo"
+                width={40}
+                height={40}
+                priority
+              ></Image>
+            ) : null}
+            <Text
+              color={`${props.event?.winnerCode === 'home' || props.event?.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+              fontSize="14px"
+              fontWeight="bold"
+              textAlign="center"
+            >
+              {props.event?.awayTeam.name}
+            </Text>
+          </VStack>
+        </Link>
       </Flex>
       <Box minWidth="100%" h="2px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>
     </>

@@ -5,16 +5,21 @@ import left from '../../../public/images/ic_left.png'
 import leftLight from '../../../public/images/ic_leftLight.png'
 import right from '../../../public/images/IconBlueRight@2x.png'
 import rightLight from '../../../public/images/IconBlueRightLight@2x.png'
-import { TournamentEvent } from '@/model/tournaments'
 import useSWR from 'swr'
 import { useState } from 'react'
 import { EventCell } from '../Event/EventCell'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { formatName } from '@/utils/formatPathName'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
+import { SportDateEvent } from '@/model/events'
 
-// eslint-disable-next-line no-unused-vars
-export function MatchPanel(props: { tournamentId: number; eventId: (id: number) => void }) {
+export function MatchPanel(props: {
+  tournamentId?: number
+  // eslint-disable-next-line no-unused-vars
+  eventId: (id: number) => void
+  apiFor: string
+  teamId?: number
+}) {
   const { isDark } = useThemeContext()
   const { openedWidget, setOpenedWidget } = useWidgetContext()
   const { mobileWindowSize } = useWindowSizeContext()
@@ -25,9 +30,18 @@ export function MatchPanel(props: { tournamentId: number; eventId: (id: number) 
   const [prevPage, setPrevPage] = useState(0)
   const [clickedCell, setClickedCell] = useState<number | undefined>(undefined)
 
-  const { data, error, isLoading } = useSWR<TournamentEvent[], Error>(
-    `/api/tournament/${props.tournamentId}/events/${span}/${page}`
-  )
+  const apiRoute = () => {
+    switch (props.apiFor) {
+      case 'tournament':
+        return `/api/tournament/${props.tournamentId}/events/${span}/${page}`
+      case 'team':
+        return `/api/team/${props.teamId}/events/${span}/${page}`
+      case 'player':
+        return `/api/tournament/${props.tournamentId}/events/${span}/${page}`
+    }
+  }
+
+  const { data, error, isLoading } = useSWR<SportDateEvent[], Error>(apiRoute())
   console.log(error)
 
   const nextMatchesPage = (nextLast: string) => {

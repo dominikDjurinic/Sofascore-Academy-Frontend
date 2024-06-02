@@ -5,12 +5,13 @@ import Image from 'next/image'
 export function StandingCell(props: { data: SortedStandings; place: number }) {
   return (
     <>
-      <Flex w="100%" gap="20px" p="16px" fontSize="14px" color="var(--on-surface-on-surface-lv-1)">
+      <Flex w="100%" gap="20px" p="16px" fontSize="14px" color="var(--on-surface-on-surface-lv-1)" alignItems="center">
         <Flex w="50%" gap="4px">
           <Flex
             w="30px"
-            p="7px 0px"
+            h="30px"
             justify="center"
+            alignItems="center"
             borderRadius="50%"
             backgroundColor="var(--color-secondary-default)"
           >

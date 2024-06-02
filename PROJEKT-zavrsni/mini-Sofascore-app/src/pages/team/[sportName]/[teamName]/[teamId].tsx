@@ -15,6 +15,10 @@ import { useEffect, useState } from 'react'
 import { useTabContext } from '@/context/OpenedTab'
 import { TeamDetails, TeamPlayer } from '@/model/team'
 import { TeamInfo } from '@/modules/TeamDetails/TeamInfo'
+import { Venue } from '@/modules/TeamDetails/Venue'
+import { TournamentDetails } from '@/model/tournaments'
+import { Tournaments } from '@/modules/TeamDetails/Tournaments'
+import { TeamNextMatch } from '@/modules/TeamDetails/TeamNextMatch'
 
 export default function TeamPage(props: {
   leagues: Leagues[]
@@ -23,6 +27,7 @@ export default function TeamPage(props: {
   teamId: number
   teamDetails: TeamDetails
   teamPlayers: TeamPlayer[]
+  teamTournaments: TournamentDetails[]
 }) {
   const tabs = ['Details', 'Matches', 'Standings', 'Squad']
 
@@ -30,25 +35,51 @@ export default function TeamPage(props: {
   const { openedWidget } = useWidgetContext()
 
   const [eventId, setEventId] = useState(0)
+  const [selTour, setSelTour] = useState(props.teamTournaments[0].id)
   const { openedTab, setOpenedTab } = useTabContext()
 
   useEffect(() => {
     setOpenedTab('Details')
   }, [props.teamId])
 
-  /*const tabElements = () => {
+  const tabElements = () => {
     switch (openedTab) {
       case 'Details':
-        return 
-        break
+        return (
+          <Flex gap="24px" w="100%">
+            <VStack gap="12px" w="100%">
+              <TeamInfo teamDetails={props.teamDetails} teamPlayers={props.teamPlayers} />
+              <Venue teamDetails={props.teamDetails} />
+            </VStack>
+            <VStack gap="12px" w="100%">
+              <Tournaments teamTournaments={props.teamTournaments} />
+              <TeamNextMatch teamDetails={props.teamDetails} />
+            </VStack>
+          </Flex>
+        )
       case 'Matches':
-        break
+        return (
+          <Flex justify="space-between">
+            <MatchPanel teamId={props.teamDetails.id} eventId={id => setEventId(id)} apiFor={'team'} />
+            {mobileWindowSize ? null : (
+              <>{openedWidget === false ? null : <EventWidget id={eventId} detailPage={false} subPanel={true} />}</>
+            )}
+          </Flex>
+        )
       case 'Standings':
-        break
+        return (
+          <StandingsPanel
+            tournamentId={props.teamTournaments.find(({ id }) => id === selTour)?.id}
+            selSlug={props.teamTournaments[0].slug}
+            teamId={props.teamDetails.id}
+            tournaments={props.teamTournaments}
+            selTournament={(id: number) => setSelTour(id)}
+          />
+        )
       case 'Squad':
-        break
+        return null
     }
-  }*/
+  }
 
   return (
     <>
@@ -67,7 +98,7 @@ export default function TeamPage(props: {
               imageLogo={`https://academy-backend.sofascore.dev/team/${props.teamId}/image`}
               tabs={tabs}
             />
-            <TeamInfo teamDetails={props.teamDetails} teamPlayers={props.teamPlayers} />
+            {tabElements()}
           </VStack>
         </Flex>
         <Footer />
@@ -102,14 +133,21 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const details3: TeamDetails = await resp3.json()
 
     const teamDetails: TeamDetails = details3
+
     const resp4 = await fetch(`https://academy-backend.sofascore.dev/team/${teamId}/players`)
 
     const details4: TeamPlayer[] = await resp4.json()
 
     const teamPlayers: TeamPlayer[] = details4
 
+    const resp5 = await fetch(`https://academy-backend.sofascore.dev/team/${teamId}/tournaments`)
+
+    const details5: TournamentDetails[] = await resp5.json()
+
+    const teamTournaments: TournamentDetails[] = details5
+
     return {
-      props: { leagues, selectedSport, sports, teamDetails, teamId, teamPlayers },
+      props: { leagues, selectedSport, sports, teamDetails, teamId, teamPlayers, teamTournaments },
     }
   } catch (error) {
     res.statusCode = 404
