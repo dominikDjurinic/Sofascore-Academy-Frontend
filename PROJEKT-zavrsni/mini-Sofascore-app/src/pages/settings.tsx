@@ -16,11 +16,14 @@ import gb from '../../public/images/gb.png'
 import hr from '../../public/images/hr.png'
 import sofaLogo from '../../public/images/sofascore_lockupBlue@2x.png'
 import { useState } from 'react'
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
 
 export default function Settings(props: { sports: SportInfo[] }) {
   const { isDark, setIsDark } = useThemeContext()
 
   const [openSelection, setOpenSelection] = useState(false)
+
+  const { mobileWindowSize } = useWindowSizeContext()
 
   return (
     <>
@@ -28,8 +31,8 @@ export default function Settings(props: { sports: SportInfo[] }) {
         <title>Settings | Sofascore</title>
       </Head>
       <Box as="main" position="relative" minHeight="100vh">
-        <Header selectedSport={'football'} sports={props.sports} homePage={true} />
-        <Box h="48px" w="100%"></Box>
+        <Header selectedSport={''} sports={props.sports} />
+        {mobileWindowSize ? null : <Box h="48px" w="100%"></Box>}
         <Flex justify="center" paddingBottom="130px">
           <Panel>
             <Box p="30px 35px" fontSize="20px" fontWeight="bold" color="var(--on-surface-on-surface-lv-1)">

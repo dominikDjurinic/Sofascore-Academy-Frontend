@@ -8,6 +8,7 @@ import useSWR from 'swr'
 import { SportDateEvent } from '@/model/events'
 import { formatName } from '@/utils/formatPathName'
 import { useThemeContext } from '@/context/ThemeContext'
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
 
 export function TeamNextMatch(props: { teamDetails: TeamDetails }) {
   const { data, error, isLoading } = useSWR<SportDateEvent[], Error>(`/api/team/${props.teamDetails.id}/events/next/0`)
@@ -15,12 +16,13 @@ export function TeamNextMatch(props: { teamDetails: TeamDetails }) {
   console.log(error)
 
   const { isDark } = useThemeContext()
+  const { mobileWindowSize } = useWindowSizeContext()
 
   return (
     <>
       <VStack
         width="100%"
-        borderRadius="16px"
+        borderRadius={`${mobileWindowSize ? '0px' : '16px'}`}
         bgColor="var(--surface-surface-1)"
         boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
         p="16px 0px"

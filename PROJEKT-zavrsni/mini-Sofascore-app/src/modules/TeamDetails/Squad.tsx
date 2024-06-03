@@ -5,12 +5,15 @@ import Image from 'next/image'
 import placeholder from '../../../public/images/noImage.svg'
 import { TeamDetails } from '@/model/team'
 import { ImageWithPlaceholder } from '@/components/ImageWithPlaceholder'
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
 
 export function Squad(props: { players: PlayerDetails[]; teamDetails: TeamDetails; selSlug: string }) {
+  const { mobileWindowSize } = useWindowSizeContext()
+
   return (
     <VStack
       width="100%"
-      borderRadius="16px"
+      borderRadius={`${mobileWindowSize ? '0px' : '16px'}`}
       bgColor="var(--surface-surface-1)"
       boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
       p="24px 16px"

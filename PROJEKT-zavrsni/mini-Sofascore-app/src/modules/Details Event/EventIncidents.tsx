@@ -3,15 +3,22 @@ import useSWR from 'swr'
 import { CardCell } from './Incidents/CardCell'
 import { GoalCell } from './Incidents/GoalCell'
 import { PeriodCell } from './Incidents/PeriodCell'
-import { Flex, Text } from '@kuma-ui/core'
+import { Flex, Text, VStack } from '@kuma-ui/core'
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
 
 export function EventIncidents(props: { eventId: number | undefined }) {
   const { data, error } = useSWR<(Card & Goal & Period)[], Error>(`/api/event/${props.eventId}/incidents`)
 
   console.log(error)
 
+  const { mobileWindowSize } = useWindowSizeContext()
+
   return (
-    <>
+    <VStack
+      w={`${mobileWindowSize ? '95%' : '100%'}`}
+      borderRadius={`${mobileWindowSize ? '16px' : '0px'}`}
+      backgroundColor={`${mobileWindowSize ? 'var(--surface-surface-1)' : 'initial'}`}
+    >
       {data?.length === 0 ? (
         <Flex w="100%" justify="center">
           <Flex
@@ -42,6 +49,6 @@ export function EventIncidents(props: { eventId: number | undefined }) {
             }
           })
       )}
-    </>
+    </VStack>
   )
 }

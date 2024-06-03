@@ -13,7 +13,6 @@ import Head from 'next/head'
 import { useEffect } from 'react'
 
 export default function Match(props: {
-  selectedSport: string
   leagues: Leagues[]
   sports: SportInfo[]
   matchId: number
@@ -36,16 +35,10 @@ export default function Match(props: {
         </title>
       </Head>
       <Box as="main" position="relative" minHeight="100vh">
-        <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
+        <Header selectedSport={props.selSlug} sports={props.sports} />
         <Box h="48px" w="100%"></Box>
         <Flex justifyContent="center" gap="24px" paddingBottom="130px">
-          {mobileWindowSize ? null : (
-            <LeaguesPanel
-              selectedSport={props.selectedSport}
-              leagues={props.leagues}
-              selLeagueId={props.data.tournament.id}
-            />
-          )}
+          {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={props.data.tournament.id} />}
           <EventWidget id={props.matchId} detailPage={true} subPanel={false} />
           {mobileWindowSize ? null : <Advertisement />}
         </Flex>
@@ -71,7 +64,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
     }
 
     const selSlug = sportName
-    let selectedSport = details.find(({ slug }) => slug === sportName)?.name
 
     const sports: SportInfo[] = details
 
@@ -87,7 +79,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const data: SportDateEvent = details3
     return {
-      props: { selectedSport, sports, leagues, matchId, data, selSlug },
+      props: { sports, leagues, matchId, data, selSlug },
     }
   } catch (error) {
     res.statusCode = 404

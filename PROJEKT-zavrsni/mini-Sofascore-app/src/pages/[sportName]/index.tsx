@@ -17,7 +17,6 @@ import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { Advertisement } from '@/modules/Advertisement'
 
 export default function Sports(props: {
-  selectedSport: string
   sports: SportInfo[]
   selSlug: string
   leagues: Leagues[]
@@ -33,7 +32,7 @@ export default function Sports(props: {
   useEffect(() => {
     setSelectedSlug(props.selSlug)
     setSlug(props.selSlug)
-  }, [props.selectedSport])
+  }, [props.selSlug])
 
   const [id, setId] = useState(0)
 
@@ -47,12 +46,10 @@ export default function Sports(props: {
         <title>{setTitle(slug)}</title>
       </Head>
       <Box as="main" position="relative" minHeight="100vh">
-        <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
-        <Box h="48px" w="100%"></Box>
+        <Header selectedSport={props.selSlug} sports={props.sports} />
+        {mobileWindowSize ? null : <Box h="48px" w="100%"></Box>}
         <Flex justifyContent="center" gap="24px" paddingBottom="130px">
-          {mobileWindowSize ? null : (
-            <LeaguesPanel selectedSport={props.selSlug} leagues={props.leagues} selLeagueId={undefined} />
-          )}
+          {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
           <EventList
             leagues={props.leagues}
             selSlug={selectedSlug}
@@ -100,7 +97,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
     }
 
     const selSlug = details.find(({ slug }) => slug === sportName)?.slug
-    let selectedSport = details.find(({ slug }) => slug === sportName)?.name
 
     const sports: SportInfo[] = details
 
@@ -119,7 +115,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const date = formattingDate()
 
     return {
-      props: { selectedSport, sports, selSlug, leagues, events, date },
+      props: { sports, selSlug, leagues, events, date },
     }
   } catch (error) {
     res.statusCode = 404

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import placeholder from '../../../public/images/noImage.svg'
 import players from '../../../public/images/ic_team@2x.png'
 import progress from '../../../public/images/Assets Drawable@2x.png'
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
 
 export function TeamInfo(props: { teamDetails: TeamDetails; teamPlayers: TeamPlayer[] }) {
   const foreignPlayers = () => {
@@ -16,11 +17,13 @@ export function TeamInfo(props: { teamDetails: TeamDetails; teamPlayers: TeamPla
     return num
   }
 
+  const { mobileWindowSize } = useWindowSizeContext()
+
   return (
     <>
       <VStack
         width="100%"
-        borderRadius="16px"
+        borderRadius={`${mobileWindowSize ? '0px' : '16px'}`}
         bgColor="var(--surface-surface-1)"
         boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
         p="16px 0px"

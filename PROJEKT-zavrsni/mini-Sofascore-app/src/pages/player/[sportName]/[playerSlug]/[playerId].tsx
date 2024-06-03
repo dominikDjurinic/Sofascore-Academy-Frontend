@@ -17,7 +17,6 @@ import { MatchPanel } from '@/modules/TournamentDetails/MatchPanel'
 
 export default function PlayerPage(props: {
   leagues: Leagues[]
-  selectedSport: string
   sports: SportInfo[]
   player: PlayerDetails
   team: TeamDetails
@@ -36,12 +35,13 @@ export default function PlayerPage(props: {
         <title>{props.player.name} | Sofascore</title>
       </Head>
       <Box as="main" minHeight="100vh" position="relative">
-        <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
+        <Header selectedSport={props.selSlug} sports={props.sports} />
         <Box h="48px" w="100%"></Box>
         <Flex justify="center" gap="24px" paddingBottom="130px">
-          <LeaguesPanel leagues={props.leagues} selectedSport={props.selectedSport} selLeagueId={undefined} />
-          <VStack w="60%" gap="12px">
+          {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
+          <VStack w={`${mobileWindowSize ? '100%' : '60%'}`} gap={`${mobileWindowSize ? '5px' : '12px'}`}>
             <HeadingPanel
+              key={props.player.id}
               name={props.player.name}
               country={props.player.country.name}
               imageLogo={`https://academy-backend.sofascore.dev/player/${props.player.id}/image`}
@@ -78,8 +78,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const details2: Leagues[] = await resp2.json()
 
     const leagues: Leagues[] = details2
-
-    const selectedSport = details2[0].sport.name
 
     const res = await fetch(`https://academy-backend.sofascore.dev/sports`)
 
@@ -123,7 +121,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const team: TeamDetails = details5
 
     return {
-      props: { leagues, selectedSport, sports, player, team, selSlug },
+      props: { leagues, sports, player, team, selSlug },
     }
   } catch (error) {
     res.statusCode = 404

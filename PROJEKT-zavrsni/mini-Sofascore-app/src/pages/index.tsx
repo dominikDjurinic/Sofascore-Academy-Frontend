@@ -17,7 +17,6 @@ import { Advertisement } from '@/modules/Advertisement'
 
 export default function Home(props: {
   selSlug: string
-  selectedSport: string
   sports: SportInfo[]
   leagues: Leagues[]
   events: SportDateEvent[]
@@ -31,7 +30,7 @@ export default function Home(props: {
 
   useEffect(() => {
     setSlug(props.selSlug)
-  }, [props.selectedSport])
+  }, [props.selSlug])
 
   const [id, setId] = useState(0)
 
@@ -45,12 +44,10 @@ export default function Home(props: {
         <title>{setTitle(slug)}</title>
       </Head>
       <Box as="main" position="relative" minHeight="100vh">
-        <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
-        <Box h="48px" w="100%"></Box>
+        <Header selectedSport={props.selSlug} sports={props.sports} />
+        {mobileWindowSize ? null : <Box h="48px" w="100%"></Box>}
         <Flex justifyContent="center" gap="24px" paddingBottom="130px">
-          {mobileWindowSize ? null : (
-            <LeaguesPanel selectedSport={props.selSlug} leagues={props.leagues} selLeagueId={undefined} />
-          )}
+          {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
           <EventList
             leagues={props.leagues}
             selSlug={props.selSlug}
@@ -89,8 +86,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const details: SportInfo[] = await resp.json()
 
-    let selectedSport = details.find(({ slug }) => slug === 'football')?.name
-
     const sports: SportInfo[] = details
 
     const resp2 = await fetch('https://academy-backend.sofascore.dev/sport/football/tournaments')
@@ -108,7 +103,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const date = formattingDate()
     console.log(date)
     return {
-      props: { selSlug, selectedSport, sports, leagues, events, date },
+      props: { selSlug, sports, leagues, events, date },
     }
   } catch (error) {
     res.statusCode = 404

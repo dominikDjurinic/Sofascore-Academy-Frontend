@@ -24,11 +24,10 @@ export function EventWidget(props: { id: number | undefined; detailPage: boolean
 
   return (
     <VStack
-      width={`${mobileWindowSize ? `${props.subPanel ? '49%' : '90%'}` : `${props.subPanel ? '49%' : '30%'}`}`}
-      borderRadius="16px"
+      width={`${mobileWindowSize ? '100%' : `${props.subPanel ? '49%' : '30%'}`}`}
+      borderRadius={`${mobileWindowSize ? '0px' : '16px'}`}
       bgColor="var(--surface-surface-1)"
-      boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
-      paddingBottom="16px"
+      boxShadow={`${mobileWindowSize ? 'none' : '1px 1px rgba(0, 0, 0, 0.08)'}`}
       overflow="hidden"
       height="fit-content"
     >
@@ -53,7 +52,19 @@ export function EventWidget(props: { id: number | undefined; detailPage: boolean
       ) : (
         <EventCell event={data} />
       )}
-      <EventIncidents eventId={props.id} />
+      {mobileWindowSize ? (
+        <Flex
+          p="5px 0px"
+          w="100%"
+          boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
+          justify="center"
+          backgroundColor="var(--surface-surface-0)"
+        >
+          <EventIncidents eventId={props.id} />
+        </Flex>
+      ) : (
+        <EventIncidents eventId={props.id} />
+      )}
     </VStack>
   )
 }

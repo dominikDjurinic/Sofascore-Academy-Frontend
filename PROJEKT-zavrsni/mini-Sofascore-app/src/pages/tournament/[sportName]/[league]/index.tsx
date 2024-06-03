@@ -17,7 +17,6 @@ import { useTabContext } from '@/context/OpenedTab'
 
 export default function LeaguePage(props: {
   leagues: Leagues[]
-  selectedSport: string
   sports: SportInfo[]
   selLeagueId: number
   tournamentDetails: TournamentDetails
@@ -41,12 +40,13 @@ export default function LeaguePage(props: {
         <title>{props.tournamentDetails.name} | Sofascore</title>
       </Head>
       <Box as="main" minHeight="100vh" position="relative">
-        <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
+        <Header selectedSport={props.selSlug} sports={props.sports} />
         <Box h="48px" w="100%"></Box>
         <Flex justify="center" gap="24px" paddingBottom="130px">
-          <LeaguesPanel leagues={props.leagues} selectedSport={props.selectedSport} selLeagueId={props.selLeagueId} />
-          <VStack w="60%" gap="12px">
+          {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={props.selLeagueId} />}
+          <VStack w={`${mobileWindowSize ? '100%' : '60%'}`} gap={`${mobileWindowSize ? '5px' : '12px'}`}>
             <HeadingPanel
+              key={props.tournamentDetails.id}
               name={props.tournamentDetails.name}
               country={props.tournamentDetails.country.name}
               imageLogo={`https://academy-backend.sofascore.dev/tournament/${props.selLeagueId}/image`}
@@ -86,8 +86,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const selLeagueId = leagues.find(({ name }) => name === leagueName)?.id
 
-    const selectedSport = details2[0].sport.name
-
     const res = await fetch(`https://academy-backend.sofascore.dev/sports`)
 
     const detail: SportInfo[] = await res.json()
@@ -103,7 +101,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const selSlug = params?.sportName
 
     return {
-      props: { leagues, selectedSport, sports, selLeagueId, tournamentDetails, selSlug },
+      props: { leagues, sports, selLeagueId, tournamentDetails, selSlug },
     }
   } catch (error) {
     res.statusCode = 404

@@ -14,7 +14,7 @@ export function EventCell(props: { event: SportDateEvent; matchCell: boolean }) 
   }
 
   return (
-    <Flex alignItems="center" gap="3px" h="fit-content" fontSize="14px">
+    <Flex alignItems="center" gap="3px" h="fit-content" fontSize="14px" w="100%">
       <VStack
         justify="center"
         alignItems="center"
@@ -68,7 +68,7 @@ export function EventCell(props: { event: SportDateEvent; matchCell: boolean }) 
             </Text>
           </Flex>
         </VStack>
-        <VStack justify="center" padding="0px 10px">
+        <VStack justify="center" w="50px" alignItems="center">
           <Text
             color={`${props.event.winnerCode === 'away' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : props.event.status === 'inprogress' ? 'var(--specific-live)' : 'var(--on-surface-on-surface-lv-1)'}`}
             p="5px 0px"

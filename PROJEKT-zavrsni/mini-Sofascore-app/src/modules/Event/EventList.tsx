@@ -63,6 +63,7 @@ export function EventList(props: {
         alignItems="center"
         justify="space-between"
         gap="5px"
+        backgroundColor={`${mobileWindowSize ? 'var(--surface-surface-0)' : 'initial'} `}
       >
         <Text>
           {currentDate.getDate() === formatTodayDate().getDate() &&
@@ -83,61 +84,141 @@ export function EventList(props: {
           {props.data?.length !== undefined ? `${props.data?.length + ' Events'}` : '0 Events'}
         </Text>
       </Flex>
-      {props.leagues.map(({ id, name, country }, index) => (
-        <VStack key={id} width="100%">
-          <Flex
-            p="20px 16px"
-            fontSize="14px"
-            fontWeight="bold"
-            color="var(--on-surface-on-surface-lv-1)"
-            alignItems="center"
-            gap="10px"
+      {mobileWindowSize ? (
+        <Flex p="1px 0px" w="100%" justify="center" backgroundColor="var(--surface-surface-0)">
+          <Box
+            w="95%"
+            backgroundColor="var(--surface-surface-1)"
+            borderRadius="16px"
+            boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
+            paddingBottom="16px"
           >
-            <Image src={`/api/tournament/${id}/image`} alt="league logo" width={32} height={32}></Image>
-            <Text>{country.name}</Text>
-            <Image src={isDark ? rightLight : right} alt="icon right" width={15} height={15}></Image>
-            <Text color="var(--on-surface-on-surface-lv-2)">{name}</Text>
-          </Flex>
-          {props.data !== undefined && props.data?.length > 0 ? null : (
-            <Text fontSize="14px" fontWeight="bold" color="var(--on-surface-on-surface-lv-2)" p="20px 16px">
-              No match
-            </Text>
-          )}
-          {props.data?.map(event => (
-            <Link
-              key={event.id}
-              href={`${`/tournament/${event.tournament.sport.slug}/${event.tournament.name}/${formatName(event.homeTeam.name, event.awayTeam.name)}/${event.id}`}`}
-              onClick={(e: { preventDefault: () => void }) => {
-                if (!mobileWindowSize) {
-                  e.preventDefault()
-                }
-              }}
-            >
-              <Box
-                width="100%"
-                _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
-                cursor="pointer"
+            {props.leagues.map(({ id, name, country }, index) => (
+              <VStack key={id} width="100%">
+                <Flex
+                  p="20px 16px"
+                  fontSize="14px"
+                  fontWeight="bold"
+                  color="var(--on-surface-on-surface-lv-1)"
+                  alignItems="center"
+                  gap="10px"
+                >
+                  <Image src={`/api/tournament/${id}/image`} alt="league logo" width={32} height={32}></Image>
+                  <Text>{country.name}</Text>
+                  <Image src={isDark ? rightLight : right} alt="icon right" width={15} height={15}></Image>
+                  <Text color="var(--on-surface-on-surface-lv-2)">{name}</Text>
+                </Flex>
+                {props.data !== undefined && props.data?.length > 0 ? null : (
+                  <Text fontSize="14px" fontWeight="bold" color="var(--on-surface-on-surface-lv-2)" p="20px 16px">
+                    No match
+                  </Text>
+                )}
+                {props.data?.map(event => (
+                  <Link
+                    key={event.id}
+                    href={`${`/tournament/${event.tournament.sport.slug}/${event.tournament.name}/${formatName(event.homeTeam.name, event.awayTeam.name)}/${event.id}`}`}
+                    onClick={(e: { preventDefault: () => void }) => {
+                      if (!mobileWindowSize) {
+                        e.preventDefault()
+                      }
+                    }}
+                  >
+                    <Box
+                      width="100%"
+                      _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
+                      cursor="pointer"
+                      fontSize="14px"
+                      onClick={() => {
+                        props.id(event.id)
+                        setClickedCell(event.id)
+                        if (!mobileWindowSize) {
+                          setOpenedWidget(true)
+                        }
+                      }}
+                      backgroundColor={`${clickedCell === event.id && openedWidget ? 'var(--color-primary-highlight)' : 'var(--surface-surface-1)'}`}
+                    >
+                      {checkTournamentId(event.tournament.id, id) === true ? (
+                        <EventCell event={event} matchCell={false} />
+                      ) : null}
+                    </Box>
+                  </Link>
+                ))}
+                {index === props.leagues.length - 1 ? null : (
+                  <Box
+                    minWidth="100%"
+                    h="1px"
+                    backgroundColor="var(--on-surface-on-surface-lv-4)"
+                    borderRadius="2px"
+                  ></Box>
+                )}
+              </VStack>
+            ))}
+          </Box>
+        </Flex>
+      ) : (
+        <Box>
+          {props.leagues.map(({ id, name, country }, index) => (
+            <VStack key={id} width="100%">
+              <Flex
+                p="20px 16px"
                 fontSize="14px"
-                onClick={() => {
-                  props.id(event.id)
-                  setClickedCell(event.id)
-                  if (!mobileWindowSize) {
-                    setOpenedWidget(true)
-                  }
-                }}
-                backgroundColor={`${clickedCell === event.id && openedWidget ? 'var(--color-primary-highlight)' : 'var(--surface-surface-1)'}`}
+                fontWeight="bold"
+                color="var(--on-surface-on-surface-lv-1)"
+                alignItems="center"
+                gap="10px"
               >
-                {checkTournamentId(event.tournament.id, id) === true ? (
-                  <EventCell event={event} matchCell={false} />
-                ) : null}
-              </Box>
-            </Link>
+                <Image src={`/api/tournament/${id}/image`} alt="league logo" width={32} height={32}></Image>
+                <Text>{country.name}</Text>
+                <Image src={isDark ? rightLight : right} alt="icon right" width={15} height={15}></Image>
+                <Text color="var(--on-surface-on-surface-lv-2)">{name}</Text>
+              </Flex>
+              {props.data !== undefined && props.data?.length > 0 ? null : (
+                <Text fontSize="14px" fontWeight="bold" color="var(--on-surface-on-surface-lv-2)" p="20px 16px">
+                  No match
+                </Text>
+              )}
+              {props.data?.map(event => (
+                <Link
+                  key={event.id}
+                  href={`${`/tournament/${event.tournament.sport.slug}/${event.tournament.name}/${formatName(event.homeTeam.name, event.awayTeam.name)}/${event.id}`}`}
+                  onClick={(e: { preventDefault: () => void }) => {
+                    if (!mobileWindowSize) {
+                      e.preventDefault()
+                    }
+                  }}
+                >
+                  <Box
+                    width="100%"
+                    _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
+                    cursor="pointer"
+                    fontSize="14px"
+                    onClick={() => {
+                      props.id(event.id)
+                      setClickedCell(event.id)
+                      if (!mobileWindowSize) {
+                        setOpenedWidget(true)
+                      }
+                    }}
+                    backgroundColor={`${clickedCell === event.id && openedWidget ? 'var(--color-primary-highlight)' : 'var(--surface-surface-1)'}`}
+                  >
+                    {checkTournamentId(event.tournament.id, id) === true ? (
+                      <EventCell event={event} matchCell={false} />
+                    ) : null}
+                  </Box>
+                </Link>
+              ))}
+              {index === props.leagues.length - 1 ? null : (
+                <Box
+                  minWidth="100%"
+                  h="1px"
+                  backgroundColor="var(--on-surface-on-surface-lv-4)"
+                  borderRadius="2px"
+                ></Box>
+              )}
+            </VStack>
           ))}
-          {index === props.leagues.length - 1 ? null : (
-            <Box minWidth="100%" h="1px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>
-          )}
-        </VStack>
-      ))}
+        </Box>
+      )}
     </Panel>
   )
 }

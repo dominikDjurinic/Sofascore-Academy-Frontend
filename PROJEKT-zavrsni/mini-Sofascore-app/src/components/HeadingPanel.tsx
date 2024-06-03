@@ -6,6 +6,7 @@ import { ImageWithPlaceholder } from './ImageWithPlaceholder'
 import { PlayerDetails } from '@/model/players'
 import { TeamDetails } from '@/model/team'
 import Link from 'next/link'
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
 
 export function HeadingPanel(props: {
   name: string
@@ -16,10 +17,11 @@ export function HeadingPanel(props: {
   team?: TeamDetails
   selSlug?: string
 }) {
+  const { mobileWindowSize } = useWindowSizeContext()
   return (
     <VStack
       width="100%"
-      borderRadius="16px"
+      borderRadius={`${mobileWindowSize ? '0px' : '16px'}`}
       bgColor="var(--surface-surface-1)"
       boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
       overflow="hidden"
@@ -35,7 +37,19 @@ export function HeadingPanel(props: {
           justify="center"
           alignItems="center"
         >
-          <ImageWithPlaceholder source={props.imageLogo} placeholder="/images/noImage.svg" alt="logo" w={70} h={70} />
+          {props.player !== undefined ? (
+            <Flex w="fit-content" borderRadius="50%" overflow="hidden" alignItems="center">
+              <ImageWithPlaceholder
+                source={props.imageLogo}
+                placeholder="/images/noImage.svg"
+                alt="logo"
+                w={70}
+                h={70}
+              />
+            </Flex>
+          ) : (
+            <ImageWithPlaceholder source={props.imageLogo} placeholder="/images/noImage.svg" alt="logo" w={70} h={70} />
+          )}
         </Flex>
         <VStack>
           <Box fontSize="32px" fontWeight="bold" color="var(--on-surface-on-surface-lv-1)">

@@ -88,8 +88,8 @@ export function MatchPanel(props: {
 
   return (
     <VStack
-      width="49%"
-      borderRadius="16px"
+      w={`${mobileWindowSize ? '100%' : '49%'}`}
+      borderRadius={`${mobileWindowSize ? '0px' : '16px'}`}
       bgColor="var(--surface-surface-1)"
       boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
       paddingBottom="16px"

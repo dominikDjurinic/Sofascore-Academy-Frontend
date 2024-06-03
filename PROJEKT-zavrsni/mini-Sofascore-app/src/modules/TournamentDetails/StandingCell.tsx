@@ -40,7 +40,7 @@ export function StandingCell(props: { data: SortedStandings; place: number }) {
           <Flex w="5%" justify="center">
             {props.data.losses}
           </Flex>
-          <Flex w="15%" justify="center" textAlign="center">
+          <Flex w="20%" justify="center" textAlign="center">
             {props.data.scoresFor} : {props.data.scoresAgainst}
           </Flex>
           <Flex w="5%" justify="center">

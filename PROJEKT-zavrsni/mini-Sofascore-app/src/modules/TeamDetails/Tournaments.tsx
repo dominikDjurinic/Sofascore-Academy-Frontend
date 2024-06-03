@@ -1,13 +1,15 @@
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { TournamentDetails } from '@/model/tournaments'
 import { Flex, Text, VStack } from '@kuma-ui/core'
 import Image from 'next/image'
 
 export function Tournaments(props: { teamTournaments: TournamentDetails[] }) {
+  const { mobileWindowSize } = useWindowSizeContext()
   return (
     <>
       <VStack
         width="100%"
-        borderRadius="16px"
+        borderRadius={`${mobileWindowSize ? '0px' : '16px'}`}
         bgColor="var(--surface-surface-1)"
         boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
         p="16px 10px"

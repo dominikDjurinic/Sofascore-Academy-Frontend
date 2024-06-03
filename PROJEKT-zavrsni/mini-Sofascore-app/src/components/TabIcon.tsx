@@ -5,7 +5,13 @@ import Image from 'next/image'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import Link from 'next/link'
 
-export function TabIcon(props: { name: string; slug: string; id: number; selectedSport: string | null }) {
+export function TabIcon(props: {
+  name: string
+  slug: string
+  id: number
+  selectedSport: string | null
+  leagues?: boolean
+}) {
   const { mobileWindowSize } = useWindowSizeContext()
   const { isDark } = useThemeContext()
   const { setOpenedWidget } = useWidgetContext()
@@ -34,7 +40,9 @@ export function TabIcon(props: { name: string; slug: string; id: number; selecte
 
   return (
     <VStack>
-      <Link href={`${props.slug !== 'football' ? `/${props.slug}` : '/'}`}>
+      <Link
+        href={`${props.leagues !== undefined ? `/leagues/${props.slug}` : props.slug !== 'football' ? `/${props.slug}` : '/'}`}
+      >
         <Flex
           cursor="pointer"
           h="100%"
@@ -55,13 +63,13 @@ export function TabIcon(props: { name: string; slug: string; id: number; selecte
             height={16}
           ></Image>
           <Text
-            fontWeight={`${props.selectedSport !== null && props.selectedSport === props.name ? 'bold' : 'normal'}`}
+            fontWeight={`${props.selectedSport !== null && props.selectedSport === props.slug ? 'bold' : 'normal'}`}
           >
             {props.name}
           </Text>
         </Flex>
       </Link>
-      {props.selectedSport !== null && props.selectedSport === props.name ? (
+      {props.selectedSport !== null && props.selectedSport === props.slug ? (
         <Box minWidth="100%" h="4px" backgroundColor="var(--surface-surface-1)" borderRadius="2px"></Box>
       ) : (
         <Box

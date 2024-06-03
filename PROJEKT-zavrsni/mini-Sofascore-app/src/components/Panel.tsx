@@ -7,11 +7,11 @@ export function Panel({ children }: PropsWithChildren) {
 
   return (
     <VStack
-      width={`${mobileWindowSize ? '90%' : '30%'}`}
-      borderRadius="16px"
+      width={`${mobileWindowSize ? '100%' : '30%'}`}
+      borderRadius={`${mobileWindowSize ? '0px' : '16px'}`}
       bgColor="var(--surface-surface-1)"
-      boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
-      paddingBottom="16px"
+      boxShadow={`${mobileWindowSize ? 'none' : '1px 1px rgba(0, 0, 0, 0.08)'}`}
+      paddingBottom={`${mobileWindowSize ? '0px' : '16px'}`}
       overflow="hidden"
       height="fit-content"
     >

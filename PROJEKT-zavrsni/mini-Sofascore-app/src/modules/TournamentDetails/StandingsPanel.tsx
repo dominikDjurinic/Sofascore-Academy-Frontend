@@ -10,6 +10,7 @@ import bottomLight from '../../../public/images/ic_bottomLight.png'
 import top from '../../../public/images/ic_top.png'
 import topLight from '../../../public/images/ic_topLight.png'
 import { useThemeContext } from '@/context/ThemeContext'
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
 
 export function StandingsPanel(props: {
   tournamentId?: number
@@ -26,12 +27,13 @@ export function StandingsPanel(props: {
 
   const [openSelection, setOpenSelection] = useState(false)
   const { isDark } = useThemeContext()
+  const { mobileWindowSize } = useWindowSizeContext()
 
   return (
     <>
       <VStack
         width="100%"
-        borderRadius="16px"
+        borderRadius={`${mobileWindowSize ? '0px' : '16px'}`}
         bgColor="var(--surface-surface-1)"
         boxShadow="1px 1px rgba(0, 0, 0, 0.08)"
         paddingBottom="16px"
@@ -138,7 +140,7 @@ export function StandingsPanel(props: {
             <Flex w="5%" justify="center">
               L
             </Flex>
-            <Flex w="15%" justify="center">
+            <Flex w="20%" justify="center">
               Goals
             </Flex>
             <Flex w="5%" justify="center">

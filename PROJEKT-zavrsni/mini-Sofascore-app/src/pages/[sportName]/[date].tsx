@@ -17,7 +17,6 @@ import { Advertisement } from '@/modules/Advertisement'
 
 export default function DateEvent(props: {
   events: SportDateEvent[]
-  selectedSport: string
   sports: SportInfo[]
   leagues: Leagues[]
   selSlug: string
@@ -43,12 +42,10 @@ export default function DateEvent(props: {
         <title>{setTitle(slug)}</title>
       </Head>
       <Box as="main" minHeight="100vh" position="relative">
-        <Header selectedSport={props.selectedSport} sports={props.sports} homePage={true} />
-        <Box h="48px" w="100%"></Box>
+        <Header selectedSport={props.selSlug} sports={props.sports} />
+        {mobileWindowSize ? null : <Box h="48px" w="100%"></Box>}
         <Flex justifyContent="center" gap="24px" paddingBottom="130px">
-          {mobileWindowSize ? null : (
-            <LeaguesPanel selectedSport={props.selSlug} leagues={props.leagues} selLeagueId={undefined} />
-          )}
+          {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
           <EventList
             leagues={props.leagues}
             selSlug={props.selSlug}
@@ -95,12 +92,10 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const details2: Leagues[] = await resp2.json()
 
-    const selectedSport = details2[0].sport.name
-
     const leagues: Leagues[] = details2
 
     return {
-      props: { events, selectedSport, sports, selSlug, leagues, selDate },
+      props: { events, sports, selSlug, leagues, selDate },
     }
   } catch (error) {
     res.statusCode = 404

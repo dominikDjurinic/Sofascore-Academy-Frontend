@@ -3,7 +3,7 @@ import { Leagues } from '@/model/sports'
 import { Panel } from '@/components/Panel'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
 
-export function LeaguesPanel(props: { selectedSport: string; leagues: Leagues[]; selLeagueId: number | undefined }) {
+export function LeaguesPanel(props: { leagues: Leagues[]; selLeagueId: number | undefined }) {
   const { setOpenedWidget } = useWidgetContext()
   return (
     <Panel>
