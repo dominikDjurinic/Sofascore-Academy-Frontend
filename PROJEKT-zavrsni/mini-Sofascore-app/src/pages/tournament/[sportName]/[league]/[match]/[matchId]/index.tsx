@@ -40,7 +40,7 @@ export default function Match(props: {
           <Box h="48px" w="100%"></Box>
           <Flex justifyContent="center" gap="24px" paddingBottom="130px">
             {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={props.data.tournament.id} />}
-            <EventWidget id={props.matchId} detailPage={true} subPanel={false} />
+            <EventWidget id={props.matchId} detailPage={true} subPanel={false} selSlug={props.selSlug} />
             {mobileWindowSize ? null : <Advertisement />}
           </Flex>
           <Footer />

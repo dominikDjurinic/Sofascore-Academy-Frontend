@@ -60,7 +60,9 @@ export default function LeaguePage(props: {
                   <MatchPanel tournamentId={props.selLeagueId} eventId={id => setEventId(id)} apiFor={'tournament'} />
                   {mobileWindowSize ? null : (
                     <>
-                      {openedWidget === false ? null : <EventWidget id={eventId} detailPage={false} subPanel={true} />}
+                      {openedWidget === false ? null : (
+                        <EventWidget id={eventId} detailPage={false} subPanel={true} selSlug={props.selSlug} />
+                      )}
                     </>
                   )}
                 </Flex>

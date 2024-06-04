@@ -73,7 +73,11 @@ export default function TeamPage(props: {
           <Flex justify="space-between">
             <MatchPanel teamId={props.teamDetails.id} eventId={id => setEventId(id)} apiFor={'team'} />
             {mobileWindowSize ? null : (
-              <>{openedWidget === false ? null : <EventWidget id={eventId} detailPage={false} subPanel={true} />}</>
+              <>
+                {openedWidget === false ? null : (
+                  <EventWidget id={eventId} detailPage={false} subPanel={true} selSlug={props.selSlug} />
+                )}
+              </>
             )}
           </Flex>
         )

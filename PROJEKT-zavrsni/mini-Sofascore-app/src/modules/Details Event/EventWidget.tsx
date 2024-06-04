@@ -13,7 +13,12 @@ import { useThemeContext } from '@/context/ThemeContext'
 import { EventIncidents } from './EventIncidents'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 
-export function EventWidget(props: { id: number | undefined; detailPage: boolean; subPanel: boolean }) {
+export function EventWidget(props: {
+  id: number | undefined
+  detailPage: boolean
+  subPanel: boolean
+  selSlug: string
+}) {
   const { data, error, isLoading } = useSWR<SportDateEvent, Error>(`/api/event/${props.id}`)
 
   console.log(error)
@@ -60,10 +65,10 @@ export function EventWidget(props: { id: number | undefined; detailPage: boolean
           justify="center"
           backgroundColor="var(--surface-surface-0)"
         >
-          <EventIncidents eventId={props.id} />
+          <EventIncidents eventId={props.id} selSlug={props.selSlug} />
         </Flex>
       ) : (
-        <EventIncidents eventId={props.id} />
+        <EventIncidents eventId={props.id} selSlug={props.selSlug} />
       )}
     </VStack>
   )

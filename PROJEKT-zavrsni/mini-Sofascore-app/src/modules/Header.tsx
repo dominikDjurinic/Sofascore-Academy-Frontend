@@ -1,5 +1,5 @@
 import { SportInfo } from '@/model/sports'
-import { Box, Flex, Link, VStack } from '@kuma-ui/core'
+import { Box, Flex, Input, Link, VStack } from '@kuma-ui/core'
 import logo1 from '../../public/images/sofascore_lockup@2x.png'
 import logo2 from '../../public/images/sofascore_lockup_black@2x.png'
 import settings1 from '../../public/images/ic_settings@2x.png'
@@ -8,13 +8,22 @@ import trophy1 from '../../public/images/ic_trophy.png'
 import trophy2 from '../../public/images/ic_trophyDark.png'
 import matches1 from '../../public/images/icon_matches.png'
 import matches2 from '../../public/images/icon_matchesDark.png'
+import search from '../../public/images/search.png'
+import searchLight from '../../public/images/searchLight.png'
 import Image from 'next/image'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { useThemeContext } from '@/context/ThemeContext'
 import { TabIcon } from '@/components/TabIcon'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
+import { SetStateAction, useState } from 'react'
+import { Search } from './Search'
 
-export function Header(props: { selectedSport: string | null; sports: SportInfo[] | null; leagues?: boolean }) {
+export function Header(props: {
+  selectedSport: string | null
+  sports: SportInfo[] | null
+  leagues?: boolean
+  settings?: boolean
+}) {
   const { mobileWindowSize } = useWindowSizeContext()
   const { isDark } = useThemeContext()
   const { setOpenedWidget } = useWidgetContext()
@@ -22,6 +31,9 @@ export function Header(props: { selectedSport: string | null; sports: SportInfo[
   const closeWidget = () => {
     setOpenedWidget(false)
   }
+
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   return (
     <VStack
@@ -52,7 +64,23 @@ export function Header(props: { selectedSport: string | null; sports: SportInfo[
             <Image src={isDark ? logo2 : logo1} alt="logo icon" width={132} height={20}></Image>
           </Box>
         </Link>
+
         <Flex right="4px" position="absolute" alignItems="center">
+          <Box
+            p="12px"
+            cursor="pointer"
+            onClick={() => {
+              setSearchQuery('')
+              setSearchOpen(!searchOpen)
+            }}
+          >
+            <Image
+              src={isDark ? (searchOpen ? searchLight : search) : searchOpen ? search : searchLight}
+              alt="icon settings"
+              width={18}
+              height={18}
+            ></Image>
+          </Box>
           {mobileWindowSize && props.selectedSport !== '' ? (
             props.leagues !== undefined ? (
               <Link href={`/${props.selectedSport === 'football' ? '' : props.selectedSport}`}>
@@ -76,11 +104,61 @@ export function Header(props: { selectedSport: string | null; sports: SportInfo[
                 closeWidget()
               }}
             >
-              <Image src={isDark ? settings2 : settings1} alt="icon settings" width={24} height={24}></Image>
+              <Image
+                src={
+                  isDark
+                    ? props.settings !== undefined
+                      ? settings1
+                      : settings2
+                    : props.settings !== undefined
+                      ? settings2
+                      : settings1
+                }
+                alt="icon settings"
+                width={24}
+                height={24}
+              ></Image>
             </Box>
           </Link>
         </Flex>
       </Flex>
+
+      {searchOpen ? (
+        <Flex w="100%" justify="center" alignItems="center" p="10px 0px" gap="10px">
+          <Image src={isDark ? search : searchLight} alt="search icon" width={18} height={18}></Image>
+          <Flex
+            w={`${mobileWindowSize ? '300px' : '500px'}`}
+            h="30px"
+            alignItems="center"
+            overflow="hidden"
+            borderRadius="8px"
+            position="relative"
+          >
+            <Input
+              w="100%"
+              placeholder="Search..."
+              border="none"
+              h="100%"
+              backgroundColor="var(--surface-surface-1)"
+              _focus={{ outline: 'none' }}
+              p="0px 5px"
+              fontSize="14px"
+              color="var(--on-surface-on-surface-lv-1)"
+              value={searchQuery}
+              onChange={(e: { target: { value: SetStateAction<string> } }) => setSearchQuery(e.target.value)}
+            ></Input>
+          </Flex>
+        </Flex>
+      ) : null}
+
+      {searchQuery.length >= 2 && searchOpen ? (
+        <Flex w="100%" justify="center" alignItems="center">
+          <Flex w={`${mobileWindowSize ? '300px' : '500px'}`} position="relative">
+            <Search searchQuery={searchQuery} />
+          </Flex>
+        </Flex>
+      ) : null}
+
       {props.selectedSport !== null && props.sports !== null ? (
         <Flex justify={'center'} alignItems={'center'} h="fit-content" color="var(--surface-surface-1)">
           {props.sports.map(({ name, slug, id }) => (

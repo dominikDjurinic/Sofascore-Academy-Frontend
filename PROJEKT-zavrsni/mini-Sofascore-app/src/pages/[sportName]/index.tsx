@@ -63,7 +63,7 @@ export default function Sports(props: {
                 {openedWidget === false ? (
                   <Advertisement />
                 ) : (
-                  <EventWidget id={id} detailPage={false} subPanel={false} />
+                  <EventWidget id={id} detailPage={false} subPanel={false} selSlug={props.selSlug} />
                 )}
               </>
             )}

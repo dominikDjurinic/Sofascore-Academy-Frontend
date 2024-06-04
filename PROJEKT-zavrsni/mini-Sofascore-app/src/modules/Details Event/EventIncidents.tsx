@@ -5,8 +5,9 @@ import { GoalCell } from './Incidents/GoalCell'
 import { PeriodCell } from './Incidents/PeriodCell'
 import { Flex, Text, VStack } from '@kuma-ui/core'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
+import Link from 'next/link'
 
-export function EventIncidents(props: { eventId: number | undefined }) {
+export function EventIncidents(props: { eventId: number | undefined; selSlug: string }) {
   const { data, error } = useSWR<(Card & Goal & Period)[], Error>(`/api/event/${props.eventId}/incidents`)
 
   console.log(error)
@@ -41,9 +42,21 @@ export function EventIncidents(props: { eventId: number | undefined }) {
           .reverse()
           .map(incident => {
             if (incident.type === 'card') {
-              return <CardCell key={incident.id} data={incident} />
+              return props.selSlug === 'basketball' ? (
+                <CardCell key={incident.id} data={incident} />
+              ) : (
+                <Link key={incident.id} href={`/player/${props.selSlug}/${incident.player.slug}/${incident.player.id}`}>
+                  <CardCell key={incident.id} data={incident} />
+                </Link>
+              )
             } else if (incident.type === 'goal') {
-              return <GoalCell key={incident.id} data={incident} />
+              return props.selSlug === 'basketball' ? (
+                <GoalCell key={incident.id} data={incident} />
+              ) : (
+                <Link key={incident.id} href={`/player/${props.selSlug}/${incident.player.slug}/${incident.player.id}`}>
+                  <GoalCell key={incident.id} data={incident} />
+                </Link>
+              )
             } else {
               return <PeriodCell key={incident.id} data={incident} />
             }

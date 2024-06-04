@@ -44,7 +44,7 @@ export function TeamInfo(props: { teamDetails: TeamDetails; teamPlayers: TeamPla
           </Text>
         </Flex>
         <Box minWidth="100%" h="1px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>
-        <Flex w="100%" p="8px 0px">
+        <Flex w="100%" paddingTop="32px">
           <VStack w="50%" alignItems="center" gap="8px">
             <Image src={isDark ? playersLight : players} alt="players icon" width={35} height={35}></Image>
             <Text color="var(--color-primary-default)" fontSize="14px" fontWeight="bold">

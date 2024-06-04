@@ -11,8 +11,9 @@ export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
   const [isDark, setIsDark] = useState<boolean | undefined>(undefined)
 
   useEffect(() => {
-    const data = localStorage.getItem('theme')
-    if (data !== null && data !== undefined) {
+    const data = localStorage.getItem('themeDarkMiniSofa')
+    console.log(data)
+    if (data !== null && data !== 'undefined') {
       setIsDark(JSON.parse(data))
     } else {
       setIsDark(false)
@@ -24,7 +25,7 @@ export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('theme', JSON.stringify(isDark))
+    localStorage.setItem('themeDarkMiniSofa', JSON.stringify(isDark))
     if (isDark) {
       document.documentElement.classList.add('dark')
     } else {

@@ -9,7 +9,7 @@ import { LeaguesPanel } from '@/modules/Leagues'
 import { Box, Flex, VStack } from '@kuma-ui/core'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PlayerDetails } from '@/model/players'
 import { SportDateEvent } from '@/model/events'
 import { TeamDetails, TeamPlayer } from '@/model/team'
@@ -25,9 +25,13 @@ export default function PlayerPage(props: {
   const tabs: string[] = []
 
   const { mobileWindowSize } = useWindowSizeContext()
-  const { openedWidget } = useWidgetContext()
+  const { openedWidget, setOpenedWidget } = useWidgetContext()
 
   const [eventId, setEventId] = useState(0)
+
+  useEffect(() => {
+    setOpenedWidget(false)
+  }, [])
 
   return (
     <>
@@ -54,7 +58,11 @@ export default function PlayerPage(props: {
               <Flex justify="space-between">
                 <MatchPanel eventId={id => setEventId(id)} apiFor={'player'} playerId={props.player.id} />
                 {mobileWindowSize ? null : (
-                  <>{openedWidget === false ? null : <EventWidget id={eventId} detailPage={false} subPanel={true} />}</>
+                  <>
+                    {openedWidget === false ? null : (
+                      <EventWidget id={eventId} detailPage={false} subPanel={true} selSlug={props.selSlug} />
+                    )}
+                  </>
                 )}
               </Flex>
             </VStack>

@@ -32,7 +32,7 @@ export default function Settings(props: { sports: SportInfo[] }) {
       </Head>
       {mobileWindowSize !== undefined ? (
         <Box as="main" position="relative" minHeight="100vh">
-          <Header selectedSport={''} sports={props.sports} />
+          <Header selectedSport={''} sports={props.sports} settings={true} />
           {mobileWindowSize ? null : <Box h="48px" w="100%"></Box>}
           <Flex justify="center" paddingBottom="130px">
             <Panel>
