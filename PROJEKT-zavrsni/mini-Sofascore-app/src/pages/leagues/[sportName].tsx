@@ -1,3 +1,4 @@
+import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { Leagues, SportInfo } from '@/model/sports'
 import Footer from '@/modules/Footer'
 import { Header } from '@/modules/Header'
@@ -12,18 +13,22 @@ export default function LeaguesPage(props: {
   sports: SportInfo[]
   leagues: Leagues[]
 }) {
+  const { mobileWindowSize } = useWindowSizeContext()
+
   return (
     <>
       <Head>
         <title>Leagues - {props.selectedSport}</title>
       </Head>
-      <Box as="main" position="relative" minHeight="100vh">
-        <Header selectedSport={props.selSlug} sports={props.sports} leagues={true} />
-        <Flex justifyContent="center" gap="24px" paddingBottom="130px">
-          <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />
-        </Flex>
-        <Footer />
-      </Box>
+      {mobileWindowSize !== undefined ? (
+        <Box as="main" position="relative" minHeight="100vh">
+          <Header selectedSport={props.selSlug} sports={props.sports} leagues={true} />
+          <Flex justifyContent="center" gap="24px" paddingBottom="130px">
+            <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />
+          </Flex>
+          <Footer />
+        </Box>
+      ) : null}
     </>
   )
 }

@@ -1,41 +1,44 @@
 import { createContext, useContext, useEffect, useState, PropsWithChildren, SetStateAction, Dispatch } from 'react'
 
 interface WindowSizeValues {
-  mobileWindowSize: boolean
-  setMobileWindowSize: Dispatch<SetStateAction<boolean>>
+  mobileWindowSize: boolean | undefined
+  setMobileWindowSize: Dispatch<SetStateAction<boolean | undefined>>
 }
 
 const WindowSizeContext = createContext<WindowSizeValues>({} as WindowSizeValues)
 
 export const WindowSizeContextProvider = ({ children }: PropsWithChildren) => {
-  const [mobileWindowSize, setMobileWindowSize] = useState<boolean>(false)
-
+  const [mobileWindowSize, setMobileWindowSize] = useState<boolean | undefined>(undefined)
+  /*
   useEffect(() => {
     const handleResizeWindow = () => {
-      if (Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) <= 990) {
+      if (window.innerWidth <= 990) {
         setMobileWindowSize(true)
       } else {
         setMobileWindowSize(false)
       }
     }
     handleResizeWindow()
-  }, [])
+  }, [])*/
 
   useEffect(() => {
     const handleResizeWindow = () => {
-      if (Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) <= 990) {
+      setMobileWindowSize(window.innerWidth <= 990)
+      /*if (window.innerWidth <= 990) {
         setMobileWindowSize(true)
       } else {
         setMobileWindowSize(false)
-      }
+      }*/
     }
 
     window.addEventListener('resize', handleResizeWindow)
 
+    handleResizeWindow()
+
     return () => {
       window.removeEventListener('resize', handleResizeWindow)
     }
-  }, [mobileWindowSize])
+  }, [])
 
   return (
     <WindowSizeContext.Provider value={{ mobileWindowSize, setMobileWindowSize }}>

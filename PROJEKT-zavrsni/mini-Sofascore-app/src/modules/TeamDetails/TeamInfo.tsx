@@ -2,9 +2,12 @@ import { TeamDetails, TeamPlayer } from '@/model/team'
 import { Box, Flex, Text, VStack } from '@kuma-ui/core'
 import Image from 'next/image'
 import placeholder from '../../../public/images/noImage.svg'
-import players from '../../../public/images/ic_team@2x.png'
+import players from '../../../public/images/ic_team.png'
+import playersLight from '../../../public/images/ic_teamLight.png'
 import progress from '../../../public/images/Assets Drawable@2x.png'
+import progressLight from '../../../public/images/Assets DrawableLight@2x.png'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
+import { useThemeContext } from '@/context/ThemeContext'
 
 export function TeamInfo(props: { teamDetails: TeamDetails; teamPlayers: TeamPlayer[] }) {
   const foreignPlayers = () => {
@@ -18,6 +21,7 @@ export function TeamInfo(props: { teamDetails: TeamDetails; teamPlayers: TeamPla
   }
 
   const { mobileWindowSize } = useWindowSizeContext()
+  const { isDark } = useThemeContext()
 
   return (
     <>
@@ -42,7 +46,7 @@ export function TeamInfo(props: { teamDetails: TeamDetails; teamPlayers: TeamPla
         <Box minWidth="100%" h="1px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>
         <Flex w="100%" p="8px 0px">
           <VStack w="50%" alignItems="center" gap="8px">
-            <Image src={players} alt="players icon" width={35} height={35}></Image>
+            <Image src={isDark ? playersLight : players} alt="players icon" width={35} height={35}></Image>
             <Text color="var(--color-primary-default)" fontSize="14px" fontWeight="bold">
               {props.teamPlayers.length}
             </Text>
@@ -51,7 +55,7 @@ export function TeamInfo(props: { teamDetails: TeamDetails; teamPlayers: TeamPla
             </Text>
           </VStack>
           <VStack w="50%" alignItems="center" gap="8px">
-            <Image src={progress} alt="progress icon" width={35} height={35}></Image>
+            <Image src={isDark ? progressLight : progress} alt="progress icon" width={35} height={35}></Image>
             <Text color="var(--color-primary-default)" fontSize="14px" fontWeight="bold">
               {foreignPlayers()}
             </Text>

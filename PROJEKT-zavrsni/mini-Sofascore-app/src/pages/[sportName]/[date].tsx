@@ -41,26 +41,32 @@ export default function DateEvent(props: {
       <Head>
         <title>{setTitle(slug)}</title>
       </Head>
-      <Box as="main" minHeight="100vh" position="relative">
-        <Header selectedSport={props.selSlug} sports={props.sports} />
-        {mobileWindowSize ? null : <Box h="48px" w="100%"></Box>}
-        <Flex justifyContent="center" gap="24px" paddingBottom="130px">
-          {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
-          <EventList
-            leagues={props.leagues}
-            selSlug={props.selSlug}
-            data={props.events}
-            date={props.selDate}
-            id={openWidget}
-          />
-          {mobileWindowSize ? null : (
-            <>
-              {openedWidget === false ? <Advertisement /> : <EventWidget id={id} detailPage={false} subPanel={false} />}
-            </>
-          )}
-        </Flex>
-        <Footer />
-      </Box>
+      {mobileWindowSize !== undefined ? (
+        <Box as="main" minHeight="100vh" position="relative">
+          <Header selectedSport={props.selSlug} sports={props.sports} />
+          {mobileWindowSize ? null : <Box h="48px" w="100%"></Box>}
+          <Flex justifyContent="center" gap="24px" paddingBottom="130px">
+            {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
+            <EventList
+              leagues={props.leagues}
+              selSlug={props.selSlug}
+              data={props.events}
+              date={props.selDate}
+              id={openWidget}
+            />
+            {mobileWindowSize ? null : (
+              <>
+                {openedWidget === false ? (
+                  <Advertisement />
+                ) : (
+                  <EventWidget id={id} detailPage={false} subPanel={false} />
+                )}
+              </>
+            )}
+          </Flex>
+          <Footer />
+        </Box>
+      ) : null}
     </>
   )
 }

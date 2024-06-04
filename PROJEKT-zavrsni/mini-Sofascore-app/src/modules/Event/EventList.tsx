@@ -34,7 +34,6 @@ export function EventList(props: {
   const { openedWidget, setOpenedWidget } = useWidgetContext()
 
   useEffect(() => {
-    console.log(props.date)
     setCurrentDate(formattingDate)
   }, [props.date])
 

@@ -18,7 +18,7 @@ export function Venue(props: { teamDetails: TeamDetails }) {
         <Flex w="100%" justify="center" fontSize="16px" fontWeight="bold" color="var(--on-surface-on-surface-lv-1)">
           Venue
         </Flex>
-        <Flex justify="space-between" p="16px" fontSize="14px">
+        <Flex justify="space-between" p="16px" fontSize="14px" color="var(--on-surface-on-surface-lv-1)">
           <Text>Stadium</Text>
           <Text>{props.teamDetails.venue}</Text>
         </Flex>

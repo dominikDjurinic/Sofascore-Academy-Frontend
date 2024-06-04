@@ -69,7 +69,9 @@ export function StandingsPanel(props: {
                       width={20}
                       height={20}
                     ></Image>
-                    <Text p="10px 0px">{props.tournaments?.find(({ id }) => id === props.tournamentId)?.name}</Text>
+                    <Text p="10px 0px" color="var(--on-surface-on-surface-lv-1)">
+                      {props.tournaments?.find(({ id }) => id === props.tournamentId)?.name}
+                    </Text>
                   </Flex>
                   <Image
                     src={isDark ? (openSelection ? topLight : bottomLight) : openSelection ? top : bottom}
@@ -111,7 +113,9 @@ export function StandingsPanel(props: {
                         width={20}
                         height={20}
                       ></Image>
-                      <Text p="10px 0px">{name}</Text>
+                      <Text p="10px 0px" color="var(--on-surface-on-surface-lv-1)">
+                        {name}
+                      </Text>
                     </Flex>
                   ))}
                 </VStack>

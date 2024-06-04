@@ -50,7 +50,7 @@ export default function TeamPage(props: {
     switch (openedTab) {
       case 'Details':
         return mobileWindowSize ? (
-          <VStack w="100%" gap="5px">
+          <VStack w="100%" gap="10px">
             <TeamInfo teamDetails={props.teamDetails} teamPlayers={props.teamPlayers} />
             <Tournaments teamTournaments={props.teamTournaments} />
             <Venue teamDetails={props.teamDetails} />
@@ -97,24 +97,26 @@ export default function TeamPage(props: {
       <Head>
         <title>{props.teamDetails.name} | Sofascore</title>
       </Head>
-      <Box as="main" minHeight="100vh" position="relative">
-        <Header selectedSport={props.selSlug} sports={props.sports} />
-        <Box h="48px" w="100%"></Box>
-        <Flex justify="center" gap="24px" paddingBottom="130px">
-          {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
-          <VStack w={`${mobileWindowSize ? '100%' : '60%'}`} gap={`${mobileWindowSize ? '5px' : '12px'}`}>
-            <HeadingPanel
-              key={props.teamId}
-              name={props.teamDetails.name}
-              country={props.teamDetails.country.name}
-              imageLogo={`https://academy-backend.sofascore.dev/team/${props.teamId}/image`}
-              tabs={tabs}
-            />
-            {tabElements()}
-          </VStack>
-        </Flex>
-        <Footer />
-      </Box>
+      {mobileWindowSize !== undefined ? (
+        <Box as="main" minHeight="100vh" position="relative">
+          <Header selectedSport={props.selSlug} sports={props.sports} />
+          <Box h="48px" w="100%"></Box>
+          <Flex justify="center" gap="24px" paddingBottom="130px">
+            {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
+            <VStack w={`${mobileWindowSize ? '100%' : '60%'}`} gap={`${mobileWindowSize ? '5px' : '12px'}`}>
+              <HeadingPanel
+                key={props.teamId}
+                name={props.teamDetails.name}
+                country={props.teamDetails.country.name}
+                imageLogo={`https://academy-backend.sofascore.dev/team/${props.teamId}/image`}
+                tabs={tabs}
+              />
+              {tabElements()}
+            </VStack>
+          </Flex>
+          <Footer />
+        </Box>
+      ) : null}
     </>
   )
 }

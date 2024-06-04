@@ -34,16 +34,18 @@ export default function Match(props: {
           {props.data.homeTeam.name} vs {props.data.awayTeam.name} | Sofascore
         </title>
       </Head>
-      <Box as="main" position="relative" minHeight="100vh">
-        <Header selectedSport={props.selSlug} sports={props.sports} />
-        <Box h="48px" w="100%"></Box>
-        <Flex justifyContent="center" gap="24px" paddingBottom="130px">
-          {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={props.data.tournament.id} />}
-          <EventWidget id={props.matchId} detailPage={true} subPanel={false} />
-          {mobileWindowSize ? null : <Advertisement />}
-        </Flex>
-        <Footer />
-      </Box>
+      {mobileWindowSize !== undefined ? (
+        <Box as="main" position="relative" minHeight="100vh">
+          <Header selectedSport={props.selSlug} sports={props.sports} />
+          <Box h="48px" w="100%"></Box>
+          <Flex justifyContent="center" gap="24px" paddingBottom="130px">
+            {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={props.data.tournament.id} />}
+            <EventWidget id={props.matchId} detailPage={true} subPanel={false} />
+            {mobileWindowSize ? null : <Advertisement />}
+          </Flex>
+          <Footer />
+        </Box>
+      ) : null}
     </>
   )
 }
