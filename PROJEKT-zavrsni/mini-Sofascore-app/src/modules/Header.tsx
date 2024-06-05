@@ -104,20 +104,7 @@ export function Header(props: {
                 closeWidget()
               }}
             >
-              <Image
-                src={
-                  isDark
-                    ? props.settings !== undefined
-                      ? settings1
-                      : settings2
-                    : props.settings !== undefined
-                      ? settings2
-                      : settings1
-                }
-                alt="icon settings"
-                width={24}
-                height={24}
-              ></Image>
+              <Image src={isDark ? settings2 : settings1} alt="icon settings" width={24} height={24}></Image>
             </Box>
           </Link>
         </Flex>

@@ -142,7 +142,7 @@ export function Search(props: { searchQuery: string }) {
                         <Image src={dot} alt="dot icon" width={6} height={6}></Image>
                         <Text color="var(--on-surface-on-surface-lv-2)">{sport.name}</Text>
                       </Flex>
-                      <Flex>
+                      <Flex gap="4px">
                         <ImageWithPlaceholder
                           source={`https://www.sofascore.com/static/images/flags/${alpha2Country(country.name)}.png`}
                           placeholder="/images/globe.png"
@@ -197,7 +197,7 @@ export function Search(props: { searchQuery: string }) {
                         <Image src={dot} alt="dot icon" width={6} height={6}></Image>
                         <Text color="var(--on-surface-on-surface-lv-2)">{sport.name}</Text>
                       </Flex>
-                      <Flex>
+                      <Flex gap="4px">
                         <ImageWithPlaceholder
                           source={`https://www.sofascore.com/static/images/flags/${alpha2Country(country.name)}.png`}
                           placeholder="/images/globe.png"

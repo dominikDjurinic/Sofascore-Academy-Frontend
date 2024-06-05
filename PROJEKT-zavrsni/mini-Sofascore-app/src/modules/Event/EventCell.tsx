@@ -1,3 +1,4 @@
+import { useDateFormatContext } from '@/context/DateFormatContext'
 import { SportDateEvent } from '@/model/events'
 import { Box, Flex, Text, VStack } from '@kuma-ui/core'
 import Image from 'next/image'
@@ -13,6 +14,8 @@ export function EventCell(props: { event: SportDateEvent; matchCell: boolean }) 
     }
   }
 
+  const { engDate } = useDateFormatContext()
+
   return (
     <Flex alignItems="center" gap="3px" h="fit-content" fontSize="14px" w="100%">
       <VStack
@@ -24,12 +27,18 @@ export function EventCell(props: { event: SportDateEvent; matchCell: boolean }) 
       >
         <Text textAlign="center">
           {props.matchCell === true
-            ? new Date(props.event.startDate).getDate() +
-              '. ' +
-              (new Date(props.event.startDate).getMonth() + 1) +
-              '. ' +
-              new Date(props.event.startDate).getFullYear() +
-              '.'
+            ? engDate
+              ? new Date(props.event?.startDate).toLocaleDateString('en-UK', { month: '2-digit' }) +
+                '/' +
+                new Date(props.event?.startDate).toLocaleDateString('en-UK', { day: '2-digit' }) +
+                '/' +
+                new Date(props.event?.startDate).toLocaleDateString('en-UK', { year: 'numeric' })
+              : new Date(props.event.startDate).getDate() +
+                '. ' +
+                (new Date(props.event.startDate).getMonth() + 1) +
+                '. ' +
+                new Date(props.event.startDate).getFullYear() +
+                '.'
             : new Date(props.event.startDate).toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit' })}
         </Text>
         <Text color={`${props.event.status === 'inprogress' ? 'var(--specific-live)' : null}`}>

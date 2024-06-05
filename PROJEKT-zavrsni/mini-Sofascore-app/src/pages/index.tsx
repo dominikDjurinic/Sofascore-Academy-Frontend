@@ -14,6 +14,8 @@ import Head from 'next/head'
 import { setTitle } from '@/utils/setTitle'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { Advertisement } from '@/modules/Advertisement'
+import { LinkingBox } from '@/components/LinkingBox'
+import { LinkingDetails } from '@/model/linking'
 
 export default function Home(props: {
   selSlug: string
@@ -31,10 +33,19 @@ export default function Home(props: {
   }, [props.selSlug])
 
   const [id, setId] = useState(0)
+  const [linkingData, setLinkingData] = useState<LinkingDetails[]>([])
 
   const openWidget = (id: number) => {
     setId(id)
   }
+
+  useEffect(() => {
+    const fb: LinkingDetails = {
+      name: `${props.sports.find(({ slug }) => slug === props.selSlug)?.name}`,
+      urlLink: '/',
+    }
+    setLinkingData([...linkingData, fb])
+  }, [])
 
   return (
     <>
@@ -44,7 +55,11 @@ export default function Home(props: {
       {mobileWindowSize !== undefined ? (
         <Box as="main" position="relative" minHeight="100vh">
           <Header selectedSport={props.selSlug} sports={props.sports} />
-          {mobileWindowSize ? null : <Box h="48px" w="100%"></Box>}
+          {mobileWindowSize ? null : (
+            <Box h="48px" w="100%">
+              <LinkingBox data={linkingData} />
+            </Box>
+          )}
           <Flex justifyContent="center" gap="24px" paddingBottom="130px">
             {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
             <EventList

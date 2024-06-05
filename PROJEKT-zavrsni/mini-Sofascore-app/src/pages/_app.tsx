@@ -6,6 +6,7 @@ import { WindowSizeContextProvider } from '@/context/WindowSizeContext'
 import { SlugContextProvider } from '@/context/SlugContext'
 import { WidgetContextProvider } from '@/context/OpenedWidgetContext'
 import { TabContextProvider } from '@/context/OpenedTab'
+import { DateFormatContextProvider } from '@/context/DateFormatContext'
 
 //@ts-ignore
 export const fetcher = (...args) =>
@@ -24,11 +25,13 @@ export default function App({ Component, pageProps }: AppProps) {
       <TabContextProvider>
         <WidgetContextProvider>
           <SlugContextProvider>
-            <WindowSizeContextProvider>
-              <ThemeContextProvider>
-                <Component {...pageProps} />
-              </ThemeContextProvider>
-            </WindowSizeContextProvider>
+            <DateFormatContextProvider>
+              <WindowSizeContextProvider>
+                <ThemeContextProvider>
+                  <Component {...pageProps} />
+                </ThemeContextProvider>
+              </WindowSizeContextProvider>
+            </DateFormatContextProvider>
           </SlugContextProvider>
         </WidgetContextProvider>
       </TabContextProvider>

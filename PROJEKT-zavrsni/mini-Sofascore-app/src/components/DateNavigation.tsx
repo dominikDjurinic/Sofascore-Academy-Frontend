@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { useSlugContext } from '@/context/SlugContext'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { useThemeContext } from '@/context/ThemeContext'
+import { useDateFormatContext } from '@/context/DateFormatContext'
 
 // eslint-disable-next-line no-unused-vars
 export function DateNavigation(props: { date: string }) {
@@ -21,6 +22,7 @@ export function DateNavigation(props: { date: string }) {
   const { slug } = useSlugContext()
   const { setOpenedWidget } = useWidgetContext()
   const { isDark } = useThemeContext()
+  const { engDate } = useDateFormatContext()
 
   const formattingDate = (date: Date) => {
     const format = date.toISOString().split('T')[0]
@@ -131,7 +133,14 @@ export function DateNavigation(props: { date: string }) {
                 ? 'TODAY'
                 : days[date.getDay()]}
             </Text>
-            <Text>{new Date(date).getDate() + '. ' + (new Date(date).getMonth() + 1) + '.'}</Text>
+            <Text>
+              {engDate
+                ? new Date(date).toLocaleDateString('en-UK', { month: '2-digit' }) +
+                  '/' +
+                  new Date(date).toLocaleDateString('en-UK', { day: '2-digit' }) +
+                  '/'
+                : new Date(date).getDate() + '. ' + (new Date(date).getMonth() + 1) + '.'}
+            </Text>
           </VStack>
           {date.getDate() === centralDate.getDate() && date.getMonth() === centralDate.getMonth() ? (
             <Box minWidth="100%" h="4px" backgroundColor="var(--surface-surface-1)" borderRadius="2px"></Box>

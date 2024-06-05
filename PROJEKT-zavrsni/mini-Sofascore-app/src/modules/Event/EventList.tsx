@@ -13,6 +13,7 @@ import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { formatName } from '@/utils/formatPathName'
 import { useThemeContext } from '@/context/ThemeContext'
+import { useDateFormatContext } from '@/context/DateFormatContext'
 
 export function EventList(props: {
   leagues: Leagues[]
@@ -32,6 +33,7 @@ export function EventList(props: {
   const [currentDate, setCurrentDate] = useState<Date>(formattingDate)
   const [clickedCell, setClickedCell] = useState<number | undefined>(undefined)
   const { openedWidget, setOpenedWidget } = useWidgetContext()
+  const { engDate } = useDateFormatContext()
 
   useEffect(() => {
     setCurrentDate(formattingDate)
@@ -69,14 +71,22 @@ export function EventList(props: {
           currentDate.getMonth() === formatTodayDate().getMonth()
             ? 'Today'
             : `${
-                fullDaysInWeek[currentDate.getDay()] +
-                ' - ' +
-                currentDate.getDate() +
-                '. ' +
-                (currentDate.getMonth() + 1) +
-                '. ' +
-                currentDate.getFullYear() +
-                '.'
+                engDate
+                  ? fullDaysInWeek[currentDate.getDay()] +
+                    ' - ' +
+                    currentDate.toLocaleDateString('en-UK', { month: '2-digit' }) +
+                    '/' +
+                    currentDate.toLocaleDateString('en-UK', { day: '2-digit' }) +
+                    '/' +
+                    currentDate.toLocaleDateString('en-UK', { year: 'numeric' })
+                  : fullDaysInWeek[currentDate.getDay()] +
+                    ' - ' +
+                    currentDate.getDate() +
+                    '. ' +
+                    (currentDate.getMonth() + 1) +
+                    '. ' +
+                    currentDate.getFullYear() +
+                    '.'
               }`}
         </Text>
         <Text color="var(--on-surface-on-surface-lv-2)">

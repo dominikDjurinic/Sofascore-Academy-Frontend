@@ -17,6 +17,7 @@ import hr from '../../public/images/hr.png'
 import sofaLogo from '../../public/images/sofascore_lockupBlue@2x.png'
 import { useState } from 'react'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
+import { useDateFormatContext } from '@/context/DateFormatContext'
 
 export default function Settings(props: { sports: SportInfo[] }) {
   const { isDark, setIsDark } = useThemeContext()
@@ -24,6 +25,7 @@ export default function Settings(props: { sports: SportInfo[] }) {
   const [openSelection, setOpenSelection] = useState(false)
 
   const { mobileWindowSize } = useWindowSizeContext()
+  const { engDate, setEngDate } = useDateFormatContext()
 
   return (
     <>
@@ -102,15 +104,20 @@ export default function Settings(props: { sports: SportInfo[] }) {
                       <Text p="10px 0px">English</Text>
                     </Flex>
                     <Flex
-                      cursor="pointer"
+                      cursor="not-allowed"
                       _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
                       alignItems="center"
                       gap="10px"
                       p="10px 16px"
-                      onClick={() => setOpenSelection(!openSelection)}
+                      //onClick={() => setOpenSelection(!openSelection)}
                     >
                       <Image src={hr} alt="hr flag" width={25} height={25}></Image>
-                      <Text p="10px 0px">Hrvatski</Text>
+                      <Flex alignItems="center" gap="5px">
+                        <Text p="10px 0px">Hrvatski</Text>
+                        <Text color="var(--on-surface-on-surface-lv-2)" fontSize="12px">
+                          (Coming soon)
+                        </Text>
+                      </Flex>
                     </Flex>
                   </VStack>
                 ) : null}
@@ -156,20 +163,27 @@ export default function Settings(props: { sports: SportInfo[] }) {
                   <form>
                     <Flex w="100%" p="10px 16px" justify="space-between">
                       <Text p="10px 0px" fontSize="14px">
-                        DD / MM / YYYY
+                        DD. MM. YYYY.{' '}
+                        <Text color="var(--on-surface-on-surface-lv-2)" fontSize="12px">
+                          (HRV)
+                        </Text>
                       </Text>
                       <Input
                         type="radio"
                         width="20px"
                         accentColor="var(--color-primary-default)"
-                        checked
+                        checked={engDate === false}
                         name="theme"
                         cursor="pointer"
+                        onClick={() => setEngDate(false)}
                       ></Input>
                     </Flex>
                     <Flex w="100%" p="10px 16px" justify="space-between">
                       <Text p="10px 0px" fontSize="14px">
-                        MM / DD / YYYY
+                        MM / DD / YYYY{' '}
+                        <Text color="var(--on-surface-on-surface-lv-2)" fontSize="12px">
+                          (ENG)
+                        </Text>
                       </Text>
                       <Input
                         type="radio"
@@ -177,6 +191,8 @@ export default function Settings(props: { sports: SportInfo[] }) {
                         accentColor="var(--color-primary-default)"
                         name="theme"
                         cursor="pointer"
+                        checked={engDate}
+                        onClick={() => setEngDate(true)}
                       ></Input>
                     </Flex>
                   </form>

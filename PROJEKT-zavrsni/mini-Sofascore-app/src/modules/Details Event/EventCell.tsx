@@ -1,3 +1,4 @@
+import { useDateFormatContext } from '@/context/DateFormatContext'
 import { SportDateEvent } from '@/model/events'
 import { Box, Flex, Link, Text, VStack } from '@kuma-ui/core'
 import Image from 'next/image'
@@ -12,6 +13,8 @@ export function EventCell(props: { event?: SportDateEvent | undefined }) {
       return '-'
     }
   }
+
+  const { engDate } = useDateFormatContext()
 
   return (
     <>
@@ -70,13 +73,20 @@ export function EventCell(props: { event?: SportDateEvent | undefined }) {
           {setEventStatus(props.event?.status) === '-' ? (
             <VStack alignItems="center" fontSize="12px" color="var(--on-surface-on-surface-lv-1)">
               <Text>
-                {props.event !== undefined &&
-                  new Date(props.event?.startDate).getDate() +
-                    '. ' +
-                    (new Date(props.event?.startDate).getMonth() + 1) +
-                    '. ' +
-                    new Date(props.event?.startDate).getFullYear() +
-                    '.'}
+                {props.event !== undefined
+                  ? engDate
+                    ? new Date(props.event?.startDate).toLocaleDateString('en-UK', { month: '2-digit' }) +
+                      '/' +
+                      new Date(props.event?.startDate).toLocaleDateString('en-UK', { day: '2-digit' }) +
+                      '/' +
+                      new Date(props.event?.startDate).toLocaleDateString('en-UK', { year: 'numeric' })
+                    : new Date(props.event?.startDate).getDate() +
+                      '. ' +
+                      (new Date(props.event?.startDate).getMonth() + 1) +
+                      '. ' +
+                      new Date(props.event?.startDate).getFullYear() +
+                      '.'
+                  : null}
               </Text>
               <Text>
                 {props.event !== undefined &&
