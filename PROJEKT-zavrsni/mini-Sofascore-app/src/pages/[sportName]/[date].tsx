@@ -14,6 +14,8 @@ import { setTitle } from '@/utils/setTitle'
 import { useState, useEffect } from 'react'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { Advertisement } from '@/modules/Advertisement'
+import { LinkingDetails } from '@/model/linking'
+import { LinkingBox } from '@/components/LinkingBox'
 
 export default function DateEvent(props: {
   events: SportDateEvent[]
@@ -26,14 +28,26 @@ export default function DateEvent(props: {
   const { slug, setSlug } = useSlugContext()
   const { openedWidget } = useWidgetContext()
 
+  const [linkingData, setLinkingData] = useState<LinkingDetails[]>([])
+  const [id, setId] = useState<number | undefined>(undefined)
+
+  const slLink: LinkingDetails = {
+    name: `${props.sports.find(({ slug }) => slug === props.selSlug)?.name}`,
+    urlLink: `/${props.selSlug !== 'football' ? `${props.selSlug}` : ''}`,
+  }
+
   useEffect(() => {
     setSlug(props.selSlug)
-  }, [props.selSlug])
 
-  const [id, setId] = useState<number | undefined>(undefined)
+    setLinkingData([slLink])
+  }, [props.selSlug])
 
   const openWidget = (id: number) => {
     setId(id)
+  }
+
+  const settingLink = (data: LinkingDetails[]) => {
+    setLinkingData([slLink].concat(data))
   }
 
   return (
@@ -44,7 +58,11 @@ export default function DateEvent(props: {
       {mobileWindowSize !== undefined ? (
         <Box as="main" minHeight="100vh" position="relative">
           <Header selectedSport={props.selSlug} sports={props.sports} />
-          {mobileWindowSize ? null : <Box h="48px" w="100%"></Box>}
+          {mobileWindowSize ? null : (
+            <Flex h="48px" w="100%" alignItems="center">
+              <LinkingBox data={linkingData} />
+            </Flex>
+          )}
           <Flex justifyContent="center" gap="24px" paddingBottom="130px">
             {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
             <EventList
@@ -53,6 +71,7 @@ export default function DateEvent(props: {
               data={props.events}
               date={props.selDate}
               id={openWidget}
+              setLinkData={settingLink}
             />
             {mobileWindowSize ? null : (
               <>

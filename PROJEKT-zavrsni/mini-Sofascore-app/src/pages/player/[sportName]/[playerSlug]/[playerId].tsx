@@ -14,6 +14,8 @@ import { PlayerDetails } from '@/model/players'
 import { SportDateEvent } from '@/model/events'
 import { TeamDetails, TeamPlayer } from '@/model/team'
 import { MatchPanel } from '@/modules/TournamentDetails/MatchPanel'
+import { LinkingDetails } from '@/model/linking'
+import { LinkingBox } from '@/components/LinkingBox'
 
 export default function PlayerPage(props: {
   leagues: Leagues[]
@@ -28,9 +30,29 @@ export default function PlayerPage(props: {
   const { openedWidget, setOpenedWidget } = useWidgetContext()
 
   const [eventId, setEventId] = useState(0)
+  const [linkingData, setLinkingData] = useState<LinkingDetails[]>([])
+
+  const slLink: LinkingDetails = {
+    name: `${props.sports.find(({ slug }) => slug === props.selSlug)?.name}`,
+    urlLink: `/${props.selSlug !== 'football' ? `${props.selSlug}` : ''}`,
+  }
+  const teamLink: LinkingDetails = {
+    name: `${props.team.name}`,
+    urlLink: `/team/${props.selSlug}/${props.team.name}/${props.team.id}`,
+  }
+  const playerLink: LinkingDetails = {
+    name: `${props.player.name}`,
+    urlLink: `/player/${props.selSlug}/${props.player.slug}/${props.player.id}`,
+  }
+
+  useEffect(() => {
+    setLinkingData([slLink, teamLink, playerLink])
+  }, [props.player])
 
   useEffect(() => {
     setOpenedWidget(false)
+
+    setLinkingData([slLink, teamLink, playerLink])
   }, [])
 
   return (
@@ -41,7 +63,9 @@ export default function PlayerPage(props: {
       {mobileWindowSize !== undefined ? (
         <Box as="main" minHeight="100vh" position="relative">
           <Header selectedSport={props.selSlug} sports={props.sports} />
-          <Box h="48px" w="100%"></Box>
+          <Flex h="48px" w="100%" alignItems="center">
+            <LinkingBox data={linkingData} />
+          </Flex>
           <Flex justify="center" gap="24px" paddingBottom="130px">
             {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
             <VStack w={`${mobileWindowSize ? '100%' : '60%'}`} gap={`${mobileWindowSize ? '5px' : '12px'}`}>
@@ -56,7 +80,12 @@ export default function PlayerPage(props: {
                 selSlug={props.selSlug}
               />
               <Flex justify="space-between">
-                <MatchPanel eventId={id => setEventId(id)} apiFor={'player'} playerId={props.player.id} />
+                <MatchPanel
+                  eventId={id => setEventId(id)}
+                  apiFor={'player'}
+                  playerId={props.player.id}
+                  setLinkData={(data: LinkingDetails[]) => setLinkingData([slLink, teamLink, playerLink].concat(data))}
+                />
                 {mobileWindowSize ? null : (
                   <>
                     {openedWidget === false ? null : (

@@ -14,6 +14,7 @@ import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { formatName } from '@/utils/formatPathName'
 import { useThemeContext } from '@/context/ThemeContext'
 import { useDateFormatContext } from '@/context/DateFormatContext'
+import { LinkingDetails } from '@/model/linking'
 
 export function EventList(props: {
   leagues: Leagues[]
@@ -22,6 +23,8 @@ export function EventList(props: {
   data: SportDateEvent[]
   // eslint-disable-next-line no-unused-vars
   id: (id: number) => void
+  // eslint-disable-next-line no-unused-vars
+  setLinkData: (data: LinkingDetails[]) => void
 }) {
   const formattingDate = () => {
     const format = new Date(props.date)
@@ -207,6 +210,16 @@ export function EventList(props: {
                       if (!mobileWindowSize) {
                         setOpenedWidget(true)
                       }
+                      props.setLinkData([
+                        {
+                          name: `${event.tournament.name}`,
+                          urlLink: `/tournament/${props.selSlug}/${event.tournament.name}`,
+                        },
+                        {
+                          name: `${event.homeTeam.name} vs ${event.awayTeam.name}`,
+                          urlLink: `/tournament/${props.selSlug}/${event.tournament.name}/${formatName(event.homeTeam.name, event.awayTeam.name)}/${event.id}`,
+                        },
+                      ])
                     }}
                     backgroundColor={`${clickedCell === event.id && openedWidget ? 'var(--color-primary-highlight)' : 'var(--surface-surface-1)'}`}
                   >

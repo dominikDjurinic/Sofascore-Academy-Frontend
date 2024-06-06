@@ -12,6 +12,7 @@ import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { formatName } from '@/utils/formatPathName'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { SportDateEvent } from '@/model/events'
+import { LinkingDetails } from '@/model/linking'
 
 export function MatchPanel(props: {
   tournamentId?: number
@@ -20,6 +21,8 @@ export function MatchPanel(props: {
   apiFor: string
   teamId?: number
   playerId?: number
+  // eslint-disable-next-line no-unused-vars
+  setLinkData: (data: LinkingDetails[]) => void
 }) {
   const { isDark } = useThemeContext()
   const { openedWidget, setOpenedWidget } = useWidgetContext()
@@ -157,6 +160,16 @@ export function MatchPanel(props: {
                   props.eventId(data.id)
                   setOpenedWidget(true)
                   setClickedCell(data.id)
+                  props.setLinkData([
+                    {
+                      name: `${data.tournament.name}`,
+                      urlLink: `/tournament/${data.tournament.sport.slug}/${data.tournament.name}`,
+                    },
+                    {
+                      name: `${data.homeTeam.name} vs ${data.awayTeam.name}`,
+                      urlLink: `/tournament/${data.tournament.sport.slug}/${data.tournament.name}/${formatName(data.homeTeam.name, data.awayTeam.name)}/${data.id}`,
+                    },
+                  ])
                 }}
                 backgroundColor={`${clickedCell === data.id && openedWidget ? 'var(--color-primary-highlight)' : 'var(--surface-surface-1)'}`}
               >

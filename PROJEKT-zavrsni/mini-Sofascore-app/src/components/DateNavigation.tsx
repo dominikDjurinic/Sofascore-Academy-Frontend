@@ -17,7 +17,13 @@ export function DateNavigation(props: { date: string }) {
   const router = useRouter()
   const days = daysInWeek
 
-  const [centralDate, setCentralDate] = useState<Date>(new Date(props.date))
+  const formatDate = (date: string) => {
+    const format = new Date(date)
+    format.setHours(format.getHours() + 2) //prilagodba datuma našoj vremenskoj zoni
+    return format
+  }
+
+  const [centralDate, setCentralDate] = useState<Date>(formatDate(props.date))
 
   const { slug } = useSlugContext()
   const { setOpenedWidget } = useWidgetContext()
@@ -49,7 +55,6 @@ export function DateNavigation(props: { date: string }) {
 
   const formatTodayDate = () => {
     const formatToday = new Date()
-    formatToday.setHours(formatToday.getHours() + 2) //prilagodba datuma našoj vremenskoj zoni
     return formatToday
   }
 

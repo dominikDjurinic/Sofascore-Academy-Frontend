@@ -34,7 +34,7 @@ export function Search(props: { searchQuery: string }) {
       fontSize="12px"
       position="absolute"
       top="0px"
-      left="16px"
+      left="15px"
       backgroundColor="var(--surface-surface-1)"
       zIndex="3"
       borderRadius="8px"
@@ -43,7 +43,7 @@ export function Search(props: { searchQuery: string }) {
       overflowY="auto"
     >
       {isLoadingPlayers || isLoadingTeams ? (
-        <Flex justify="center" alignItems="center">
+        <Flex justify="center" alignItems="center" p="10px 0px">
           <div className="loader"></div>
         </Flex>
       ) : (
@@ -95,6 +95,13 @@ export function Search(props: { searchQuery: string }) {
             </Box>
           </Flex>
 
+          {players?.length === 0 && teams?.length === 0 && selectedCategory === 'all' ? (
+            <Text
+              fontSize="14px"
+              color="var(--on-surface-on-surface-lv-1)"
+              p="10px 10px"
+            >{`No player or team with '${props.searchQuery}'`}</Text>
+          ) : null}
           {players?.length === 0 || selectedCategory === 'team' ? (
             selectedCategory === 'player' ? (
               <Text

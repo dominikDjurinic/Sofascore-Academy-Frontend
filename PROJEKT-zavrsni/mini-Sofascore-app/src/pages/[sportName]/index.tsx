@@ -31,19 +31,19 @@ export default function Sports(props: {
 
   const [selectedSlug, setSelectedSlug] = useState(props.selSlug)
   const [linkingData, setLinkingData] = useState<LinkingDetails[]>([])
+  const [id, setId] = useState<number | undefined>(undefined)
+
+  const slLink: LinkingDetails = {
+    name: `${props.sports.find(({ slug }) => slug === props.selSlug)?.name}`,
+    urlLink: `/${props.selSlug !== 'football' ? `${props.selSlug}` : ''}`,
+  }
 
   useEffect(() => {
     setSelectedSlug(props.selSlug)
     setSlug(props.selSlug)
 
-    const fb: LinkingDetails = {
-      name: `${props.sports.find(({ slug }) => slug === props.selSlug)?.name}`,
-      urlLink: '/',
-    }
-    setLinkingData([fb])
+    setLinkingData([slLink])
   }, [props.selSlug])
-
-  const [id, setId] = useState(0)
 
   const openWidget = (id: number) => {
     setId(id)
@@ -58,9 +58,9 @@ export default function Sports(props: {
         <Box as="main" position="relative" minHeight="100vh">
           <Header selectedSport={props.selSlug} sports={props.sports} />
           {mobileWindowSize ? null : (
-            <Box h="48px" w="100%">
+            <Flex h="48px" w="100%" alignItems="center">
               <LinkingBox data={linkingData} />
-            </Box>
+            </Flex>
           )}
           <Flex justifyContent="center" gap="24px" paddingBottom="130px">
             {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
@@ -70,6 +70,7 @@ export default function Sports(props: {
               data={props.events}
               date={props.date}
               id={openWidget}
+              setLinkData={(data: LinkingDetails[]) => setLinkingData([slLink].concat(data))}
             />
             {mobileWindowSize ? null : (
               <>

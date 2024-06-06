@@ -1,16 +1,19 @@
+import { LinkingBox } from '@/components/LinkingBox'
 import { useSlugContext } from '@/context/SlugContext'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { SportDateEvent } from '@/model/events'
+import { LinkingDetails } from '@/model/linking'
 import { Leagues, SportInfo } from '@/model/sports'
 import { Advertisement } from '@/modules/Advertisement'
 import { EventWidget } from '@/modules/Details Event/EventWidget'
 import Footer from '@/modules/Footer'
 import { Header } from '@/modules/Header'
 import { LeaguesPanel } from '@/modules/Leagues'
+import { formatName } from '@/utils/formatPathName'
 import { Box, Flex } from '@kuma-ui/core'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Match(props: {
   leagues: Leagues[]
@@ -20,12 +23,28 @@ export default function Match(props: {
   selSlug: string
 }) {
   const { mobileWindowSize } = useWindowSizeContext()
-
   const { setSlug } = useSlugContext()
+  const [linkingData, setLinkingData] = useState<LinkingDetails[]>([])
 
   useEffect(() => {
     setSlug(props.selSlug)
   }, [props.selSlug])
+
+  useEffect(() => {
+    const slLink: LinkingDetails = {
+      name: `${props.sports.find(({ slug }) => slug === props.selSlug)?.name}`,
+      urlLink: `/${props.selSlug !== 'football' ? `${props.selSlug}` : ''}`,
+    }
+    const tourLink: LinkingDetails = {
+      name: `${props.data.tournament.name}`,
+      urlLink: `/tournament/${props.selSlug}/${props.data.tournament.name}`,
+    }
+    const matchLink: LinkingDetails = {
+      name: `${props.data.homeTeam.name} vs ${props.data.awayTeam.name}`,
+      urlLink: `/tournament/${props.selSlug}/${props.data.tournament.name}/${formatName(props.data.homeTeam.name, props.data.awayTeam.name)}/${props.matchId}`,
+    }
+    setLinkingData([slLink, tourLink, matchLink])
+  }, [])
 
   return (
     <>
@@ -37,7 +56,9 @@ export default function Match(props: {
       {mobileWindowSize !== undefined ? (
         <Box as="main" position="relative" minHeight="100vh">
           <Header selectedSport={props.selSlug} sports={props.sports} />
-          <Box h="48px" w="100%"></Box>
+          <Flex h="48px" w="100%" alignItems="center">
+            <LinkingBox data={linkingData} />
+          </Flex>
           <Flex justifyContent="center" gap="24px" paddingBottom="130px">
             {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={props.data.tournament.id} />}
             <EventWidget id={props.matchId} detailPage={true} subPanel={false} selSlug={props.selSlug} />

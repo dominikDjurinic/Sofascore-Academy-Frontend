@@ -14,6 +14,8 @@ import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { useTabContext } from '@/context/OpenedTab'
+import { LinkingDetails } from '@/model/linking'
+import { LinkingBox } from '@/components/LinkingBox'
 
 export default function LeaguePage(props: {
   leagues: Leagues[]
@@ -30,9 +32,25 @@ export default function LeaguePage(props: {
   const [eventId, setEventId] = useState(0)
   const { openedTab, setOpenedTab } = useTabContext()
 
+  const [linkingData, setLinkingData] = useState<LinkingDetails[]>([])
+
+  const slLink: LinkingDetails = {
+    name: `${props.sports.find(({ slug }) => slug === props.selSlug)?.name}`,
+    urlLink: `/${props.selSlug !== 'football' ? `${props.selSlug}` : ''}`,
+  }
+  const tourLink: LinkingDetails = {
+    name: `${props.tournamentDetails.name}`,
+    urlLink: `/tournament/${props.selSlug}/${props.tournamentDetails.name}`,
+  }
+
   useEffect(() => {
     setOpenedTab('Matches')
+    setLinkingData([slLink, tourLink])
   }, [props.selLeagueId])
+
+  useEffect(() => {
+    setLinkingData([slLink, tourLink])
+  }, [])
 
   return (
     <>
@@ -42,7 +60,9 @@ export default function LeaguePage(props: {
       {mobileWindowSize !== undefined ? (
         <Box as="main" minHeight="100vh" position="relative">
           <Header selectedSport={props.selSlug} sports={props.sports} />
-          <Box h="48px" w="100%"></Box>
+          <Flex h="48px" w="100%" alignItems="center">
+            <LinkingBox data={linkingData} />
+          </Flex>
           <Flex justify="center" gap="24px" paddingBottom="130px">
             {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={props.selLeagueId} />}
             <VStack w={`${mobileWindowSize ? '100%' : '60%'}`} gap={`${mobileWindowSize ? '5px' : '12px'}`}>
@@ -57,7 +77,12 @@ export default function LeaguePage(props: {
                 <StandingsPanel tournamentId={props.selLeagueId} selSlug={props.selSlug} />
               ) : (
                 <Flex justify="space-between">
-                  <MatchPanel tournamentId={props.selLeagueId} eventId={id => setEventId(id)} apiFor={'tournament'} />
+                  <MatchPanel
+                    tournamentId={props.selLeagueId}
+                    eventId={id => setEventId(id)}
+                    apiFor={'tournament'}
+                    setLinkData={(data: LinkingDetails[]) => setLinkingData([slLink].concat(data))}
+                  />
                   {mobileWindowSize ? null : (
                     <>
                       {openedWidget === false ? null : (

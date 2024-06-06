@@ -21,6 +21,8 @@ import { Tournaments } from '@/modules/TeamDetails/Tournaments'
 import { TeamNextMatch } from '@/modules/TeamDetails/TeamNextMatch'
 import { PlayerDetails } from '@/model/players'
 import { Squad } from '@/modules/TeamDetails/Squad'
+import { LinkingDetails } from '@/model/linking'
+import { LinkingBox } from '@/components/LinkingBox'
 
 export default function TeamPage(props: {
   leagues: Leagues[]
@@ -39,12 +41,26 @@ export default function TeamPage(props: {
 
   const [eventId, setEventId] = useState(0)
   const [selTour, setSelTour] = useState(props.teamTournaments[0].id)
+  const [linkingData, setLinkingData] = useState<LinkingDetails[]>([])
   const { openedTab, setOpenedTab } = useTabContext()
+
+  const slLink: LinkingDetails = {
+    name: `${props.sports.find(({ slug }) => slug === props.selSlug)?.name}`,
+    urlLink: `/${props.selSlug !== 'football' ? `${props.selSlug}` : ''}`,
+  }
+  const teamLink: LinkingDetails = {
+    name: `${props.teamDetails.name}`,
+    urlLink: `/team/${props.selSlug}/${props.teamDetails.name}/${props.teamDetails.id}`,
+  }
 
   useEffect(() => {
     setOpenedTab('Details')
-    console.log(props.teamId)
+    setLinkingData([slLink, teamLink])
   }, [props.teamId])
+
+  useEffect(() => {
+    setLinkingData([slLink, teamLink])
+  }, [])
 
   const tabElements = () => {
     switch (openedTab) {
@@ -71,7 +87,12 @@ export default function TeamPage(props: {
       case 'Matches':
         return (
           <Flex justify="space-between">
-            <MatchPanel teamId={props.teamDetails.id} eventId={id => setEventId(id)} apiFor={'team'} />
+            <MatchPanel
+              teamId={props.teamDetails.id}
+              eventId={id => setEventId(id)}
+              apiFor={'team'}
+              setLinkData={(data: LinkingDetails[]) => setLinkingData([slLink, teamLink].concat(data))}
+            />
             {mobileWindowSize ? null : (
               <>
                 {openedWidget === false ? null : (
@@ -104,7 +125,9 @@ export default function TeamPage(props: {
       {mobileWindowSize !== undefined ? (
         <Box as="main" minHeight="100vh" position="relative">
           <Header selectedSport={props.selSlug} sports={props.sports} />
-          <Box h="48px" w="100%"></Box>
+          <Flex h="48px" w="100%" alignItems="center">
+            <LinkingBox data={linkingData} />
+          </Flex>
           <Flex justify="center" gap="24px" paddingBottom="130px">
             {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
             <VStack w={`${mobileWindowSize ? '100%' : '60%'}`} gap={`${mobileWindowSize ? '5px' : '12px'}`}>
