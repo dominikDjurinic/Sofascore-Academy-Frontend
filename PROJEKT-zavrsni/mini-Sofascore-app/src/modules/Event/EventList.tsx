@@ -8,6 +8,8 @@ import { fullDaysInWeek } from '@/model/daysInWeek'
 import Image from 'next/image'
 import right from '../../../public/images/ic_pointer_right@2x.png'
 import rightLight from '../../../public/images/ic_pointer_rightLight@2x.png'
+import bellNoclick from '../../../public/images/bellNotClicked.png'
+import bellClicked from '../../../public/images/belClicked.png'
 import { DateNavigation } from '@/components/DateNavigation'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
@@ -15,6 +17,8 @@ import { formatName } from '@/utils/formatPathName'
 import { useThemeContext } from '@/context/ThemeContext'
 import { useDateFormatContext } from '@/context/DateFormatContext'
 import { LinkingDetails } from '@/model/linking'
+import { FavouriteEvent } from '@/model/favorites'
+import { settingFavourites } from '@/utils/settingFavourites'
 
 export function EventList(props: {
   leagues: Leagues[]
@@ -41,6 +45,26 @@ export function EventList(props: {
   useEffect(() => {
     setCurrentDate(formattingDate)
   }, [props.date])
+
+  const [newFavourites, setNewFavourites] = useState<FavouriteEvent[]>([])
+
+  useEffect(() => {
+    const favourites = localStorage.getItem('currentFavouritesMiniSofa')
+    if (favourites !== null) {
+      setNewFavourites(JSON.parse(favourites))
+    } else {
+      setNewFavourites([])
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('currentFavouritesMiniSofa', JSON.stringify(newFavourites))
+  }, [newFavourites])
+
+  const favouritesHandle = (favourites: FavouriteEvent[], eventId: number, date: Date) => {
+    console.log(favourites)
+    setNewFavourites(settingFavourites(favourites, eventId, date))
+  }
 
   const checkTournamentId = (dataId: number, tournamentId: number) => {
     if (dataId === tournamentId) {
@@ -126,34 +150,73 @@ export function EventList(props: {
                   </Text>
                 )}
                 {props.data?.map(event => (
-                  <Link
-                    key={event.id}
-                    href={`${`/tournament/${event.tournament.sport.slug}/${event.tournament.name}/${formatName(event.homeTeam.name, event.awayTeam.name)}/${event.id}`}`}
-                    onClick={(e: { preventDefault: () => void }) => {
-                      if (!mobileWindowSize) {
-                        e.preventDefault()
-                      }
-                    }}
-                  >
-                    <Box
-                      width="100%"
-                      _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
-                      cursor="pointer"
-                      fontSize="14px"
-                      onClick={() => {
-                        props.id(event.id)
-                        setClickedCell(event.id)
+                  <Flex key={event.id} width="100%" position="relative" alignItems="center">
+                    <Link
+                      w="90%"
+                      key={event.id}
+                      href={`${`/tournament/${event.tournament.sport.slug}/${event.tournament.name}/${formatName(
+                        event.homeTeam.name,
+                        event.awayTeam.name
+                      )}/${event.id}`}`}
+                      onClick={(e: { preventDefault: () => void }) => {
                         if (!mobileWindowSize) {
-                          setOpenedWidget(true)
+                          e.preventDefault()
                         }
                       }}
-                      backgroundColor={`${clickedCell === event.id && openedWidget ? 'var(--color-primary-highlight)' : 'var(--surface-surface-1)'}`}
                     >
-                      {checkTournamentId(event.tournament.id, id) === true ? (
-                        <EventCell event={event} matchCell={false} />
-                      ) : null}
-                    </Box>
-                  </Link>
+                      <Box
+                        width="100%"
+                        _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
+                        cursor="pointer"
+                        fontSize="14px"
+                        onClick={() => {
+                          props.id(event.id)
+                          setClickedCell(event.id)
+                          if (!mobileWindowSize) {
+                            setOpenedWidget(true)
+                          }
+                        }}
+                        backgroundColor={`${
+                          clickedCell === event.id && openedWidget
+                            ? 'var(--color-primary-highlight)'
+                            : 'var(--surface-surface-1)'
+                        }`}
+                      >
+                        {checkTournamentId(event.tournament.id, id) === true ? (
+                          <EventCell event={event} matchCell={false} />
+                        ) : null}
+                      </Box>
+                    </Link>
+                    {checkTournamentId(event.tournament.id, id) === true ? (
+                      <Box
+                        minWidth="1px"
+                        h="40px"
+                        backgroundColor="var(--on-surface-on-surface-lv-4)"
+                        borderRadius="2px"
+                      ></Box>
+                    ) : null}
+                    {checkTournamentId(event.tournament.id, id) === true ? (
+                      <Flex
+                        position="absolute"
+                        right="0px"
+                        cursor="pointer"
+                        onClick={() => favouritesHandle(newFavourites, event.id, new Date(event.startDate))}
+                        alignItems="center"
+                        justify="center"
+                        w="10%"
+                        gap="5px"
+                      >
+                        <Image
+                          src={
+                            newFavourites.find(({ id }) => id === event.id) !== undefined ? bellClicked : bellNoclick
+                          }
+                          alt="bell icon"
+                          width={20}
+                          height={20}
+                        ></Image>
+                      </Flex>
+                    ) : null}
+                  </Flex>
                 ))}
                 {index === props.leagues.length - 1 ? null : (
                   <Box
@@ -190,44 +253,84 @@ export function EventList(props: {
                 </Text>
               )}
               {props.data?.map(event => (
-                <Link
-                  key={event.id}
-                  href={`${`/tournament/${event.tournament.sport.slug}/${event.tournament.name}/${formatName(event.homeTeam.name, event.awayTeam.name)}/${event.id}`}`}
-                  onClick={(e: { preventDefault: () => void }) => {
-                    if (!mobileWindowSize) {
-                      e.preventDefault()
-                    }
-                  }}
-                >
-                  <Box
-                    width="100%"
-                    _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
-                    cursor="pointer"
-                    fontSize="14px"
-                    onClick={() => {
-                      props.id(event.id)
-                      setClickedCell(event.id)
+                <Flex key={event.id} width="100%" position="relative" alignItems="center">
+                  <Link
+                    width="90%"
+                    key={event.id}
+                    href={`${`/tournament/${event.tournament.sport.slug}/${event.tournament.name}/${formatName(
+                      event.homeTeam.name,
+                      event.awayTeam.name
+                    )}/${event.id}`}`}
+                    onClick={(e: { preventDefault: () => void }) => {
                       if (!mobileWindowSize) {
-                        setOpenedWidget(true)
+                        e.preventDefault()
                       }
-                      props.setLinkData([
-                        {
-                          name: `${event.tournament.name}`,
-                          urlLink: `/tournament/${props.selSlug}/${event.tournament.name}`,
-                        },
-                        {
-                          name: `${event.homeTeam.name} vs ${event.awayTeam.name}`,
-                          urlLink: `/tournament/${props.selSlug}/${event.tournament.name}/${formatName(event.homeTeam.name, event.awayTeam.name)}/${event.id}`,
-                        },
-                      ])
                     }}
-                    backgroundColor={`${clickedCell === event.id && openedWidget ? 'var(--color-primary-highlight)' : 'var(--surface-surface-1)'}`}
                   >
-                    {checkTournamentId(event.tournament.id, id) === true ? (
-                      <EventCell event={event} matchCell={false} />
-                    ) : null}
-                  </Box>
-                </Link>
+                    <Box
+                      width="100%"
+                      _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
+                      cursor="pointer"
+                      fontSize="14px"
+                      onClick={() => {
+                        props.id(event.id)
+                        setClickedCell(event.id)
+                        if (!mobileWindowSize) {
+                          setOpenedWidget(true)
+                        }
+                        props.setLinkData([
+                          {
+                            name: `${event.tournament.name}`,
+                            urlLink: `/tournament/${props.selSlug}/${event.tournament.name}`,
+                          },
+                          {
+                            name: `${event.homeTeam.name} vs ${event.awayTeam.name}`,
+                            urlLink: `/tournament/${props.selSlug}/${event.tournament.name}/${formatName(
+                              event.homeTeam.name,
+                              event.awayTeam.name
+                            )}/${event.id}`,
+                          },
+                        ])
+                      }}
+                      backgroundColor={`${
+                        clickedCell === event.id && openedWidget
+                          ? 'var(--color-primary-highlight)'
+                          : 'var(--surface-surface-1)'
+                      }`}
+                    >
+                      {checkTournamentId(event.tournament.id, id) === true ? (
+                        <EventCell event={event} matchCell={false} />
+                      ) : null}
+                    </Box>
+                  </Link>
+                  {checkTournamentId(event.tournament.id, id) === true ? (
+                    <Box
+                      minWidth="1px"
+                      h="40px"
+                      backgroundColor="var(--on-surface-on-surface-lv-4)"
+                      borderRadius="2px"
+                    ></Box>
+                  ) : null}
+                  {checkTournamentId(event.tournament.id, id) === true ? (
+                    <Flex
+                      position="absolute"
+                      right="0px"
+                      cursor="pointer"
+                      onClick={() => favouritesHandle(newFavourites, event.id, new Date(event.startDate))}
+                      alignItems="center"
+                      justify="center"
+                      w="10%"
+                      gap="5px"
+                    >
+                      <Image
+                        src={newFavourites.find(({ id }) => id === event.id) !== undefined ? bellClicked : bellNoclick}
+                        alt="bell icon"
+                        width={20}
+                        height={20}
+                      ></Image>
+                    </Flex>
+                  ) : null}
+                </Flex>
               ))}
               {index === props.leagues.length - 1 ? null : (
                 <Box

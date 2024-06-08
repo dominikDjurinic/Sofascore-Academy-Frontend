@@ -22,7 +22,7 @@ export function Header(props: {
   selectedSport: string | null
   sports: SportInfo[] | null
   leagues?: boolean
-  settings?: boolean
+  settingsFav?: boolean
 }) {
   const { mobileWindowSize } = useWindowSizeContext()
   const { isDark } = useThemeContext()

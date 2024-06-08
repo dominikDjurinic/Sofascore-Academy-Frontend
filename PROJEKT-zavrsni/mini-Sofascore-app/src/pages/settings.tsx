@@ -34,7 +34,7 @@ export default function Settings(props: { sports: SportInfo[] }) {
       </Head>
       {mobileWindowSize !== undefined ? (
         <Box as="main" position="relative" minHeight="100vh">
-          <Header selectedSport={''} sports={props.sports} settings={true} />
+          <Header selectedSport={''} sports={props.sports} settingsFav={true} />
           {mobileWindowSize ? null : <Box h="48px" w="100%"></Box>}
           <Flex justify="center" paddingBottom="130px">
             <Panel>
@@ -62,7 +62,11 @@ export default function Settings(props: { sports: SportInfo[] }) {
                     _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
                     onClick={() => setOpenSelection(!openSelection)}
                     backgroundColor={`${openSelection ? 'var(--color-primary-highlight)' : null}`}
-                    border={`${openSelection ? '1px solid var(--on-surface-on-surface-lv-3)' : '1px solid var(--surface-surface-2)'}`}
+                    border={`${
+                      openSelection
+                        ? '1px solid var(--on-surface-on-surface-lv-3)'
+                        : '1px solid var(--surface-surface-2)'
+                    }`}
                     borderBottomRightRadius={`${openSelection ? '6px' : null}`}
                     borderBottomLeftRadius={`${openSelection ? '6px' : null}`}
                   >

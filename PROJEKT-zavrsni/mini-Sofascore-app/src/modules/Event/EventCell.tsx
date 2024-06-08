@@ -57,7 +57,11 @@ export function EventCell(props: { event: SportDateEvent; matchCell: boolean }) 
               priority
             ></Image>
             <Text
-              color={`${props.event.winnerCode === 'away' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+              color={`${
+                props.event.winnerCode === 'away' || props.event.winnerCode === 'draw'
+                  ? 'var(--on-surface-on-surface-lv-2)'
+                  : 'var(--on-surface-on-surface-lv-1)'
+              }`}
             >
               {props.event.homeTeam.name}
             </Text>
@@ -71,21 +75,37 @@ export function EventCell(props: { event: SportDateEvent; matchCell: boolean }) 
               priority
             ></Image>
             <Text
-              color={`${props.event.winnerCode === 'home' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+              color={`${
+                props.event.winnerCode === 'home' || props.event.winnerCode === 'draw'
+                  ? 'var(--on-surface-on-surface-lv-2)'
+                  : 'var(--on-surface-on-surface-lv-1)'
+              }`}
             >
               {props.event.awayTeam.name}
             </Text>
           </Flex>
         </VStack>
-        <VStack justify="center" w="50px" alignItems="center">
+        <VStack justify="center" w="20px" alignItems="center">
           <Text
-            color={`${props.event.winnerCode === 'away' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : props.event.status === 'inprogress' ? 'var(--specific-live)' : 'var(--on-surface-on-surface-lv-1)'}`}
+            color={`${
+              props.event.winnerCode === 'away' || props.event.winnerCode === 'draw'
+                ? 'var(--on-surface-on-surface-lv-2)'
+                : props.event.status === 'inprogress'
+                ? 'var(--specific-live)'
+                : 'var(--on-surface-on-surface-lv-1)'
+            }`}
             p="5px 0px"
           >
             {props.event.homeScore.total}
           </Text>
           <Text
-            color={`${props.event.winnerCode === 'home' || props.event.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : props.event.status === 'inprogress' ? 'var(--specific-live)' : 'var(--on-surface-on-surface-lv-1)'}`}
+            color={`${
+              props.event.winnerCode === 'home' || props.event.winnerCode === 'draw'
+                ? 'var(--on-surface-on-surface-lv-2)'
+                : props.event.status === 'inprogress'
+                ? 'var(--specific-live)'
+                : 'var(--on-surface-on-surface-lv-1)'
+            }`}
             p="5px 0px"
           >
             {props.event.awayScore.total}
