@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 export function EventCell(props: { event: SportDateEvent; matchCell: boolean }) {
   const setEventStatus = (eventStatus: string) => {
+    //postavljanje statusa eventa
     if (eventStatus === 'inprogress') {
       return 'Live'
     } else if (eventStatus === 'finished') {

@@ -6,7 +6,6 @@ import { useSlugContext } from '@/context/SlugContext'
 export function GoalCell(props: { data: Card & Goal & Period }) {
   const { slug } = useSlugContext()
 
-  console.log(props.data.goalType)
   return (
     <>
       <Box width="100%" cursor="pointer" _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}>

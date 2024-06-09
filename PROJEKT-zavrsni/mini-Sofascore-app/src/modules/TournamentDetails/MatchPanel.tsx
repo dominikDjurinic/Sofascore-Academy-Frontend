@@ -42,6 +42,7 @@ export function MatchPanel(props: {
   const [clickedCell, setClickedCell] = useState<number | undefined>(undefined)
 
   const apiRoute = () => {
+    //odredivanje api rute s obzirom na page s kojeg se poziva komponenta MatchPanel
     switch (props.apiFor) {
       case 'tournament':
         return `/api/tournament/${props.tournamentId}/events/${span}/${page}`
@@ -52,14 +53,14 @@ export function MatchPanel(props: {
     }
   }
 
-  const { data, error, isLoading } = useSWR<SportDateEvent[], Error>(apiRoute())
-  console.log(error)
+  const { data, isLoading } = useSWR<SportDateEvent[]>(apiRoute())
 
   const [previousFav, setPreviousFav] = useState<FavouriteEvent[]>([])
   const [currentFav, setCurrentFav] = useState<FavouriteEvent[]>([])
   const [nextFav, setNextFav] = useState<FavouriteEvent[]>([])
 
   useEffect(() => {
+    //dohvat favorita iz localStorage
     const previous = localStorage.getItem('previousFavouritesMiniSofa')
     const current = localStorage.getItem('currentFavouritesMiniSofa')
     const next = localStorage.getItem('nextFavouritesMiniSofa')
@@ -69,6 +70,7 @@ export function MatchPanel(props: {
   }, [])
 
   useEffect(() => {
+    //postavljanje favorita s obzirom na grupu kojoj event pripada
     if (currentFav.length) localStorage.setItem('currentFavouritesMiniSofa', JSON.stringify(currentFav))
   }, [currentFav])
   useEffect(() => {
@@ -79,6 +81,7 @@ export function MatchPanel(props: {
   }, [nextFav])
 
   const favouritesHandle = (favourites: string, eventId: number, date: Date, tournament: TournamentDetails) => {
+    //obrada zahtjeva prilikom pritiska gumba za favorite
     switch (favourites) {
       case 'currentFavouritesMiniSofa':
         setCurrentFav(settingFavourites(currentFav, eventId, date, tournament))
@@ -93,6 +96,7 @@ export function MatchPanel(props: {
   }
 
   const nextMatchesPage = (nextLast: string) => {
+    //upravljenj gumbima za navigaciju kroz pageove matcheva
     let newPage: number
     if (nextLast === 'next') {
       if (prevSpan === 'last') {
@@ -129,6 +133,7 @@ export function MatchPanel(props: {
 
   let round = 0
   const settingRound = (newRound: number) => {
+    //grupacija evenata prema round
     round = newRound
     return newRound
   }

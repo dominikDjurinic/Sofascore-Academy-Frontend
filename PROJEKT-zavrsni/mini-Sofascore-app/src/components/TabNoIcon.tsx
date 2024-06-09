@@ -1,20 +1,8 @@
-//import { useThemeContext } from '@/context/ThemeContext'
-//import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { useTabContext } from '@/context/OpenedTab'
 import { Box, Flex, Text, VStack } from '@kuma-ui/core'
-//import { useRouter } from 'next/router'
 
 // eslint-disable-next-line no-unused-vars
 export function TabNoIcon(props: { name: string }) {
-  //const router = useRouter()
-
-  //const { mobileWindowSize } = useWindowSizeContext()
-  //const { isDark } = useThemeContext()
-
-  /*const changeRoute = (slug: string) => {
-    if (slug != 'football') router.push(`/${slug}`)
-    else router.push('/')
-  }*/
   const { openedTab, setOpenedTab } = useTabContext()
 
   return (
@@ -34,7 +22,11 @@ export function TabNoIcon(props: { name: string }) {
       >
         <Text
           fontSize="14px"
-          color={`${openedTab !== null && openedTab === props.name ? 'var(--color-primary-default)' : 'var(--on-surface-on-surface-lv-2)'}`}
+          color={`${
+            openedTab !== null && openedTab === props.name
+              ? 'var(--color-primary-default)'
+              : 'var(--on-surface-on-surface-lv-2)'
+          }`}
         >
           {props.name}
         </Text>

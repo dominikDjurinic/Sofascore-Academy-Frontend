@@ -113,7 +113,6 @@ export default function Settings(props: { sports: SportInfo[] }) {
                       alignItems="center"
                       gap="10px"
                       p="10px 16px"
-                      //onClick={() => setOpenSelection(!openSelection)}
                     >
                       <Image src={hr} alt="hr flag" width={25} height={25}></Image>
                       <Flex alignItems="center" gap="5px">
@@ -257,11 +256,9 @@ export default function Settings(props: { sports: SportInfo[] }) {
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const { res } = context
-  //console.log(params?.date)
 
   try {
     //@ts-ignore
-
     const res = await fetch(`https://academy-backend.sofascore.dev/sports`)
 
     const detail: SportInfo[] = await res.json()

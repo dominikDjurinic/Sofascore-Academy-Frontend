@@ -19,9 +19,7 @@ export function EventWidget(props: {
   subPanel: boolean
   selSlug: string
 }) {
-  const { data, error, isLoading } = useSWR<SportDateEvent, Error>(`/api/event/${props.id}`)
-
-  console.log(error)
+  const { data, isLoading } = useSWR<SportDateEvent>(`/api/event/${props.id}`)
 
   const { setOpenedWidget } = useWidgetContext()
   const { isDark } = useThemeContext()
@@ -42,7 +40,10 @@ export function EventWidget(props: {
             <Image src={isDark ? closeWhite : close} alt="close icon" width={14} height={14}></Image>
           </Box>
           <Link
-            href={`/tournament/${data?.tournament.sport.slug}/${data?.tournament.name}/${formatName(data?.homeTeam.name, data?.awayTeam.name)}/${data?.id}`}
+            href={`/tournament/${data?.tournament.sport.slug}/${data?.tournament.name}/${formatName(
+              data?.homeTeam.name,
+              data?.awayTeam.name
+            )}/${data?.id}`}
           >
             <Flex alignItems="center" color="var(--color-primary-default)" fontWeight="bold">
               View Full Page <Image src={isDark ? bRightLight : bRight} alt="icon right" width={14} height={14}></Image>

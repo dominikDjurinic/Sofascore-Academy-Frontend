@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 export function EventCell(props: { event?: SportDateEvent | undefined }) {
   const setEventStatus = (eventStatus: string | undefined) => {
+    //odredivanje statusa eventa
     if (eventStatus === 'inprogress') {
       return 'Live'
     } else if (eventStatus === 'finished') {
@@ -33,7 +34,11 @@ export function EventCell(props: { event?: SportDateEvent | undefined }) {
               ></Image>
             ) : null}
             <Text
-              color={`${props.event?.winnerCode === 'away' || props.event?.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+              color={`${
+                props.event?.winnerCode === 'away' || props.event?.winnerCode === 'draw'
+                  ? 'var(--on-surface-on-surface-lv-2)'
+                  : 'var(--on-surface-on-surface-lv-1)'
+              }`}
               fontSize="14px"
               fontWeight="bold"
               textAlign="center"
@@ -51,7 +56,13 @@ export function EventCell(props: { event?: SportDateEvent | undefined }) {
           {props.event?.status === 'notstarted' ? null : (
             <Flex gap="4px">
               <Text
-                color={`${props.event?.winnerCode === 'away' || props.event?.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : props.event?.status === 'inprogress' ? 'var(--specific-live)' : 'var(--on-surface-on-surface-lv-1)'}`}
+                color={`${
+                  props.event?.winnerCode === 'away' || props.event?.winnerCode === 'draw'
+                    ? 'var(--on-surface-on-surface-lv-2)'
+                    : props.event?.status === 'inprogress'
+                    ? 'var(--specific-live)'
+                    : 'var(--on-surface-on-surface-lv-1)'
+                }`}
                 fontSize="32px"
                 fontWeight="bold"
               >
@@ -61,7 +72,13 @@ export function EventCell(props: { event?: SportDateEvent | undefined }) {
                 -
               </Text>
               <Text
-                color={`${props.event?.winnerCode === 'home' || props.event?.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : props.event?.status === 'inprogress' ? 'var(--specific-live)' : 'var(--on-surface-on-surface-lv-1)'}`}
+                color={`${
+                  props.event?.winnerCode === 'home' || props.event?.winnerCode === 'draw'
+                    ? 'var(--on-surface-on-surface-lv-2)'
+                    : props.event?.status === 'inprogress'
+                    ? 'var(--specific-live)'
+                    : 'var(--on-surface-on-surface-lv-1)'
+                }`}
                 fontSize="32px"
                 fontWeight="bold"
               >
@@ -96,7 +113,9 @@ export function EventCell(props: { event?: SportDateEvent | undefined }) {
           ) : (
             <Text
               fontSize="12px"
-              color={`${props.event?.status === 'inprogress' ? 'var(--specific-live)' : 'var(--on-surface-on-surface-lv-2)'}`}
+              color={`${
+                props.event?.status === 'inprogress' ? 'var(--specific-live)' : 'var(--on-surface-on-surface-lv-2)'
+              }`}
             >
               {setEventStatus(props.event?.status)}
             </Text>
@@ -116,7 +135,11 @@ export function EventCell(props: { event?: SportDateEvent | undefined }) {
               ></Image>
             ) : null}
             <Text
-              color={`${props.event?.winnerCode === 'home' || props.event?.winnerCode === 'draw' ? 'var(--on-surface-on-surface-lv-2)' : 'var(--on-surface-on-surface-lv-1)'}`}
+              color={`${
+                props.event?.winnerCode === 'home' || props.event?.winnerCode === 'draw'
+                  ? 'var(--on-surface-on-surface-lv-2)'
+                  : 'var(--on-surface-on-surface-lv-1)'
+              }`}
               fontSize="14px"
               fontWeight="bold"
               textAlign="center"

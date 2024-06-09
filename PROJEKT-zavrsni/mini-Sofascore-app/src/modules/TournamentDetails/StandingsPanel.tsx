@@ -20,10 +20,7 @@ export function StandingsPanel(props: {
   selTournament?: (id: number) => void
   tournaments?: TournamentDetails[]
 }) {
-  const { data, error, isLoading } = useSWR<TournamentStandings[], Error>(
-    `/api/tournament/${props.tournamentId}/standings`
-  )
-  console.log(error)
+  const { data, isLoading } = useSWR<TournamentStandings[]>(`/api/tournament/${props.tournamentId}/standings`)
 
   const [openSelection, setOpenSelection] = useState(false)
   const { isDark } = useThemeContext()
@@ -53,7 +50,9 @@ export function StandingsPanel(props: {
                   _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
                   onClick={() => setOpenSelection(!openSelection)}
                   backgroundColor={`${openSelection ? 'var(--color-primary-highlight)' : 'var(--surface-surface-1)'}`}
-                  border={`${openSelection ? '1px solid var(--on-surface-on-surface-lv-3)' : '1px solid var(--surface-surface-2)'}`}
+                  border={`${
+                    openSelection ? '1px solid var(--on-surface-on-surface-lv-3)' : '1px solid var(--surface-surface-2)'
+                  }`}
                   borderRadius="6px"
                 >
                   <Flex
@@ -64,7 +63,9 @@ export function StandingsPanel(props: {
                     onClick={() => setOpenSelection(!openSelection)}
                   >
                     <Image
-                      src={`https://academy-backend.sofascore.dev/tournament/${props.tournaments?.find(({ id }) => id === props.tournamentId)?.id}/image`}
+                      src={`https://academy-backend.sofascore.dev/tournament/${
+                        props.tournaments?.find(({ id }) => id === props.tournamentId)?.id
+                      }/image`}
                       alt="tournament logo"
                       width={20}
                       height={20}
@@ -163,7 +164,11 @@ export function StandingsPanel(props: {
                 w="100%"
                 _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
                 cursor="pointer"
-                backgroundColor={`${props.teamId !== undefined && standing.team.id === props.teamId ? 'var(--color-primary-highlight)' : null} `}
+                backgroundColor={`${
+                  props.teamId !== undefined && standing.team.id === props.teamId
+                    ? 'var(--color-primary-highlight)'
+                    : null
+                } `}
               >
                 <StandingCell data={standing} place={index + 1} />
               </Box>

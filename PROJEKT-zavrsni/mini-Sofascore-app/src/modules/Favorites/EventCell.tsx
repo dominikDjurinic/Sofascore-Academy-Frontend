@@ -1,17 +1,9 @@
-//import { useDateFormatContext } from '@/context/DateFormatContext'
-import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
 import { SportDateEvent } from '@/model/events'
 import { formatName } from '@/utils/formatPathName'
 import { Box, Flex, Link, Text, VStack } from '@kuma-ui/core'
 import Image from 'next/image'
-import right from '../../../public/images/ic_pointer_right@2x.png'
-import rightLight from '../../../public/images/ic_pointer_rightLight@2x.png'
 import useSWR from 'swr'
-import { useThemeContext } from '@/context/ThemeContext'
-import { useEffect, useState } from 'react'
-import { FavouriteEvent } from '@/model/favorites'
-import { settingFavourites } from '@/utils/settingFavourites'
 import { LinkingDetails } from '@/model/linking'
 
 export function EventCell(props: {
@@ -25,13 +17,9 @@ export function EventCell(props: {
   clickedCell: number
   setLinkData: (data: LinkingDetails[]) => void
 }) {
-  const { data, error } = useSWR<SportDateEvent, Error>(`/api/event/${props.eventId}`)
-
-  console.log(error)
+  const { data } = useSWR<SportDateEvent>(`/api/event/${props.eventId}`)
 
   const { mobileWindowSize } = useWindowSizeContext()
-  const { openedWidget } = useWidgetContext()
-  const { isDark } = useThemeContext()
 
   const setEventStatus = (eventStatus: string | undefined) => {
     if (eventStatus === 'inprogress') {
@@ -42,8 +30,6 @@ export function EventCell(props: {
       return '-'
     }
   }
-
-  //const { engDate } = useDateFormatContext()
 
   return (
     <Link

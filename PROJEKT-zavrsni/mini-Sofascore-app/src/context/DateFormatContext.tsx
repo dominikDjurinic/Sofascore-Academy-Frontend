@@ -8,11 +8,11 @@ interface ContextValue {
 const DateFormatContext = createContext<ContextValue>({} as ContextValue)
 
 export const DateFormatContextProvider = ({ children }: PropsWithChildren) => {
+  //globalno stanje vrste zapisa datuma (hrv ili eng zapis) - modifikacija moguca unutar settings
   const [engDate, setEngDate] = useState<boolean | undefined>(undefined)
 
   useEffect(() => {
     const data = localStorage.getItem('dateFormatMiniSofa')
-    console.log(data)
     if (data !== null && data !== 'undefined') {
       setEngDate(JSON.parse(data))
     } else {

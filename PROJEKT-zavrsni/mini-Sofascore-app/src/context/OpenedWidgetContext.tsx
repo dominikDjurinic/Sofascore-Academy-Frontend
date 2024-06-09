@@ -8,6 +8,7 @@ interface ContextValue {
 const WidgetContext = createContext<ContextValue>({} as ContextValue)
 
 export const WidgetContextProvider = ({ children }: PropsWithChildren) => {
+  //globalno stanje za otvaranje, zatvranje event widgeta
   const [openedWidget, setOpenedWidget] = useState(false)
 
   return <WidgetContext.Provider value={{ openedWidget, setOpenedWidget }}>{children}</WidgetContext.Provider>

@@ -27,11 +27,6 @@ export function FavouritesPanel(props: { id: (id: number) => void; setLinkData: 
   const { mobileWindowSize } = useWindowSizeContext()
   const { engDate } = useDateFormatContext()
 
-  const [span, setSpan] = useState('next')
-  const [page, setPage] = useState(0)
-  const [prevSpan, setPrevSpan] = useState('next')
-  const [prevPage, setPrevPage] = useState(0)
-  const [prevDate, setPrevDate] = useState<Date | undefined>()
   const { openedWidget, setOpenedWidget } = useWidgetContext()
   const [selectedCell, setSelectedCell] = useState<number>(0)
   const [favouriteGroup, setFavouriteGroup] = useState<string>('currentFavouritesMiniSofa')
@@ -39,6 +34,7 @@ export function FavouritesPanel(props: { id: (id: number) => void; setLinkData: 
   const [newFavourites, setNewFavourites] = useState<FavouriteEvent[]>([])
 
   useEffect(() => {
+    //dohvat favorita iz localStorage pri otvaranju favourites page
     const favourites = localStorage.getItem('currentFavouritesMiniSofa')
     if (favourites !== null) {
       setNewFavourites(JSON.parse(favourites))
@@ -48,6 +44,7 @@ export function FavouritesPanel(props: { id: (id: number) => void; setLinkData: 
   }, [])
 
   useEffect(() => {
+    //dohvat favorita s obzirom na odgovarajucu grupu (previous,current,next)
     const favourites = localStorage.getItem(favouriteGroup)
     if (favourites !== null) {
       setNewFavourites(JSON.parse(favourites))
@@ -57,20 +54,22 @@ export function FavouritesPanel(props: { id: (id: number) => void; setLinkData: 
   }, [favouriteGroup])
 
   useEffect(() => {
-    localStorage.setItem(favouriteGroup, JSON.stringify(newFavourites))
+    //pohrana novostvorenog polja s objektima u localStorage
+    if (newFavourites.length) localStorage.setItem(favouriteGroup, JSON.stringify(newFavourites))
   }, [newFavourites])
 
   const favouritesHandle = (
+    //obrada zahtjeva prilikom pritiska gumba za favorite
     favourites: FavouriteEvent[],
     eventId: number,
     date: Date,
     tournament: TournamentDetails
   ) => {
-    console.log(favourites)
     setNewFavourites(settingFavourites(favourites, eventId, date, tournament))
   }
 
   const favouritesGroupHandle = (btnClicked: string) => {
+    //postavljanje mogucih odabira s obzirom na trenutnu poziciju u favoritima
     switch (favouriteGroup) {
       case 'currentFavouritesMiniSofa':
         if (btnClicked === 'next') {
@@ -89,6 +88,7 @@ export function FavouritesPanel(props: { id: (id: number) => void; setLinkData: 
 
   let dateDay: Date | undefined = undefined
   const diffDateDay = (newDate: Date) => {
+    //odredivanje podnaslova s obzirom na datum (grupacija favorita prema datumu)
     if (dateDay === undefined) {
       dateDay = newDate
       return true
@@ -163,7 +163,11 @@ export function FavouritesPanel(props: { id: (id: number) => void; setLinkData: 
       </Flex>
 
       {newFavourites.length === 0 ? (
-        <Text>No favourites</Text>
+        <Flex w="100%" justify="center">
+          <Text color="var(--on-surface-on-surface-lv-1)" p="0px 10px">
+            No favourites
+          </Text>
+        </Flex>
       ) : (
         newFavourites.map(({ id, date, tournament }) => (
           <Box key={id}>

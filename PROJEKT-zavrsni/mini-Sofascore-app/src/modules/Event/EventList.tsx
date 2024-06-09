@@ -52,7 +52,7 @@ export function EventList(props: {
   const [newFavourites, setNewFavourites] = useState<FavouriteEvent[]>([])
 
   useEffect(() => {
-    const favourites = localStorage.getItem(favouritesDate(props.date))
+    const favourites = localStorage.getItem(favouritesDate(props.date)) //dohvat favorita iz localStorage
     if (favourites !== null) {
       setNewFavourites(JSON.parse(favourites))
     } else {
@@ -61,7 +61,7 @@ export function EventList(props: {
   }, [props.date])
 
   useEffect(() => {
-    localStorage.setItem(favouritesDate(props.date), JSON.stringify(newFavourites))
+    if (newFavourites.length) localStorage.setItem(favouritesDate(props.date), JSON.stringify(newFavourites)) //spremanje favorita u localStorage
   }, [newFavourites])
 
   const favouritesHandle = (
@@ -71,10 +71,11 @@ export function EventList(props: {
     tournament: TournamentDetails
   ) => {
     console.log(favourites)
-    setNewFavourites(settingFavourites(favourites, eventId, date, tournament))
+    setNewFavourites(settingFavourites(favourites, eventId, date, tournament)) //poziv funkcije za obradu zahtjeva za favoritom te vraca novo polje s objektima
   }
 
   const checkTournamentId = (dataId: number, tournamentId: number) => {
+    //provjera poklapanja trenutnog eventa s tournamentom
     if (dataId === tournamentId) {
       return true
     } else {

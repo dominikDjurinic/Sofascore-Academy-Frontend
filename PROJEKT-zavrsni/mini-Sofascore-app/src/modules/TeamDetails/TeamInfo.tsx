@@ -11,6 +11,7 @@ import { useThemeContext } from '@/context/ThemeContext'
 
 export function TeamInfo(props: { teamDetails: TeamDetails; teamPlayers: TeamPlayer[] }) {
   const foreignPlayers = () => {
+    //izracun broja stranih igraca
     let num: number = 0
     props.teamPlayers.map(({ country }) => {
       if (country.id !== props.teamDetails.country.id) {

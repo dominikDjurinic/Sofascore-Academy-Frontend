@@ -8,27 +8,12 @@ interface WindowSizeValues {
 const WindowSizeContext = createContext<WindowSizeValues>({} as WindowSizeValues)
 
 export const WindowSizeContextProvider = ({ children }: PropsWithChildren) => {
+  //globalno stanje velicine prozora te sukladno mjeri odredivanje odgovarajuceg prikaza stranice (mobilna ili desktop verzija app)
   const [mobileWindowSize, setMobileWindowSize] = useState<boolean | undefined>(undefined)
-  /*
-  useEffect(() => {
-    const handleResizeWindow = () => {
-      if (window.innerWidth <= 990) {
-        setMobileWindowSize(true)
-      } else {
-        setMobileWindowSize(false)
-      }
-    }
-    handleResizeWindow()
-  }, [])*/
 
   useEffect(() => {
     const handleResizeWindow = () => {
       setMobileWindowSize(window.innerWidth <= 990)
-      /*if (window.innerWidth <= 990) {
-        setMobileWindowSize(true)
-      } else {
-        setMobileWindowSize(false)
-      }*/
     }
 
     window.addEventListener('resize', handleResizeWindow)

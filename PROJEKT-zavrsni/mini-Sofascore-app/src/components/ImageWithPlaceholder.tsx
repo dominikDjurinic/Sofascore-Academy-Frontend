@@ -9,7 +9,7 @@ export function ImageWithPlaceholder(props: {
   h: number
 }) {
   const [imgSrc, setImgSrc] = useState(props.source)
-
+  //postavljanje placeholdera ukoliko ne postoji neka od slika koja se dohvaca s apija
   return (
     <Image
       src={imgSrc}

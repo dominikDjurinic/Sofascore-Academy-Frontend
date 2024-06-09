@@ -8,6 +8,7 @@ interface ContextValue {
 const SlugContext = createContext<ContextValue>({} as ContextValue)
 
 export const SlugContextProvider = ({ children }: PropsWithChildren) => {
+  //globalno stanje trenutno odabranog sluga
   const [slug, setSlug] = useState('')
 
   return <SlugContext.Provider value={{ slug, setSlug }}>{children}</SlugContext.Provider>

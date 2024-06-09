@@ -156,7 +156,6 @@ export default function TeamPage(props: {
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const { params, res } = context
-  //console.log(params?.date)
 
   try {
     //@ts-ignore

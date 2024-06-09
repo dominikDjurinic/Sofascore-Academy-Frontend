@@ -19,9 +19,7 @@ import { settingFavourites } from '@/utils/settingFavourites'
 import { TournamentDetails } from '@/model/tournaments'
 
 export function TeamNextMatch(props: { teamDetails: TeamDetails }) {
-  const { data, error, isLoading } = useSWR<SportDateEvent[], Error>(`/api/team/${props.teamDetails.id}/events/next/0`)
-
-  console.log(error)
+  const { data, isLoading } = useSWR<SportDateEvent[]>(`/api/team/${props.teamDetails.id}/events/next/0`)
 
   const { isDark } = useThemeContext()
   const { mobileWindowSize } = useWindowSizeContext()
@@ -31,6 +29,7 @@ export function TeamNextMatch(props: { teamDetails: TeamDetails }) {
   const [nextFav, setNextFav] = useState<FavouriteEvent[]>([])
 
   useEffect(() => {
+    //dohvacanje podataka o favoritima
     const previous = localStorage.getItem('previousFavouritesMiniSofa')
     const current = localStorage.getItem('currentFavouritesMiniSofa')
     const next = localStorage.getItem('nextFavouritesMiniSofa')
@@ -40,6 +39,7 @@ export function TeamNextMatch(props: { teamDetails: TeamDetails }) {
   }, [])
 
   useEffect(() => {
+    //postavljanje favorita
     if (currentFav.length) localStorage.setItem('currentFavouritesMiniSofa', JSON.stringify(currentFav))
   }, [currentFav])
   useEffect(() => {
@@ -50,6 +50,7 @@ export function TeamNextMatch(props: { teamDetails: TeamDetails }) {
   }, [nextFav])
 
   const favouritesHandle = (favourites: string, eventId: number, date: Date, tournament: TournamentDetails) => {
+    //funkcija s obzirom na datum pocetka utakmice sprema favorit u odgovarajucu grupu
     switch (favourites) {
       case 'currentFavouritesMiniSofa':
         setCurrentFav(settingFavourites(currentFav, eventId, date, tournament))

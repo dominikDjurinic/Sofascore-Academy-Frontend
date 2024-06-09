@@ -30,6 +30,7 @@ export function DateNavigation(props: { date: string }) {
   }
 
   const initialDates = () => {
+    //postavljanje inicijalnog datuma
     let dates: Date[] = []
 
     let prevDate: Date = new Date(props.date) //uzima novi central date
@@ -53,6 +54,7 @@ export function DateNavigation(props: { date: string }) {
   }
 
   const newDatesFunc = (next: number) => {
+    //odredivanje sljedeceg datuma te sukladno tome preusmjeravanje na odgovarajuci path
     let nextDate: Date = new Date(props.date)
     nextDate.setDate(new Date(props.date).getDate() + next)
 

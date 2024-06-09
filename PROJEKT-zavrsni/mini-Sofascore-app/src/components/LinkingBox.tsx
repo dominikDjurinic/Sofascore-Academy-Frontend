@@ -16,6 +16,7 @@ export function LinkingBox(props: { data: LinkingDetails[] }) {
       h="100%"
       backgroundColor={`${mobileWindowSize ? 'var(--surface-surface-1)' : 'inherit'}`}
       alignItems="center"
+      p={`${mobileWindowSize ? '10px' : '0px'}`}
     >
       {props.data.map(({ name, urlLink }, index) => (
         <Flex key={name}>

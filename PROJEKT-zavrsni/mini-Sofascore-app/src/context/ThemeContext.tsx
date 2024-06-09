@@ -8,11 +8,11 @@ interface ContextValue {
 const ThemeContext = createContext<ContextValue>({} as ContextValue)
 
 export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
+  //globalno stanje theme (light ili dark mode) te s obzirom na trenutno stanje prilagodba elemenata stranice
   const [isDark, setIsDark] = useState<boolean | undefined>(undefined)
 
   useEffect(() => {
     const data = localStorage.getItem('themeDarkMiniSofa')
-    console.log(data)
     if (data !== null && data !== 'undefined') {
       setIsDark(JSON.parse(data))
     } else {

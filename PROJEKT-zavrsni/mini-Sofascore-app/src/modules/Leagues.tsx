@@ -8,6 +8,7 @@ export function LeaguesPanel(props: { leagues: Leagues[]; selLeagueId: number | 
 
   let slugName = ''
   const settingSportName = (newSlugName: string) => {
+    //za favourites page potrebna grupacija tournamentsa prema sport name
     slugName = newSlugName
     return newSlugName
   }

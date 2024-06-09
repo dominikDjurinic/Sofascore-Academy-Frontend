@@ -1,4 +1,5 @@
 export const favouritesDate = (date: string) => {
+  //odredivanje odgovarajuce grupe za pohranu ili pretragu favorita s obzirom na datum odrzavanja eventa
   let tomorrow: Date = new Date()
   tomorrow.setDate(new Date().getDate() + 1)
 

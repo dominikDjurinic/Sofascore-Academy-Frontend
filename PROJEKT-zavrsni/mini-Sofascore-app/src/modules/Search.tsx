@@ -10,19 +10,10 @@ import useSWR from 'swr'
 import { useState } from 'react'
 
 export function Search(props: { searchQuery: string }) {
-  const {
-    data: players,
-    error,
-    isLoading: isLoadingPlayers,
-  } = useSWR<PlayerSearch[], Error>(`/api/search/player/${props.searchQuery}`)
-  const {
-    data: teams,
-    error: errorTeams,
-    isLoading: isLoadingTeams,
-  } = useSWR<TeamSearch[], Error>(`/api/search/team/${props.searchQuery}`)
-
-  console.log(error)
-  console.log(errorTeams)
+  const { data: players, isLoading: isLoadingPlayers } = useSWR<PlayerSearch[]>(
+    `/api/search/player/${props.searchQuery}`
+  )
+  const { data: teams, isLoading: isLoadingTeams } = useSWR<TeamSearch[]>(`/api/search/team/${props.searchQuery}`)
 
   const { mobileWindowSize } = useWindowSizeContext()
   const [selectedCategory, setSelectedCategory] = useState('all')
