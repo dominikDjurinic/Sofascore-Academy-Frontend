@@ -1,40 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Mini SOFASCORE Web Application
 
-## Getting Started
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/miniSofascoreLogo.png)
 
-First, run the development server:
+Mini Sofascore Web Aplikacija predstavlja **završni projekt [Sofascore Academy](https://corporate.sofascore.com/hr/sofascore-academy) 2024**. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Projekt predstavlja pojednostavljenu verziju prave Sofascore aplikacije s njenim glavnim značajkama.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Cilj projekta** je iskoristiti stečena znanja tijekom trajanja akademije, te u kombinaciji sa svojim mogućnostima i vještinama implementirati web aplikaciju.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Aplikacija prikazuje brojne pageove : Home Page, Event Page, Tournament, Team i Player Pages, Leagues Page, Favourites Page te Settings Page.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Aplikacija je izrađena u skladu s temeljnim user stories: mogućnost korištenja aplikacije na desktop i mobilnom ekranu, osnovni elementi stranice (header, main i footer), prikaz liste evenata, odabir i detaljan prikaz eventa (teams, score i date).
+Također osnovna verzija aplikacije dopunjena je dodatnim opcijama: search, settings, favourites, detalji timova, liga i igrača.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Tehnologije korištene u izradi aplikacije su **Next.js** i **React**.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+U nastavku je moguće pogledati neke pageove Mini Sofascore Web Aplikacije:
 
-## Learn More
+**1.Home Page**
 
-To learn more about Next.js, take a look at the following resources:
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/homePage.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**2.Event Page**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/eventPage.png)
 
-## Deploy on Vercel
+**3.Team Page**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/teamPage1.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/teamPage2.png)
+
+**4.Player Page**
+
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/playerPage.png)
+
+**5.Search Page**
+
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/searchPage.png)
+
+Izradio: Dominik Đurinić, lipanj 2024., Zagreb
