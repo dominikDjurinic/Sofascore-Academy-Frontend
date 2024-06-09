@@ -15,6 +15,8 @@ Također osnovna verzija aplikacije dopunjena je dodatnim opcijama: search, sett
 
 Tehnologije korištene u izradi aplikacije su **Next.js** i **React**.
 
+Aplikacija je deployana putem servisa **Netlify** te ju je moguće pogledati putem linka https://minisofascore.netlify.app .
+
 U nastavku je moguće pogledati neke pageove Mini Sofascore Web Aplikacije:
 
 **1.Home Page**
