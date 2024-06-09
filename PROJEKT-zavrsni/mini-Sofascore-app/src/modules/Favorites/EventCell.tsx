@@ -12,6 +12,7 @@ import { useThemeContext } from '@/context/ThemeContext'
 import { useEffect, useState } from 'react'
 import { FavouriteEvent } from '@/model/favorites'
 import { settingFavourites } from '@/utils/settingFavourites'
+import { LinkingDetails } from '@/model/linking'
 
 export function EventCell(props: {
   eventId: number
@@ -22,6 +23,7 @@ export function EventCell(props: {
   // eslint-disable-next-line no-unused-vars
   selectedId: (id: number) => void
   clickedCell: number
+  setLinkData: (data: LinkingDetails[]) => void
 }) {
   const { data, error } = useSWR<SportDateEvent, Error>(`/api/event/${props.eventId}`)
 
@@ -44,133 +46,134 @@ export function EventCell(props: {
   //const { engDate } = useDateFormatContext()
 
   return (
-    <VStack w="90%">
-      <Flex alignItems="center" fontSize="14px" gap="10px" p="20px 16px">
-        <Image src={`/api/tournament/${data?.tournament.id}/image`} alt="league logo" width={32} height={32}></Image>
-        <Text>{data?.tournament.sport.name}</Text>
-        <Image src={isDark ? rightLight : right} alt="icon right" width={15} height={15}></Image>
-        <Text color="var(--on-surface-on-surface-lv-2)">{data?.tournament.country.name}</Text>
-        <Image src={isDark ? rightLight : right} alt="icon right" width={15} height={15}></Image>
-        <Text color="var(--on-surface-on-surface-lv-2)">{data?.tournament.name}</Text>
-      </Flex>
-
-      <Link
-        href={`${`/tournament/${data?.tournament.sport.slug}/${data?.tournament.name}/${formatName(
-          data?.homeTeam.name,
-          data?.awayTeam.name
-        )}/${data?.id}`}`}
-        onClick={(e: { preventDefault: () => void }) => {
-          if (!mobileWindowSize) {
-            e.preventDefault()
-          }
+    <Link
+      href={`${`/tournament/${data?.tournament.sport.slug}/${data?.tournament.name}/${formatName(
+        data?.homeTeam.name,
+        data?.awayTeam.name
+      )}/${data?.id}`}`}
+      onClick={(e: { preventDefault: () => void }) => {
+        if (!mobileWindowSize) {
+          e.preventDefault()
+        }
+      }}
+      w="90%"
+    >
+      <Box
+        w="100%"
+        cursor="pointer"
+        onClick={() => {
+          props.openWidget(true)
+          data !== undefined ? props.openId(data?.id) : null
+          data !== undefined ? props.selectedId(data?.id) : null
+          props.setLinkData([
+            {
+              name: `${data?.tournament.sport.name}`,
+              urlLink: `/${data?.tournament.sport.slug !== 'football' ? `${data?.tournament.sport.slug}` : ''}`,
+            },
+            {
+              name: `${data?.tournament.name}`,
+              urlLink: `/tournament/${data?.tournament.sport.slug}/${data?.tournament.name}`,
+            },
+            {
+              name: `${data?.homeTeam.name} vs ${data?.awayTeam.name}`,
+              urlLink: `/tournament/${data?.tournament.sport.slug}/${data?.tournament.name}/${formatName(
+                data?.homeTeam.name,
+                data?.awayTeam.name
+              )}/${data?.id}`,
+            },
+          ])
         }}
       >
-        <Box
-          w="100%"
-          _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
-          cursor="pointer"
-          onClick={() => {
-            props.openWidget(true)
-            data !== undefined ? props.openId(data?.id) : null
-            data !== undefined ? props.selectedId(data?.id) : null
-          }}
-          backgroundColor={`${
-            props.clickedCell === data?.id && openedWidget
-              ? 'var(--color-primary-highlight)'
-              : 'var(--surface-surface-1)'
-          }`}
-        >
-          <Flex alignItems="center" gap="3px" h="fit-content" fontSize="14px" w="100%">
-            <VStack
-              justify="center"
-              alignItems="center"
-              w="80px"
-              padding="10px 10px"
-              color="var(--on-surface-on-surface-lv-2)"
-            >
-              {data !== undefined ? (
-                <Text textAlign="center">
-                  {new Date(data?.startDate).toLocaleTimeString('hr-HR', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-                </Text>
-              ) : null}
-
-              <Text color={`${data?.status === 'inprogress' ? 'var(--specific-live)' : null}`}>
-                {setEventStatus(data?.status)}
+        <Flex alignItems="center" gap="3px" h="fit-content" fontSize="14px" w="100%">
+          <VStack
+            justify="center"
+            alignItems="center"
+            w="80px"
+            padding="10px 10px"
+            color="var(--on-surface-on-surface-lv-2)"
+          >
+            {data !== undefined ? (
+              <Text textAlign="center">
+                {new Date(data?.startDate).toLocaleTimeString('hr-HR', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })}
               </Text>
-            </VStack>
-            <Box minWidth="1px" h="40px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>
-            <Flex width="100%" justify="space-between" padding="10px">
-              <VStack justify="center">
-                <Flex gap="8px" alignItems="center" p="5px 0px">
-                  <Image
-                    src={`https://academy-backend.sofascore.dev/team/${data?.homeTeam.id}/image`}
-                    alt="league logo"
-                    width={16}
-                    height={16}
-                    priority
-                  ></Image>
-                  <Text
-                    color={`${
-                      data?.winnerCode === 'away' || data?.winnerCode === 'draw'
-                        ? 'var(--on-surface-on-surface-lv-2)'
-                        : 'var(--on-surface-on-surface-lv-1)'
-                    }`}
-                  >
-                    {data?.homeTeam.name}
-                  </Text>
-                </Flex>
-                <Flex gap="8px" alignItems="center" p="5px 0px">
-                  <Image
-                    src={`https://academy-backend.sofascore.dev/team/${data?.awayTeam.id}/image`}
-                    alt="league logo"
-                    width={16}
-                    height={16}
-                    priority
-                  ></Image>
-                  <Text
-                    color={`${
-                      data?.winnerCode === 'home' || data?.winnerCode === 'draw'
-                        ? 'var(--on-surface-on-surface-lv-2)'
-                        : 'var(--on-surface-on-surface-lv-1)'
-                    }`}
-                  >
-                    {data?.awayTeam.name}
-                  </Text>
-                </Flex>
-              </VStack>
-              <VStack justify="center" w="50px" alignItems="center">
+            ) : null}
+
+            <Text color={`${data?.status === 'inprogress' ? 'var(--specific-live)' : null}`}>
+              {setEventStatus(data?.status)}
+            </Text>
+          </VStack>
+          <Box minWidth="1px" h="40px" backgroundColor="var(--on-surface-on-surface-lv-4)" borderRadius="2px"></Box>
+          <Flex width="100%" justify="space-between" padding="10px">
+            <VStack justify="center">
+              <Flex gap="8px" alignItems="center" p="5px 0px">
+                <Image
+                  src={`https://academy-backend.sofascore.dev/team/${data?.homeTeam.id}/image`}
+                  alt="league logo"
+                  width={16}
+                  height={16}
+                  priority
+                ></Image>
                 <Text
                   color={`${
                     data?.winnerCode === 'away' || data?.winnerCode === 'draw'
                       ? 'var(--on-surface-on-surface-lv-2)'
-                      : data?.status === 'inprogress'
-                      ? 'var(--specific-live)'
                       : 'var(--on-surface-on-surface-lv-1)'
                   }`}
-                  p="5px 0px"
                 >
-                  {data?.homeScore.total}
+                  {data?.homeTeam.name}
                 </Text>
+              </Flex>
+              <Flex gap="8px" alignItems="center" p="5px 0px">
+                <Image
+                  src={`https://academy-backend.sofascore.dev/team/${data?.awayTeam.id}/image`}
+                  alt="league logo"
+                  width={16}
+                  height={16}
+                  priority
+                ></Image>
                 <Text
                   color={`${
                     data?.winnerCode === 'home' || data?.winnerCode === 'draw'
                       ? 'var(--on-surface-on-surface-lv-2)'
-                      : data?.status === 'inprogress'
-                      ? 'var(--specific-live)'
                       : 'var(--on-surface-on-surface-lv-1)'
                   }`}
-                  p="5px 0px"
                 >
-                  {data?.awayScore.total}
+                  {data?.awayTeam.name}
                 </Text>
-              </VStack>
-            </Flex>
+              </Flex>
+            </VStack>
+            <VStack justify="center" w="50px" alignItems="center">
+              <Text
+                color={`${
+                  data?.winnerCode === 'away' || data?.winnerCode === 'draw'
+                    ? 'var(--on-surface-on-surface-lv-2)'
+                    : data?.status === 'inprogress'
+                    ? 'var(--specific-live)'
+                    : 'var(--on-surface-on-surface-lv-1)'
+                }`}
+                p="5px 0px"
+              >
+                {data?.homeScore.total}
+              </Text>
+              <Text
+                color={`${
+                  data?.winnerCode === 'home' || data?.winnerCode === 'draw'
+                    ? 'var(--on-surface-on-surface-lv-2)'
+                    : data?.status === 'inprogress'
+                    ? 'var(--specific-live)'
+                    : 'var(--on-surface-on-surface-lv-1)'
+                }`}
+                p="5px 0px"
+              >
+                {data?.awayScore.total}
+              </Text>
+            </VStack>
           </Flex>
-        </Box>
-      </Link>
-    </VStack>
+        </Flex>
+      </Box>
+    </Link>
   )
 }

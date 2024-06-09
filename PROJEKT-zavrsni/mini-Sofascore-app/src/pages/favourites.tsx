@@ -38,23 +38,18 @@ export default function Favourites(props: {
     setId(id)
   }
 
-  const fb: LinkingDetails = {
-    name: `${props.sports.find(({ slug }) => slug === props.selSlug)?.name}`,
-    urlLink: '/',
-  }
-
   useEffect(() => {
-    setLinkingData([fb])
+    setLinkingData([])
   }, [])
 
   return (
     <>
       <Head>
-        <title>Favorites | Sofascore</title>
+        <title>Favourites | Sofascore</title>
       </Head>
       {mobileWindowSize !== undefined ? (
         <Box as="main" position="relative" minHeight="100vh">
-          <Header selectedSport={props.selSlug} sports={props.sports} />
+          <Header selectedSport={''} sports={props.sports} />
           {mobileWindowSize ? null : (
             <Flex h="48px" w="100%" alignItems="center">
               <LinkingBox data={linkingData} />
@@ -62,7 +57,7 @@ export default function Favourites(props: {
           )}
           <Flex justifyContent="center" gap="24px" paddingBottom="130px">
             {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
-            <FavouritesPanel id={openWidget} />
+            <FavouritesPanel id={openWidget} setLinkData={(data: LinkingDetails[]) => setLinkingData(data)} />
             {mobileWindowSize ? null : (
               <>
                 {openedWidget === false ? (

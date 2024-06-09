@@ -10,6 +10,7 @@ import right from '../../../public/images/ic_pointer_right@2x.png'
 import rightLight from '../../../public/images/ic_pointer_rightLight@2x.png'
 import bellNoclick from '../../../public/images/bellNotClicked.png'
 import bellClicked from '../../../public/images/belClicked.png'
+import bellClickedLight from '../../../public/images/belClickedLight.png'
 import { DateNavigation } from '@/components/DateNavigation'
 import { useWidgetContext } from '@/context/OpenedWidgetContext'
 import { useWindowSizeContext } from '@/context/WindowSizeContext'
@@ -19,6 +20,8 @@ import { useDateFormatContext } from '@/context/DateFormatContext'
 import { LinkingDetails } from '@/model/linking'
 import { FavouriteEvent } from '@/model/favorites'
 import { settingFavourites } from '@/utils/settingFavourites'
+import { TournamentDetails } from '@/model/tournaments'
+import { favouritesDate } from '@/utils/favouritesDate'
 
 export function EventList(props: {
   leagues: Leagues[]
@@ -49,21 +52,26 @@ export function EventList(props: {
   const [newFavourites, setNewFavourites] = useState<FavouriteEvent[]>([])
 
   useEffect(() => {
-    const favourites = localStorage.getItem('currentFavouritesMiniSofa')
+    const favourites = localStorage.getItem(favouritesDate(props.date))
     if (favourites !== null) {
       setNewFavourites(JSON.parse(favourites))
     } else {
       setNewFavourites([])
     }
-  }, [])
+  }, [props.date])
 
   useEffect(() => {
-    localStorage.setItem('currentFavouritesMiniSofa', JSON.stringify(newFavourites))
+    localStorage.setItem(favouritesDate(props.date), JSON.stringify(newFavourites))
   }, [newFavourites])
 
-  const favouritesHandle = (favourites: FavouriteEvent[], eventId: number, date: Date) => {
+  const favouritesHandle = (
+    favourites: FavouriteEvent[],
+    eventId: number,
+    date: Date,
+    tournament: TournamentDetails
+  ) => {
     console.log(favourites)
-    setNewFavourites(settingFavourites(favourites, eventId, date))
+    setNewFavourites(settingFavourites(favourites, eventId, date, tournament))
   }
 
   const checkTournamentId = (dataId: number, tournamentId: number) => {
@@ -150,7 +158,18 @@ export function EventList(props: {
                   </Text>
                 )}
                 {props.data?.map(event => (
-                  <Flex key={event.id} width="100%" position="relative" alignItems="center">
+                  <Flex
+                    key={event.id}
+                    width="100%"
+                    position="relative"
+                    alignItems="center"
+                    _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
+                    backgroundColor={`${
+                      clickedCell === event.id && openedWidget
+                        ? 'var(--color-primary-highlight)'
+                        : 'var(--surface-surface-1)'
+                    }`}
+                  >
                     <Link
                       w="90%"
                       key={event.id}
@@ -166,7 +185,6 @@ export function EventList(props: {
                     >
                       <Box
                         width="100%"
-                        _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
                         cursor="pointer"
                         fontSize="14px"
                         onClick={() => {
@@ -176,11 +194,6 @@ export function EventList(props: {
                             setOpenedWidget(true)
                           }
                         }}
-                        backgroundColor={`${
-                          clickedCell === event.id && openedWidget
-                            ? 'var(--color-primary-highlight)'
-                            : 'var(--surface-surface-1)'
-                        }`}
                       >
                         {checkTournamentId(event.tournament.id, id) === true ? (
                           <EventCell event={event} matchCell={false} />
@@ -200,7 +213,9 @@ export function EventList(props: {
                         position="absolute"
                         right="0px"
                         cursor="pointer"
-                        onClick={() => favouritesHandle(newFavourites, event.id, new Date(event.startDate))}
+                        onClick={() =>
+                          favouritesHandle(newFavourites, event.id, new Date(event.startDate), event.tournament)
+                        }
                         alignItems="center"
                         justify="center"
                         w="10%"
@@ -208,11 +223,15 @@ export function EventList(props: {
                       >
                         <Image
                           src={
-                            newFavourites.find(({ id }) => id === event.id) !== undefined ? bellClicked : bellNoclick
+                            newFavourites.find(({ id }) => id === event.id) !== undefined
+                              ? isDark
+                                ? bellClickedLight
+                                : bellClicked
+                              : bellNoclick
                           }
                           alt="bell icon"
-                          width={20}
-                          height={20}
+                          width={19}
+                          height={19}
                         ></Image>
                       </Flex>
                     ) : null}
@@ -253,7 +272,18 @@ export function EventList(props: {
                 </Text>
               )}
               {props.data?.map(event => (
-                <Flex key={event.id} width="100%" position="relative" alignItems="center">
+                <Flex
+                  key={event.id}
+                  width="100%"
+                  position="relative"
+                  alignItems="center"
+                  _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
+                  backgroundColor={`${
+                    clickedCell === event.id && openedWidget
+                      ? 'var(--color-primary-highlight)'
+                      : 'var(--surface-surface-1)'
+                  }`}
+                >
                   <Link
                     width="90%"
                     key={event.id}
@@ -269,7 +299,6 @@ export function EventList(props: {
                   >
                     <Box
                       width="100%"
-                      _hover={{ backgroundColor: 'var(--color-primary-highlight)' }}
                       cursor="pointer"
                       fontSize="14px"
                       onClick={() => {
@@ -292,11 +321,6 @@ export function EventList(props: {
                           },
                         ])
                       }}
-                      backgroundColor={`${
-                        clickedCell === event.id && openedWidget
-                          ? 'var(--color-primary-highlight)'
-                          : 'var(--surface-surface-1)'
-                      }`}
                     >
                       {checkTournamentId(event.tournament.id, id) === true ? (
                         <EventCell event={event} matchCell={false} />
@@ -316,17 +340,25 @@ export function EventList(props: {
                       position="absolute"
                       right="0px"
                       cursor="pointer"
-                      onClick={() => favouritesHandle(newFavourites, event.id, new Date(event.startDate))}
+                      onClick={() =>
+                        favouritesHandle(newFavourites, event.id, new Date(event.startDate), event.tournament)
+                      }
                       alignItems="center"
                       justify="center"
                       w="10%"
                       gap="5px"
                     >
                       <Image
-                        src={newFavourites.find(({ id }) => id === event.id) !== undefined ? bellClicked : bellNoclick}
+                        src={
+                          newFavourites.find(({ id }) => id === event.id) !== undefined
+                            ? isDark
+                              ? bellClickedLight
+                              : bellClicked
+                            : bellNoclick
+                        }
                         alt="bell icon"
-                        width={20}
-                        height={20}
+                        width={19}
+                        height={19}
                       ></Image>
                     </Flex>
                   ) : null}

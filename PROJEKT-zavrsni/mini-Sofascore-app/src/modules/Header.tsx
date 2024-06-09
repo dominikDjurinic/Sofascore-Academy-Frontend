@@ -4,6 +4,8 @@ import logo1 from '../../public/images/sofascore_lockup@2x.png'
 import logo2 from '../../public/images/sofascore_lockup_black@2x.png'
 import settings1 from '../../public/images/ic_settings@2x.png'
 import settings2 from '../../public/images/ic_settingsDark.png'
+import bell1 from '../../public/images/bell.png'
+import bell2 from '../../public/images/bellDark.png'
 import trophy1 from '../../public/images/ic_trophy.png'
 import trophy2 from '../../public/images/ic_trophyDark.png'
 import matches1 from '../../public/images/icon_matches.png'
@@ -81,6 +83,17 @@ export function Header(props: {
               height={18}
             ></Image>
           </Box>
+          <Link href={'/favourites'}>
+            <Box
+              p="12px"
+              cursor="pointer"
+              onClick={() => {
+                closeWidget()
+              }}
+            >
+              <Image src={isDark ? bell2 : bell1} alt="icon settings" width={19} height={19}></Image>
+            </Box>
+          </Link>
           {mobileWindowSize && props.selectedSport !== '' ? (
             props.leagues !== undefined ? (
               <Link href={`/${props.selectedSport === 'football' ? '' : props.selectedSport}`}>
@@ -96,6 +109,7 @@ export function Header(props: {
               </Link>
             )
           ) : null}
+
           <Link href={'/settings'}>
             <Box
               p="12px"
