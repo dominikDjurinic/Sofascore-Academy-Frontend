@@ -57,8 +57,10 @@ export default function Home(props: {
         <Box as="main" position="relative" minHeight="100vh">
           <Header selectedSport={props.selSlug} sports={props.sports} />
           {mobileWindowSize ? null : (
-            <Flex h="48px" w="100%" alignItems="center">
+            <Flex h="48px" w="100%" alignItems="center" justify="center">
               <LinkingBox data={linkingData} />
+              <Box w="30%"></Box>
+              <Box w="30%"></Box>
             </Flex>
           )}
           <Flex justifyContent="center" gap="24px" paddingBottom="130px">

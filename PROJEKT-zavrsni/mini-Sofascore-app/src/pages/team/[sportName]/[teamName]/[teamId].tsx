@@ -125,8 +125,14 @@ export default function TeamPage(props: {
       {mobileWindowSize !== undefined ? (
         <Box as="main" minHeight="100vh" position="relative">
           <Header selectedSport={props.selSlug} sports={props.sports} />
-          <Flex h="48px" w="100%" alignItems="center">
+          <Flex h="48px" w="100%" alignItems="center" justify="center">
             <LinkingBox data={linkingData} />
+            {mobileWindowSize ? null : (
+              <>
+                <Box w="30%"></Box>
+                <Box w="30%"></Box>
+              </>
+            )}
           </Flex>
           <Flex justify="center" gap="24px" paddingBottom="130px">
             {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}

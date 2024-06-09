@@ -59,8 +59,10 @@ export default function DateEvent(props: {
         <Box as="main" minHeight="100vh" position="relative">
           <Header selectedSport={props.selSlug} sports={props.sports} />
           {mobileWindowSize ? null : (
-            <Flex h="48px" w="100%" alignItems="center">
+            <Flex h="48px" w="100%" alignItems="center" justify="center">
               <LinkingBox data={linkingData} />
+              <Box w="30%"></Box>
+              <Box w="30%"></Box>
             </Flex>
           )}
           <Flex justifyContent="center" gap="24px" paddingBottom="130px">

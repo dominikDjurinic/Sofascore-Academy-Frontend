@@ -78,7 +78,7 @@ export function Header(props: {
           >
             <Image
               src={isDark ? (searchOpen ? searchLight : search) : searchOpen ? search : searchLight}
-              alt="icon settings"
+              alt="icon search"
               width={18}
               height={18}
             ></Image>
@@ -91,7 +91,7 @@ export function Header(props: {
                 closeWidget()
               }}
             >
-              <Image src={isDark ? bell2 : bell1} alt="icon settings" width={19} height={19}></Image>
+              <Image src={isDark ? bell2 : bell1} alt="icon favourites" width={19} height={19}></Image>
             </Box>
           </Link>
           {mobileWindowSize && props.selectedSport !== '' ? (

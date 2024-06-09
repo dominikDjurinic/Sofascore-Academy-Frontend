@@ -19,11 +19,13 @@ import { fullDaysInWeek } from '@/model/daysInWeek'
 import { settingFavourites } from '@/utils/settingFavourites'
 import { TournamentDetails } from '@/model/tournaments'
 import { LinkingDetails } from '@/model/linking'
+import { useDateFormatContext } from '@/context/DateFormatContext'
 
 // eslint-disable-next-line no-unused-vars
 export function FavouritesPanel(props: { id: (id: number) => void; setLinkData: (data: LinkingDetails[]) => void }) {
   const { isDark } = useThemeContext()
   const { mobileWindowSize } = useWindowSizeContext()
+  const { engDate } = useDateFormatContext()
 
   const [span, setSpan] = useState('next')
   const [page, setPage] = useState(0)
@@ -82,41 +84,6 @@ export function FavouritesPanel(props: { id: (id: number) => void; setLinkData: 
         return 'currentFavouritesMiniSofa'
       default:
         return 'currentFavouritesMiniSofa'
-    }
-  }
-
-  const nextMatchesPage = (nextLast: string) => {
-    let newPage: number
-    if (nextLast === 'next') {
-      if (prevSpan === 'last') {
-        if (prevPage === 0) {
-          setPrevSpan('next')
-          setSpan('next')
-        } else {
-          newPage = prevPage + 1
-          setPrevPage(newPage)
-          setPage(Math.abs(newPage))
-        }
-      } else {
-        newPage = prevPage + 1
-        setPrevPage(newPage)
-        setPage(newPage)
-      }
-    } else {
-      if (prevSpan === 'next') {
-        if (prevPage === 0) {
-          setPrevSpan('last')
-          setSpan('last')
-        } else {
-          newPage = prevPage - 1
-          setPrevPage(newPage)
-          setPage(newPage)
-        }
-      } else {
-        newPage = prevPage - 1
-        setPrevPage(newPage)
-        setPage(Math.abs(newPage))
-      }
     }
   }
 
@@ -204,27 +171,49 @@ export function FavouritesPanel(props: { id: (id: number) => void; setLinkData: 
               new Date(date).getDate() === new Date().getDate() &&
               new Date(date).getMonth() === new Date().getMonth() ? (
                 <Flex p="20px 16px" fontSize="14px" fontWeight="bold" color="var(--on-surface-on-surface-lv-1)">
-                  <Text>
-                    Today -{' '}
-                    {new Date(date).getDate() +
-                      '. ' +
-                      (new Date(date).getMonth() + 1) +
-                      '. ' +
-                      new Date(date).getFullYear() +
-                      '.'}
-                  </Text>
+                  {engDate ? (
+                    <Text>
+                      Today -{' '}
+                      {new Date(date).toLocaleDateString('en-UK', { month: '2-digit' }) +
+                        '/' +
+                        new Date(date).toLocaleDateString('en-UK', { day: '2-digit' }) +
+                        '/' +
+                        new Date(date).toLocaleDateString('en-UK', { year: 'numeric' })}
+                    </Text>
+                  ) : (
+                    <Text>
+                      Today -{' '}
+                      {new Date(date).getDate() +
+                        '. ' +
+                        (new Date(date).getMonth() + 1) +
+                        '. ' +
+                        new Date(date).getFullYear() +
+                        '.'}
+                    </Text>
+                  )}
                 </Flex>
               ) : (
                 <Flex p="20px 16px" fontSize="14px" fontWeight="bold" color="var(--on-surface-on-surface-lv-1)">
-                  <Text>
-                    {fullDaysInWeek[new Date(date).getDay()]} -{' '}
-                    {new Date(date).getDate() +
-                      '. ' +
-                      (new Date(date).getMonth() + 1) +
-                      '. ' +
-                      new Date(date).getFullYear() +
-                      '.'}
-                  </Text>
+                  {engDate ? (
+                    <Text>
+                      {fullDaysInWeek[new Date(date).getDay()]} -{' '}
+                      {new Date(date).toLocaleDateString('en-UK', { month: '2-digit' }) +
+                        '/' +
+                        new Date(date).toLocaleDateString('en-UK', { day: '2-digit' }) +
+                        '/' +
+                        new Date(date).toLocaleDateString('en-UK', { year: 'numeric' })}
+                    </Text>
+                  ) : (
+                    <Text>
+                      {fullDaysInWeek[new Date(date).getDay()]} -{' '}
+                      {new Date(date).getDate() +
+                        '. ' +
+                        (new Date(date).getMonth() + 1) +
+                        '. ' +
+                        new Date(date).getFullYear() +
+                        '.'}
+                    </Text>
+                  )}
                 </Flex>
               )
             ) : null}

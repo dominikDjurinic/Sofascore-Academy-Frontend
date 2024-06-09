@@ -12,9 +12,8 @@ export function LinkingBox(props: { data: LinkingDetails[] }) {
   const { mobileWindowSize } = useWindowSizeContext()
   return (
     <Flex
-      w="100%"
+      w={`${mobileWindowSize ? '100%' : '30%'}`}
       h="100%"
-      p="10px"
       backgroundColor={`${mobileWindowSize ? 'var(--surface-surface-1)' : 'inherit'}`}
       alignItems="center"
     >
@@ -30,7 +29,9 @@ export function LinkingBox(props: { data: LinkingDetails[] }) {
           >
             <Text
               fontSize="12px"
-              color={`${index === props.data.length - 1 ? 'var(--on-surface-on-surface-lv-2)' : 'var(--color-primary-default)'}`}
+              color={`${
+                index === props.data.length - 1 ? 'var(--on-surface-on-surface-lv-2)' : 'var(--color-primary-default)'
+              }`}
               _hover={{ textDecoration: `${index !== props.data.length - 1 ? 'underline' : 'none'}` }}
             >
               {name}

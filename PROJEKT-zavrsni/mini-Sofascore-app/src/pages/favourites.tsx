@@ -49,14 +49,22 @@ export default function Favourites(props: {
       </Head>
       {mobileWindowSize !== undefined ? (
         <Box as="main" position="relative" minHeight="100vh">
-          <Header selectedSport={''} sports={props.sports} />
+          <Header selectedSport={' '} sports={props.sports} />
           {mobileWindowSize ? null : (
-            <Flex h="48px" w="100%" alignItems="center">
+            <Flex h="48px" w="100%" alignItems="center" justify="center">
               <LinkingBox data={linkingData} />
+              {mobileWindowSize ? null : (
+                <>
+                  <Box w="30%"></Box>
+                  <Box w="30%"></Box>
+                </>
+              )}
             </Flex>
           )}
           <Flex justifyContent="center" gap="24px" paddingBottom="130px">
-            {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} />}
+            {mobileWindowSize ? null : (
+              <LeaguesPanel leagues={props.leagues} selLeagueId={undefined} favourite={true} />
+            )}
             <FavouritesPanel id={openWidget} setLinkData={(data: LinkingDetails[]) => setLinkingData(data)} />
             {mobileWindowSize ? null : (
               <>
@@ -96,11 +104,22 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const sports: SportInfo[] = details
 
-    const resp2 = await fetch('https://academy-backend.sofascore.dev/sport/football/tournaments')
+    const resp_league = await fetch('https://academy-backend.sofascore.dev/sport/football/tournaments')
 
-    const details2: Leagues[] = await resp2.json()
+    const details_league: Leagues[] = await resp_league.json()
 
-    const leagues: Leagues[] = details2
+    const resp_league2 = await fetch('https://academy-backend.sofascore.dev/sport/basketball/tournaments')
+
+    const details_league2: Leagues[] = await resp_league2.json()
+
+    const resp_league3 = await fetch('https://academy-backend.sofascore.dev/sport/american-football/tournaments')
+
+    const details_league3: Leagues[] = await resp_league3.json()
+
+    let arr = details_league.concat(details_league2)
+    arr = arr.concat(details_league3)
+
+    const leagues: Leagues[] = arr
 
     const resp3 = await fetch(`https://academy-backend.sofascore.dev/sport/${selSlug}/events/${today}`)
 

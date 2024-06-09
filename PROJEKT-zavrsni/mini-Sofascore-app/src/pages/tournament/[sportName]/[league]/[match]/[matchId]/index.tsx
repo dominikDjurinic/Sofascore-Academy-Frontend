@@ -41,7 +41,10 @@ export default function Match(props: {
     }
     const matchLink: LinkingDetails = {
       name: `${props.data.homeTeam.name} vs ${props.data.awayTeam.name}`,
-      urlLink: `/tournament/${props.selSlug}/${props.data.tournament.name}/${formatName(props.data.homeTeam.name, props.data.awayTeam.name)}/${props.matchId}`,
+      urlLink: `/tournament/${props.selSlug}/${props.data.tournament.name}/${formatName(
+        props.data.homeTeam.name,
+        props.data.awayTeam.name
+      )}/${props.matchId}`,
     }
     setLinkingData([slLink, tourLink, matchLink])
   }, [])
@@ -56,8 +59,14 @@ export default function Match(props: {
       {mobileWindowSize !== undefined ? (
         <Box as="main" position="relative" minHeight="100vh">
           <Header selectedSport={props.selSlug} sports={props.sports} />
-          <Flex h="48px" w="100%" alignItems="center">
+          <Flex h="48px" w="100%" alignItems="center" justify="center">
             <LinkingBox data={linkingData} />
+            {mobileWindowSize ? null : (
+              <>
+                <Box w="30%"></Box>
+                <Box w="30%"></Box>
+              </>
+            )}
           </Flex>
           <Flex justifyContent="center" gap="24px" paddingBottom="130px">
             {mobileWindowSize ? null : <LeaguesPanel leagues={props.leagues} selLeagueId={props.data.tournament.id} />}
