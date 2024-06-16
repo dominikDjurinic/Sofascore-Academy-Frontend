@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../style/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../style/categories_styles.css" />
+    <link href='https://fonts.googleapis.com/css?family=Inika' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>RTTDD Quiz</title>
+    <link rel="icon" type="image/x-icon" href="../slike/logo.png">
+</head>
+
+<body>
+    <header>
+        <div class="profile-container" id="profile-container">
+            <div class="home-div" id="home-return">
+                <img src="../slike/small-logo.png">
+                <span class="logoName">RIM TIM TAGI DIGI DIM</span>
+            </div>
+            <div class="total-plus-diamonds" id="minusTotal">
+                <h3 id="totalDiamondPay">1256</h3><i class="material-icons icon-black">diamond</i>
+            </div>
+            <div class="div-right" id="profil-right-div">
+                <div class="profil" id="profil">
+                    <div class="total-plus-diamonds">
+                        <h3 id="totalDiamondHeader">1256</h3><i class="material-icons icon-white">diamond</i>
+                    </div>
+                    <i class="material-icons icon-white" style="font-size: 30px;">expand_more</i>
+                    <p id="profileName"></p>
+                    <img id="profile-img" src="../slike/profil.png">
+                </div>
+                <div class="izbornik" id="izbornik">
+                    <div class="izbor-div">
+                        <p class="izbor" id="myProfile">My profile</p>
+                    </div>
+                    <div class="izbor-div">
+                        <p class="izbor" id="logOut">Log Out</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </header>
+
+    <article id="cat-body">
+        <div class="main-container">
+            <div class="sub-container sub-height selected-container" id="selected-container">
+                <h2 id="selCategoryTitle">Sport</h2>
+                <div class="info-container wrapper">
+                    <div class="info" id="name-info">
+                        <p id="sCat">Selected category:</p>
+                        <h3 id="selCategory">Sport</h3>
+                    </div>
+                    <div class="info">
+                        <p>Number of questions:</p>
+                        <h3 id="numQuestion">15</h3>
+                    </div>
+                    <div class="info">
+                        <p>Starting price:</p>
+                        <div class="total-plus-diamonds">
+                            <h3 id="startPrice">250</h3><i class="material-icons icon-blue">diamond</i>
+                        </div>
+                    </div>
+                    <div class="btn-ins">
+                        <button class="btn btn-red" id="btn-Start">Start QUIZ</button>
+                        <p id="instr-read">Read instructions</p>
+                    </div>
+                    
+                </div>
+                <div class="info-container wrapper">
+                    <img id="categoryImg" src="../slike/sport.png" alt="Icon of category">
+                    <div class="categoryDescript">
+                        <p id="categoryDescript">Sports are fun! Do you realy know everything about sport?</p>
+                    </div>
+                </div>
+                <div class="info info-scale">
+                    <p>Scale of diamonds <i class="material-icons icon-blue">diamond</i> :</p>
+                    <table class="difficulty-table">
+                        <tr>
+                            <td class="red-cell">easy</td><td class="yellow-cell">medium</td><td class="green-cell">hard</td>
+                        </tr>
+                    </table>
+                    <table class="scale-table">
+                        <tr>
+                            <td><i class="material-icons icon-blue">diamond</i></td><td id="1">50</td><td id="2">100</td><td id="3">150</td><td id="4">200</td><td id="5">250</td><td id="6">300</td><td id="7">350</td><td id="8">400</td><td id="9">500</td><td id="10">600</td><td id="11">700</td><td id="12">800</td><td id="13">900</td><td id="14">1000</td><td id="15">1500</td>
+                        </tr>
+                        <tr>
+                            <td></td><td class="red-cell"></td><td class="red-cell"></td><td class="red-cell"></td><td class="red-cell"></td><td class="red-cell"></td><td class="yellow-cell"></td><td class="yellow-cell"></td><td class="yellow-cell"></td><td class="yellow-cell"></td><td class="yellow-cell"></td><td class="green-cell"></td><td class="green-cell"></td><td class="green-cell"></td><td class="green-cell"></td><td class="green-cell"></td>
+                            
+                        </tr>
+                        <tr>
+                           <td>Q.</td><td>1.</td><td>2.</td><td>3.</td><td>4.</td><td>5.</td><td>6.</td><td>7.</td><td>8.</td><td>9.</td><td>10.</td><td>11.</td><td>12.</td><td>13.</td><td>14.</td><td>15.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="sub-container sub-height">
+                    <h2>Select <span class="quiz-word">Quiz</span> category:</h2>
+                    <div class="cardsCateg">
+                        <div class="category-card" id="sport">
+                            <h4>Sport</h4>
+                            <p>Sports are fun! Do you realy know everything about sport?</p>
+                            <div class="total-plus-diamonds">
+                                <h3 id="startPrice">160</h3><i class="material-icons icon-blue">diamond</i>
+                            </div>
+                        </div>
+                        <div class="category-card" id="history">
+                            <h4>History</h4>
+                            <p>History is the best mirror of the future.</p>
+                            <div class="total-plus-diamonds">
+                                <h3 id="startPrice">250</h3><i class="material-icons icon-blue">diamond</i>
+                            </div>
+                        </div>
+                        <div class="category-card" id="geography">
+                            <h4>Geography</h4>
+                            <p>If you're wondering where you'd like to go on your next adventure, ...</p>
+                            <div class="total-plus-diamonds">
+                                <h3 id="startPrice">250</h3><i class="material-icons icon-blue">diamond</i>
+                            </div>
+                        </div>
+                        <div class="category-card" id="music">
+                            <h4>Music</h4>
+                            <p>Music accompanies us at all times.</p>
+                            <div class="total-plus-diamonds">
+                                <h3 id="startPrice">230</h3><i class="material-icons icon-blue">diamond</i>
+                            </div>
+                        </div>
+                        <div class="category-card" id="film">
+                            <h4>Film</h4>
+                            <p>In films, we recognize ourselves and the environment that surrounds us.</p>
+                            <div class="total-plus-diamonds">
+                                <h3 id="startPrice">230</h3><i class="material-icons icon-blue">diamond</i>
+                            </div>
+                        </div>
+                        <div class="category-card" id="vehicles">
+                            <h4>Vehicles</h4>
+                            <p>What was the first car invented?</p>
+                            <div class="total-plus-diamonds">
+                                <h3 id="startPrice">180</h3><i class="material-icons icon-blue">diamond</i>
+                            </div>
+                        </div>
+                        <div class="category-card" id="animals">
+                            <h4>Animals</h4>
+                            <p>Monkeys are like people - ...</p>
+                            <div class="total-plus-diamonds">
+                                <h3 id="startPrice">200</h3><i class="material-icons icon-blue">diamond</i>
+                            </div>
+                        </div>
+                        <div class="category-card" id="computer">
+                            <h4>Computer Science</h4>
+                            <p>Computers are part of our everyday life.</p>
+                            <div class="total-plus-diamonds">
+                                <h3 id="startPrice">300</h3><i class="material-icons icon-blue">diamond</i>
+                            </div>
+                        </div>
+                    </div> 
+            </div>
+        </div>    
+    </article>
+
+    <div class="alert-div" id="alert-div">
+        <p>Are you sure you want to pay quiz game <div class="total-plus-diamonds">
+            <h3 id="startPriceAlert">250</h3><i class="material-icons icon-blue">diamond</i>
+        </div> diamonds?</p>
+        <div class="btn-row">
+            <button class="btn btn-red" id="btn-pay">Proceed</button>
+            <button class="btn btn-gray" id="btn-canclePay">Cancel</button>
+        </div>
+    </div>
+
+    <div class="alert-div alert-change" id="inst-div">
+        <button class="btn returnBtn" id="btn-end"><i class="material-icons icon-red">close</i>Close</button>
+        <h2>INSTRUCTIONS</h2>
+        <div class="inst-container">
+            <h3>Welcome to the quiz!</h3>
+            <p>Each question has 4 offered answers marked with the letters A, B, C, D.</p>
+            <p>For each question, it is necessary to choose one of the offered answers and mark it by clicking on the answer field.</p>
+            <p>After that, you need to confirm your selection by pressing the <button class="btn btn-red">Confirm</button> button.</p>
+            <h3><i class="material-icons icon-green">done</i>Correct answer</h3>
+            <p>If the selected answer is correct, a green tick is placed and the field turns green. Also, points (diamonds) are added to the total diamonds that are visible in the upper right corner.</p>
+            <h3><i class="material-icons icon-red">close</i>Incorrect answer</h3>
+            <p>If the chosen answer is not correct, a red x is placed and the field turns red. The correct answer whose field is green is also indicated. The points for that question are not added to the points achieved until then on the quiz.</p>
+            <p>An incorrect answer marks the end of the quiz and the user earns points according to the diamond scale for each category of the quiz.</p>
+            <h3>Interpretation of the diamond scale:</h3>
+            <div class="tables-div">
+                <table class="difficulty-table">
+                    <tr>
+                        <td class="red-cell">easy</td><td class="yellow-cell">medium</td><td class="green-cell">hard</td>
+                    </tr>
+                </table>
+                <p></p>
+                <table class="scale-table">
+                    <tr>
+                        <td></td><td class="red-cell"></td><td class="red-cell"></td><td class="red-cell"></td><td class="red-cell"></td><td class="red-cell"></td><td class="yellow-cell"></td><td class="yellow-cell"></td><td class="yellow-cell"></td><td class="yellow-cell"></td><td class="yellow-cell"></td><td class="green-cell"></td><td class="green-cell"></td><td class="green-cell"></td><td class="green-cell"></td><td class="green-cell"></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Q.</td><td>1.</td><td>2.</td><td>3.</td><td>4.</td><td>5.</td><td>6.</td><td>7.</td><td>8.</td><td>9.</td><td>10.</td><td>11.</td><td>12.</td><td>13.</td><td>14.</td><td>15.</td>
+                    </tr>
+                </table>
+            </div>
+            <ul class="scale-list">
+                <li><span class="icon-red">Red field (1st - 5th question)</span> - (level: <span class="icon-red">easy</span>) if all 5 questions are answered correctly, points are earned, i.e. it represents a refund of the starting price</li>
+                <li><span class="icon-yellow">Yellow field (6th - 10th question)</span> - (level: <span class="icon-yellow">medium</span>) for each correct answer, the user gets points for an individual question</li>
+                <li><span class="icon-green">Green field (11th - 15th question)</span> - (level: <span class="icon-green">hard</span>) for each correct answer, the user earns points for an individual question</li>
+            </ul>
+            <p>If the user answers all 15 questions correctly, the quiz ends and all points earned are awarded.</p>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="foot-div">
+            <p class="sofa-power"><span class="logoName">RIM TIM TAGI DIGI DIM</span> powered by <span id="sofa">Sofascore</span> 2024.</p>     
+        </div>
+    </footer>
+
+    <script src="../logic/categories.js"></script>
+</body>
+
+</html>

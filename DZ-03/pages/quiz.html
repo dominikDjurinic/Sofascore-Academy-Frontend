@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../style/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../style/quiz_styles.css" />
+    <link href='https://fonts.googleapis.com/css?family=Inika' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>RTTDD Quiz</title>
+    <link rel="icon" type="image/x-icon" href="../slike/logo.png">
+</head>
+
+<body>
+    <div class="title-header">
+        <button class="btn returnBtn" id="btn-end"><i class="material-icons icon-red">close</i>End QUIZ game</button>
+        <h2><span class="no-bold">Category: </span><span id="catNameQuiz">Sport</span></h2>
+        <div class="total-points">
+            <p>Total diamonds:</p>
+            <div class="total-plus-diamonds">
+                <h3 id="totalDiamond">0</h3><i class="material-icons icon-blue">diamond</i>
+            </div>
+            <div class="total-plus-diamonds totalPlus" id="totalPlusDiv">
+                <h3 id="totalPlush">+<span id="totalPlus"></span></h3><i class="material-icons" id="diamondPlus">diamond</i>
+            </div>
+        </div>
+    </div>
+    <article id="quiz-body">
+        <div class="main-container">
+            <div class="sub-container sub-height">
+                <div class="responseAlert-div" id="responseAlert-div">
+                    <i class="material-icons" id="icon-check">done</i><h4 id="checkResponse"></h4>
+                </div>
+                <table class="scale-table" id="quiz-scale">
+                    <tr>
+                        <td></td><td class="gray-cell" id="1"></td><td class="gray-cell" id="2"></td><td class="gray-cell" id="3"></td><td class="gray-cell" id="4"></td><td class="gray-cell" id="5"></td><td class="gray-cell" id="6"></td><td class="gray-cell" id="7"></td><td class="gray-cell" id="8"></td><td class="gray-cell" id="9"></td><td class="gray-cell" id="10"></td><td class="gray-cell" id="11"></td><td class="gray-cell" id="12"></td><td class="gray-cell" id="13"></td><td class="gray-cell" id="14"></td><td class="gray-cell" id="15"></td>
+                    </tr>
+                </table>
+                <h4>Question <span id="numQuest">1</span> of 15</h4>
+                <div class="question-div" id="question-div">
+                    <p class="quest-p" id="quest-p">First question is:</p>
+                </div>
+                <div class="answers">
+                    <div class="ch-col">
+                        <i class="material-icons ch" id="ch1">done</i>
+                        <i class="material-icons ch" id="ch2">done</i>
+                    </div>
+                    <div class="answ-col">
+                        <div class="answer-div" id="div-aw1">
+                            <div class="abcd div-pink" id="abcd-1">A.</div>
+                            <div class="ans-p">
+                                <p id="aw1">a1</p>
+                            </div>
+                        </div>
+                        <div class="answer-div" id="div-aw2">
+                            <div class="abcd div-green" id="abcd-2">C.</div>
+                            <div class="ans-p">
+                                <p id="aw2">a2</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="answ-col">
+                        <div class="answer-div" id="div-aw3">
+                            <div class="abcd div-blue" id="abcd-3">B.</div>
+                            <div class="ans-p">
+                                <p id="aw3">a3</p>
+                            </div>
+                        </div>
+                        <div class="answer-div" id="div-aw4">
+                            <div class="abcd div-orange" id="abcd-4">D.</div>
+                            <div class="ans-p">
+                                <p id="aw4">a4</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ch-col">
+                        <i class="material-icons ch" id="ch3">done</i>
+                        <i class="material-icons ch" id="ch4">done</i>
+                    </div>
+                </div>
+                <div class="btns-div">
+                    <div class="loader" id="loader"></div>
+                    <button class="btn btn-cnf" id="cnf-btn" disabled>Confirm</button>
+                    <button class="btn" id="next-btn">Next question</button>
+                    <button class="btn" id="end-btn">End quiz</button>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <div class="alert-div" id="quitAlert">
+        <p>Are you sure you want to <span class="quiz-word">END QUIZ</span> game?</p> 
+        <p>If you end quiz game, then you lose all points (<i class="material-icons icon-blue">diamond</i>) earned and there is no refund of the starting price.</p>
+        <div class="btn-row">
+            <button class="btn btn-red" id="btn-endQuiz">End game</button>
+            <button class="btn btn-gray" id="btn-cancleEnd">Cancel</button>
+        </div>
+    </div>
+
+    <div class="alert-div" id="congratAlert">
+        <h3 class="quiz-word">Congratulations!</h3> 
+        <img src="../slike/claping.png">
+        <p>You have won <span id="wonDiamonds"></span><i class="material-icons icon-blue">diamond</i>.</p>
+        <div class="btn-row">
+            <button class="btn btn-red" id="btn-ok">Ok</button>
+        </div>
+    </div>
+
+    <div class="alert-div" id="inst-div">
+        <h2>INSTRUCTIONS</h2>
+        <div class="inst-container">
+            <h3>Welcome to the quiz!</h3>
+            <p>Each question has 4 offered answers marked with the letters A, B, C, D.</p>
+            <p>For each question, it is necessary to choose one of the offered answers and mark it by clicking on the answer field.</p>
+            <p>After that, you need to confirm your selection by pressing the <button class="btn btn-red">Confirm</button> button.</p>
+            <h3><i class="material-icons icon-green">done</i>Correct answer</h3>
+            <p>If the selected answer is correct, a green tick is placed and the field turns green. Also, points (diamonds) are added to the total diamonds that are visible in the upper right corner.</p>
+            <h3><i class="material-icons icon-red">close</i>Incorrect answer</h3>
+            <p>If the chosen answer is not correct, a red x is placed and the field turns red. The correct answer whose field is green is also indicated. The points for that question are not added to the points achieved until then on the quiz.</p>
+            <p>An incorrect answer marks the end of the quiz and the user earns points according to the diamond scale for each category of the quiz.</p>
+            <h3>Interpretation of the diamond scale:</h3>
+            <div class="tables-div">
+                <table class="difficulty-table">
+                    <tr>
+                        <td class="red-cell">easy</td><td class="yellow-cell">medium</td><td class="green-cell">hard</td>
+                    </tr>
+                </table>
+                <p></p>
+                <table class="scale-table">
+                    <tr>
+                        <td></td><td class="red-cell"></td><td class="red-cell"></td><td class="red-cell"></td><td class="red-cell"></td><td class="red-cell"></td><td class="yellow-cell"></td><td class="yellow-cell"></td><td class="yellow-cell"></td><td class="yellow-cell"></td><td class="yellow-cell"></td><td class="green-cell"></td><td class="green-cell"></td><td class="green-cell"></td><td class="green-cell"></td><td class="green-cell"></td>
+                        
+                    </tr>
+                    <tr>
+                       <td>Q.</td><td>1.</td><td>2.</td><td>3.</td><td>4.</td><td>5.</td><td>6.</td><td>7.</td><td>8.</td><td>9.</td><td>10.</td><td>11.</td><td>12.</td><td>13.</td><td>14.</td><td>15.</td>
+                    </tr>
+                </table>
+            </div>
+            <ul class="scale-list">
+                <li><span class="icon-red">Red field (1st - 5th question)</span> - (level: <span class="icon-red">easy</span>) if all 5 questions are answered correctly, points are earned, i.e. it represents a refund of the starting price</li>
+                <li><span class="icon-yellow">Yellow field (6th - 10th question)</span> - (level: <span class="icon-yellow">medium</span>) for each correct answer, the user gets points for an individual question</li>
+                <li><span class="icon-green">Green field (11th - 15th question)</span> - (level: <span class="icon-green">hard</span>) for each correct answer, the user earns points for an individual question</li>
+            </ul>
+            <p>If the user answers all 15 questions correctly, the quiz ends and all points earned are awarded.</p>
+            <h3>Good luck ;)</h3>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-red" id="btn-pay">I understand</button>
+            <button class="btn btn-gray" id="btn-canclePay">Cancel</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="foot-div">
+           <p class="sofa-power"><span class="logoName">RIM TIM TAGI DIGI DIM</span> powered by <span id="sofa">Sofascore</span> 2024.</p>     
+        </div>
+    </footer>
+    
+    <script src="../logic/quiz.js"></script>
+</body>
+
+</html>
