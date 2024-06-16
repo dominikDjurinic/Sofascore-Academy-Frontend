@@ -1,0 +1,109 @@
+.home{
+    height: 100%;
+    background-color: var(--back-surface);
+}
+
+.homeBack{
+    width: 100%;
+    color: var(--text-msg-color);
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+}
+
+@media screen and (max-width: 900px) {/*responzivnost stranice s obzirom na breakpoint od 900px*/
+    .homeTitle{
+        flex-direction: column;
+    }
+    .homeName{
+        font-size: 50px !important;
+    }
+    .btnStart-div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.homeTitle{
+    display: flex;
+    align-items: center;
+}
+
+
+.homeName{
+    margin: 0;
+    font-weight: bold;
+    font-size: 100px;
+    color: var(--title-color);
+    text-shadow: 5px 5px black;
+}
+
+.logoImgHome{
+    width: 300px;
+    height: 300px;
+    animation: rotation 10s infinite linear;
+}
+
+.homeMsg{
+    width: 60%;
+    text-align: center;
+    font-size: larger;
+}
+
+.btn{
+    width: 250px;
+    padding: 10px 0px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin: 20px 15px;
+    font-size: large;
+    font-family: 'Inika';
+    font-weight: bold;
+}
+
+.btn-lgn{
+    background-color: var(--btn-color-important);
+    box-shadow: 2px 2px black;
+}
+
+.btn-lgn:hover{
+    background-color: var(--btn-color-hover);
+}
+
+.btn-guest{
+    background-color: var(--btn-color);
+}
+
+.btn-guest:hover{
+    background-color: var(--btn-color-hover);
+}
+
+@keyframes rotation {   /*animacija vrtnje pokeball s početne stranice*/
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(359deg);
+    }
+}
+
+.settingsHome{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60px;
+    position: fixed;
+    right: 10px;
+    bottom: 5vh;
+    cursor: pointer;
+}
+
+.settingHome-div{
+    width: 100%;
+    border-radius: 50%;
+}

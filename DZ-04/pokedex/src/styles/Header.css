@@ -1,0 +1,38 @@
+.header-container{
+    background-color: var(--back-surface);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+.logoImg{
+    width: 50px;
+    height: 50px;
+}
+.headerTitle{
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--title-color);
+    cursor: pointer;
+}
+
+.hName{
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 2px 2px black;
+}
+
+.icon{
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.settings{
+    display: flex;
+    cursor: pointer;
+}
+

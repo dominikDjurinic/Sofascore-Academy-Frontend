@@ -1,0 +1,144 @@
+.light-theme{                 /*varijable boja s obzirom na LIGHT THEME*/
+  --back-surface: #E3350D;
+  --back-surface-2: #FFFFFF;
+  --back-surface-3: #EEEEEE;
+  --menu-surface: #bd2806;
+  --text-color: #262626;
+  --text-msg-color: #FFFFFF;
+  --type-color: #FFFFFF;
+  --title-color: #FFFFFF;
+  --form-text-color: #E3350D;
+  --back-photoCard-color: #EEEEEE;
+  --back-detailsCard-color: #FFFFFF;
+  --btn-color-important: #EEEEEE;
+  --btn-form-color: #E3350D;
+  --btn-color-hover: #bd2806;
+  --btn-color: #e04f2f;
+}
+
+.dark-theme{                  /*varijable boja s obzirom na DARK THEME*/
+  --back-surface: #4D638C;
+  --back-surface-2: #4D638C;
+  --back-surface-3: #354159;
+  --menu-surface: #354159;
+  --text-color: #A1A1A1;
+  --text-msg-color: #A1A1A1;
+  --type-color: #1F2735;
+  --title-color: #FFFFFF;
+  --form-text-color: #FFFFFF;
+  --back-photoCard-color: #354159;
+  --back-detailsCard-color: #1F2735;
+  --btn-color-important: #EEEEEE;
+  --btn-form-color: #A1A1A1;
+  --btn-color-hover: #354159;
+  --btn-color: #6d8cc7;
+}
+
+
+.message{
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.foot-div{
+  background-color: var(--back-surface);
+  width: 100%;
+  height: 5vh;
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.hf-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  background-color: var(--back-surface-2);
+}
+
+
+.LoadEndMsg{
+  display: flex;
+  justify-content: center;
+}
+
+.topScroll-div{
+  background-color: var(--back-surface);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 6vh;
+  right: 10px;
+  cursor: pointer;
+}
+
+.icon-white{
+  color: var(--btn-color-important);
+  font-size: 30px;
+}
+
+.icon-gray{
+  color: gray;
+}
+
+.icon-red{
+  color: red;
+  cursor: pointer;
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.chosenMode{
+  pointer-events: none;
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.light-dark:hover{
+  cursor: pointer;
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.light-dark-red:hover{
+  cursor: pointer;
+}
+
+.light-dark-hovered{
+  cursor: pointer;
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.boldText{
+  font-weight: bold;
+}
+
+.upperCaseText{
+  text-transform: capitalize;
+}
+
+.underlineText{
+  text-decoration: underline;
+}

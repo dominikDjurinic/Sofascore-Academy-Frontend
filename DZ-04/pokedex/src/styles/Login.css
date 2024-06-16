@@ -1,0 +1,177 @@
+.div-column{
+    width: 100%;
+    display: flex;                                  /*flex, column - poredak elemenata u stupac*/
+    flex-direction: column;
+}
+
+.center-align{
+    align-items: center;
+}
+
+.div-inline{
+    display: flex;                                  /*flex, row - poredak elemenata u redak*/
+    flex-direction: row;
+    align-items: center;                            /*centriranje elemenata u odnosu na y-os kada je redak*/
+}
+
+.form-container{
+    display: flex;
+    justify-content: center;                        /*centriranje u odnosu na x-os kada je redak*/
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 50px;
+    
+}
+
+.hint-container{
+    border-radius: 10px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hint{
+    background-color: #FFF0B4;
+    border: solid #FFF0B4;
+}
+
+.hint-container > p > span{
+    font-weight: bold;
+}
+
+.incorrect{
+    background-color: #FF8F9F;
+    border: solid #FF8F9F;
+    justify-content: center;
+}
+
+#close-x{
+    cursor: pointer;
+}
+
+.form-back{
+    background-color: var(--back-surface-2);
+}
+
+.forma{
+    width: 350px;
+    padding: 30px 50px;
+    border: solid var(--back-surface-3);
+    border-radius: 10px;
+    box-shadow: 3px 3px var(--back-surface-3);
+    background-color: var(--back-surface-2);
+    gap: 20px;
+}
+
+.logo-img{
+    width: 20%;
+}
+
+.captcha-img{
+    width: 70%;
+}
+
+.captcha-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-style: solid;
+    border-color: var(--back-surface-3);
+    margin: 10px 0px;
+    background-color: white;
+}
+
+#signIn{
+    font-weight: bold;
+    font-size: large;
+    color: var(--form-text-color);
+}
+
+.btnForm{
+    width: 90%;
+    gap: 60px;
+}
+
+.register-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input{
+    padding: 10px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: var(--form-text-color);
+}
+
+.input-label{
+    color: var(--form-text-color);
+    font-weight: bold;
+    padding: 5px 0px;
+}
+
+input[type=checkbox]:checked{                           /*attribute selector i pseudo-klasa*//*checked - oznacen checkbox*/
+    accent-color: var(--form-text-color);
+}
+
+.uvjeti{
+    justify-content: space-between;    
+}
+
+.linkovi{
+    font-size: small;
+    color: var(--form-text-color);
+    font-weight: lighter;
+}
+
+.info{
+    font-size: small;
+    color: var(--form-text-color);
+    font-weight: lighter;
+}
+
+#powered{
+    color: gray;
+    font-style: italic;
+}
+
+#powered > a{
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+}
+
+.lgn-button{
+    width: 80%;
+    padding: 10px 10px;
+    color: white;
+    font-weight: bold;
+    font-size: medium;
+    background-color: var(--btn-form-color);
+    cursor: pointer;
+    border-radius: 10px;
+    border: 0px;
+    box-shadow: 2px 2px var(--back-surface-3);
+}
+
+.lgn-button:hover{                                  
+    background-color: var(--btn-color-hover);
+}
+
+.returnBtn{
+    background-color: var(--back-surface-2);
+    font-family: 'Inika';
+    font: medium;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 10px;
+    padding: 10px;
+}
+
+.icon-close{
+    color: var(--menu-surface);
+}

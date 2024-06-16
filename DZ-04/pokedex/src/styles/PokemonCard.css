@@ -1,0 +1,243 @@
+@media screen and (max-width: 900px) {/*responzivnost stranice s obzirom na breakpoint od 900px*/
+    .poke-row{
+        flex-direction: column;
+        align-items: center;
+        justify-content: start !important;
+        height: 800px !important;
+    }
+
+    .pokemon-imgDiv{
+        flex-direction: column;
+        justify-content: center !important;
+        width: 100% !important;
+    }
+
+    .pokemon-imgDiv > img{
+        padding: 0px !important;
+    }
+
+    .pokemon-descriptDiv{
+        width: 100%!important;
+    }
+
+    .fullView-div{
+        display: none;
+    }
+
+    .heart-icon{
+        right: 3% !important;
+    }
+
+    .transImage{
+        position: absolute;
+        bottom: -300px; 
+        right: auto !important;
+    }
+
+    .pokeTranslateIn{
+        transform: translateY(-350px) !important;
+    }
+    
+    .pokeTranslateOut{
+        transform: translateY(10px) !important;
+    }
+}
+
+.poke-row{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 516px;
+    
+}
+
+.pokemon-imgDiv{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    background-color: var(--back-photoCard-color);  
+    position: relative;
+}
+
+.transImage{
+    position: absolute;
+    right: -400px; 
+}
+
+.op1{
+    opacity: 1;
+}
+
+.op0{
+    opacity: 0;
+}
+
+.pokeTranslateIn{
+    transform: translateX(-460px);  /*translacija slike nakon klika na like (prikaz)*/
+    transition: transform 1s, opacity 1s;
+    animation: fadeInOut 1s;
+}
+
+.pokeTranslateOut{
+    transform: translateX(10px);    /*translacija slike nakon klika na like (skrivanje)*/
+    transition: transform 1s, opacity 1s;
+    animation: fadeOutIn 1s;
+}
+
+.pokemon-descriptDiv{
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    width: 50%;
+    height: 100%;
+    background-color: var(--back-detailsCard-color);
+}
+
+.pokemon-descriptDiv > h1{
+    text-transform: capitalize;
+    padding-left: 60px;
+}
+
+.description-div{
+    padding-left: 60px;
+    display: flex;
+    font-weight: bold;
+    gap: 15%;
+}
+
+.details-div{
+    width: 50%;
+}
+.fullView-div{
+    width: 50%;
+    height: 90%;
+}
+
+.fullImage-div{
+    width: 100%;
+    position: relative;
+}
+
+.fullViewImg{
+    padding: 0;
+    width: 40%;
+}
+
+.transFullView{
+    position: absolute;    
+}
+
+.backView{
+    left: 50%;
+}
+
+.pokeOpIn{      /*animacija full view pokemona (prikaz)*/
+    transition: opacity 1s;
+    animation: fadeInOut 1s;
+}
+
+.pokeOpOut{       /*animacija full view pokemona (skrivanje)*/ 
+    transition: opacity 1s;
+    animation: fadeOutIn 1s;
+}
+
+span{
+    font-weight: normal;
+}
+
+.namePokemon,.switch-des-div{
+    padding-left: 60px;
+}
+
+.pokemon-descriptDiv-Switch{
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    width: 50%;
+    height: 100%;
+    background-color: var(--back-detailsCard-color);
+}
+
+.pokemon-descriptDiv-Switch > h1{
+    text-transform: capitalize;
+    padding-left: 60px;
+}
+
+.description-div-switch{
+    display: flex;
+    font-weight: bold;
+    gap: 15%;
+}
+
+.pokemon-imgDiv-Switch{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    background-color: var(--back-photoCard-color);
+    position: relative;
+}
+
+.transImageSwitch{
+    position: absolute;
+    left: -400px; 
+}
+
+.pokeTranslateInSwitch{
+    transform: translateX(460px);       /*translacija slike nakon klika na like (prikaz)*/
+    transition: transform 1s, opacity 1s;
+    animation: fadeInOut 1s;
+}
+
+.pokeTranslateOutSwitch{
+    transform: translateX(-10px);   /*translacija slike nakon klika na like (skrivanje)*/
+    transition: transform 1s, opacity 1s;
+    animation: fadeOutIn 1s;
+}
+
+.heart-icon{
+    position: absolute;
+    right: 50%;
+    padding: 5px 5px;
+    z-index: 2;
+}
+
+.heart-icon-switch{
+    position: absolute;
+    left: 50%;
+    padding: 5px 5px;
+    z-index: 2;
+}
+
+.pokemonSize{
+    width: 300px;
+    height: 300px;
+}
+
+.types{
+    display: flex;
+    align-items: center;
+}
+
+@keyframes fadeInOut { /*animacije povecanja odnosno smanjenja opacity slika pokemona*/
+    0% {opacity: 0;} 
+  
+    65% {opacity: 0;} 
+  
+    100% {opacity: 1;} 
+}
+
+@keyframes fadeOutIn {
+    0% {opacity: 1;} 
+  
+    10% {opacity: 0;} 
+  
+    100% {opacity: 0;} 
+}

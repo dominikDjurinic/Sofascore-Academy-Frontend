@@ -1,0 +1,57 @@
+.menu{
+    background-color: var(--back-surface);
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    width: 250px;
+    z-index: 3;
+    border-radius: 5px;
+}
+
+.menuOpen{
+    display: flex;
+}
+
+.menuClose{
+    display: none;
+}
+
+.choise{
+    color: var(--text-msg-color);  
+    width: 100%;
+    text-align: center;
+}
+
+.choise-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: default;
+}
+
+.divHover:hover{
+    background-color: var(--menu-surface);
+    cursor: pointer;
+}
+
+.light-dark-div{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.light-dark{
+    width: 100%;
+    padding: 16px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.div-chose{
+    background-color: var(--menu-surface);
+}
+
+.profile-div{
+    border-bottom: solid 2px var(--menu-surface);
+}
