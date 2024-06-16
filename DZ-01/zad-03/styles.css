@@ -1,1 +1,133 @@
+body{                                               /*vh,vw - relativne mjerne jedinice, odreduju velicine u odnosu na korisnikovo vidno polje */
+    min-height: calc(100vh + 20px);                 /*100vh = 100% visine vidnog polja na ekranu*//*visina = barem (min-height) za 20px veca od visine vidnog polja*/
+    width: min(100vw, 960px);                       /*sirina = najmanji broj izmedu cijele sirine vidnog polja i 960px*/
+}
 
+.div-column{
+    width: 100%;
+    display: flex;                                  /*flex, column - poredak elemenata u stupac*/
+    flex-direction: column;
+}
+
+.center-align{
+    align-items: center;
+}
+
+.div-inline{
+    display: flex;                                  /*flex, row - poredak elemenata u redak*/
+    flex-direction: row;
+    align-items: center;                            /*centriranje elemenata u odnosu na y-os kada je redak*/
+}
+
+.form-container{
+    display: flex;
+    justify-content: center;                        /*centriranje u odnosu na x-os kada je redak*/
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #DADDF5;
+    padding: 50px;
+}
+
+.forma{
+    width: 50%;
+    padding-top: 50px;
+    border: solid whitesmoke;
+    border-radius: 10px;
+    box-shadow: 3px 3px #B6BDF0;
+    background-color: white;
+    gap: 20px;
+}
+
+.logo-img{
+    width: 60%;
+}
+
+.captcha-img{
+    width: 70%;
+}
+
+.captcha-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-style: solid;
+    border-color: gray;
+    margin: 10px 0px;
+}
+
+#signIn{
+    font-weight: bold;
+    font-size: large;
+    color: #374DF5;
+}
+
+.btnForm{
+    width: 100%;
+    gap: 60px;
+}
+
+.register-form{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input{
+    padding: 10px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #374DF5;
+}
+
+.input-label{
+    color: #374DF5;
+    font-weight: bold;
+    padding: 5px 0px;
+}
+
+input[type=checkbox]:checked{                           /*attribute selector i pseudo-klasa*//*checked - oznacen checkbox*/
+    accent-color: #374DF5;
+}
+
+.uvjeti{
+    justify-content: space-between;    
+}
+
+.linkovi{
+    font-size: small;
+    color: #374DF5;
+    font-weight: lighter;
+}
+
+.info{
+    font-size: small;
+    color: gray;
+    font-weight: lighter;
+}
+
+#powered{
+    color: gray;
+    font-style: italic;
+}
+
+#powered > a{
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+}
+
+.lgn-button{
+    width: 80%;
+    padding: 10px 10px;
+    color: white;
+    font-weight: bold;
+    font-size: medium;
+    background-color: #374DF5;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 0px;
+}
+
+.lgn-button:hover{                                  /*pseudo-klase - odreduju stanje elementa te primjenu posebnog dizajna za to stanje*//*hover = pokazivac preko elementa*/
+    background-color: #2A3AAD;
+}
