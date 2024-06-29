@@ -2,11 +2,16 @@ import '@/styles/globals.css'
 import { ThemeContextProvider } from '@/context/ThemeContext'
 import type { AppProps } from 'next/app'
 import { SWRConfig } from 'swr'
+import { WindowSizeContextProvider } from '@/context/WindowSizeContext'
+import { SlugContextProvider } from '@/context/SlugContext'
+import { WidgetContextProvider } from '@/context/OpenedWidgetContext'
+import { TabContextProvider } from '@/context/OpenedTab'
+import { DateFormatContextProvider } from '@/context/DateFormatContext'
 
 //@ts-ignore
 export const fetcher = (...args) =>
   //@ts-ignore
-  fetch(...args).then((res) => {
+  fetch(...args).then(res => {
     if (res.ok) {
       return res.json()
     } else {
@@ -17,9 +22,19 @@ export const fetcher = (...args) =>
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SWRConfig value={{ fetcher }}>
-      <ThemeContextProvider>
-        <Component {...pageProps} />
-      </ThemeContextProvider>
+      <TabContextProvider>
+        <WidgetContextProvider>
+          <SlugContextProvider>
+            <DateFormatContextProvider>
+              <WindowSizeContextProvider>
+                <ThemeContextProvider>
+                  <Component {...pageProps} />
+                </ThemeContextProvider>
+              </WindowSizeContextProvider>
+            </DateFormatContextProvider>
+          </SlugContextProvider>
+        </WidgetContextProvider>
+      </TabContextProvider>
     </SWRConfig>
   )
 }
