@@ -1,6 +1,6 @@
 # Mini SOFASCORE Web Application
 
-![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/miniSofascoreLogo.png)
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/main/PROJEKT-zavrsni/mini-Sofascore-app/public/images/miniSofascoreLogo.png)
 
 Mini Sofascore Web Aplikacija predstavlja **završni projekt [Sofascore Academy](https://corporate.sofascore.com/hr/sofascore-academy) 2024**. 
 
@@ -21,24 +21,24 @@ U nastavku je moguće pogledati neke pageove Mini Sofascore Web Aplikacije:
 
 **1.Home Page**
 
-![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/homePage.png)
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/main/PROJEKT-zavrsni/mini-Sofascore-app/public/images/homePage.png)
 
 **2.Event Page**
 
-![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/eventPage.png)
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/main/PROJEKT-zavrsni/mini-Sofascore-app/public/images/eventPage.png)
 
 **3.Team Page**
 
-![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/teamPage1.png)
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/main/PROJEKT-zavrsni/mini-Sofascore-app/public/images/teamPage1.png)
 
-![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/teamPage2.png)
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/main/PROJEKT-zavrsni/mini-Sofascore-app/public/images/teamPage2.png)
 
 **4.Player Page**
 
-![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/playerPage.png)
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/main/PROJEKT-zavrsni/mini-Sofascore-app/public/images/playerPage.png)
 
 **5.Search Page**
 
-![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/project/PROJEKT-zavrsni/mini-Sofascore-app/public/images/searchPage.png)
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/main/PROJEKT-zavrsni/mini-Sofascore-app/public/images/searchPage.png)
 
 Izradio: Dominik Đurinić, lipanj 2024., Zagreb
