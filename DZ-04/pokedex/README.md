@@ -1,6 +1,6 @@
 # POKÉDEX
 
-![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/dz4/DZ-04/pokedex/public/images/main.png)
+![logo](https://github.com/dominikDjurinic/Sofascore-Academy-Frontend/blob/main/DZ-04/pokedex/public/images/main.png)
 
 Aplikacija prikazuje **kolekciju Pokémon** preuzetu putem besplatnog API-ja [Poke API](https://pokeapi.co/docs/v2) .
 
